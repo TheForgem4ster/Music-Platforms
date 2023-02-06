@@ -1,4 +1,4 @@
-import { CommentDocument } from './schemas/comment.schemas';
+import { Comment,CommentDocument } from './schemas/comment.schemas';
 import { Injectable } from '@nestjs/common';
 import { Track, TrackDocument } from './schemas/track.schemas';
 import { InjectModel } from '@nestjs/mongoose';

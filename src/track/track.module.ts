@@ -3,7 +3,7 @@ import { TrackService } from './track.service';
 import { Module } from '@nestjs/common';
 import { TrackController } from './track.controller';
 import { Track, TrackSchema } from './schemas/track.schemas';
-import { CommentSchema } from './schemas/comment.schemas';
+import { Comment,CommentSchema } from './schemas/comment.schemas';
 
 
 
