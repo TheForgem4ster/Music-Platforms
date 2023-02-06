@@ -14,7 +14,7 @@ export class TrackService {
                 @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
                 ) {}
 
-    async create (dto: CreateTrackDto): Promise<Track> {
+    async create (dto: CreateTrackDto, picture, audio): Promise<Track> {
         // const audioPath = this.fileService.createFile(FileType.AUDIO, audio);
         // const picturePath = this.fileService.createFile(FileType.IMAGE, picture);
         const track = await this.trackModel.create({...dto, listens: 0});

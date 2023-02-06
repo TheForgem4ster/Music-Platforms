@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body,Param,Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body,Param,Delete, UseInterceptors, UploadedFiles } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { TrackService } from './track.service';
+import {FileFieldsInterceptor} from "@nestjs/platform-express";
 
 
 @Controller('/tracks')
@@ -10,8 +11,13 @@ export class TrackController {
     constructor(private trackService: TrackService) {    }
     
     @Post()
-     create (@Body() dto: CreateTrackDto){     
-        return this.trackService.create(dto);
+    @UseInterceptors(FileFieldsInterceptor([
+        { name: 'picture', maxCount: 1 },
+        { name: 'audio', maxCount: 1 },
+    ]))
+     create (@UploadedFiles() files, @Body() dto: CreateTrackDto){
+        console.log(files);     
+        return this.trackService.create(dto, '', '');
     }
 @Get()
     getAll() {
