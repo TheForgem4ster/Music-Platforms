@@ -5,9 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
     imports: [
-        MongooseModule.forRoot('mongodb://localhost/nest'),
+        MongooseModule.forFeature('mongodb+srv://admin:admin@cluster0.wyas4iw.mongodb.net/music-platform?retryWrites=true&w=majority'),
         TrackModule,
-
     ],
 })
 export class AppModule {
