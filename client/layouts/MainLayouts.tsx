@@ -9,7 +9,7 @@ type Props = {
 const MainLayouts : React.FC<Props> = ({children}) => (
     <div>
         <Havbar />
-        <Container style={{margin: '90px 10%', }}>
+        <Container  style={{margin: '90px 0',minWidth: "100%", }}>
             {children}
         </Container>
         
