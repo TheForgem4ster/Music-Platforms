@@ -1,10 +1,13 @@
+import StepWrapper from "components/StepWrapper";
 import MainLayouts from "layouts/MainLayouts";
 import React from "react";
 
 const Create = () =>{
     return (
         <MainLayouts>
-            <h1>Dounload Track</h1>
+            <StepWrapper activeStep={1}>
+                <h1>Download Track</h1>
+            </StepWrapper>
         </MainLayouts>
     )
 }
