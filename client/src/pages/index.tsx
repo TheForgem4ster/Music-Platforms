@@ -1,8 +1,9 @@
 import React from "react";
 
+
 const Index = () => {
     return (
-        <div>Hi</div>
+        <div>Page Side</div>
     )
 }
 
