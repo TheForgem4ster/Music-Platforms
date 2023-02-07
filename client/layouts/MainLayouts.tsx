@@ -1,5 +1,6 @@
 import { Container } from "@mui/system";
 import Havbar from "components/Navbar";
+import Player from "components/Player";
 import React from "react";
 
 type Props = {
@@ -7,13 +8,13 @@ type Props = {
 };
 
 const MainLayouts : React.FC<Props> = ({children}) => (
-    <div>
+    <>
         <Havbar />
         <Container  style={{margin: '90px 0',minWidth: "100%", }}>
             {children}
         </Container>
-        
-    </div>
+        <Player/>
+    </>
 )
 
 export default MainLayouts;

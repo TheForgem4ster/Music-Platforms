@@ -7,6 +7,10 @@ import React, { useState } from "react";
 const Create = () =>{
 
     const [activeStep, setActiveStep] = useState(0);
+    const [picture, setPicture] = useState(null);
+    const [audio, setAudio] = useState(null);
+
+
     const next = () => {
         
         if(activeStep !==  2){
@@ -45,13 +49,15 @@ const Create = () =>{
                 }
                 {
                     activeStep === 1 &&
-                    <FileUpload file={''} setFile={()=>({})} accept="image/*">
+                    <FileUpload setFile={setPicture} accept="image/*">
                         <Button>Загрузите изображение</Button>
                     </FileUpload>
                 }
                 {
                     activeStep === 2 &&
-                    <h1>Step 3</h1>
+                    <FileUpload setFile={setAudio} accept="audio/*">
+                        <Button>Загрузите audio</Button>
+                    </FileUpload>
                 }
             </StepWrapper>
             <Grid container justifyContent='space-between'>
