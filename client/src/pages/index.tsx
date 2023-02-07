@@ -1,4 +1,3 @@
-import Navbar from "components/Navbar";
 import MainLayouts from "layouts/MainLayouts";
 import React from "react";
 
