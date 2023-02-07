@@ -1,9 +1,14 @@
+import { Button } from "@mui/material";
 import React from "react";
 
 
 const Index = () => {
     return (
-        <div>Page Side</div>
+        <div>
+            <div>Page Side</div>
+            <Button>Buton</Button>
+        </div>
+       
     )
 }
 
