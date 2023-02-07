@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import Button from "@mui/material/Button/Button";
 import Card from "@mui/material/Card/Card";
 import Grid from "@mui/material/Grid/Grid";
@@ -7,12 +8,15 @@ import React from "react";
 const Track = () => {
     return ( 
         <MainLayouts>
-            <Grid container justifyContent="center">
+            <Grid justifyContent='center' container >
                 <Card style={{width: 900}}>
-                    <Grid container justifyContent="space-between">
-                        <h1>List Track</h1>
-                        <Button>Dounload</Button>
-                    </Grid>
+                    <Box p={3}>
+                        <Grid container justifyContent='space-between'>
+                            <h1>List Track</h1>
+                            <Button>Dounload</Button>
+                        </Grid>
+                    </Box>
+                    
                 </Card>
             </Grid>
         </MainLayouts>
