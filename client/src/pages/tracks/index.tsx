@@ -12,20 +12,20 @@ import { ITrack } from "types/track";
 const Track = () => {
     const router = useRouter();
 
-    // const {tracks, error} = useTypedSelector(state => state.track)
+    const {tracks, error} = useTypedSelector(state => state.track)
 
-    // if(error) {
-    //     return (
-    //         <MainLayouts>
-    //             <h1>{error}</h1>
-    //         </MainLayouts>
-    //     )
-    // }
-    const tracks : ITrack[] = [
-        {_id: '1', name: "Track 1", artist: "Executor 1", text: "text 1", listens: 15, audio: "http://localhost:5000/audio/2923b657-85bf-4107-bf93-3ca40d28f56e.mp3", picture: "http://localhost:5000/image/2e1b0f2d-74ac-45ba-ace7-82fa3147dd2b.jpg", comments: []},
-        {_id: '2', name: "Track 2", artist: "Executor 2", text: "text 2", listens: 25, audio: "http://localhost:5000/audio/", picture: "http://localhost:5000/image/", comments: []},
-        {_id: '3', name: "Track 3", artist: "Executor 3", text: "text 3", listens: 35, audio: "http://localhost:5000/audio/", picture: "http://localhost:5000/image/", comments: []},
-    ];
+    if(error) {
+        return (
+            <MainLayouts>
+                <h1>{error}</h1>
+            </MainLayouts>
+        )
+    }
+    // const tracks : ITrack[] = [
+    //     {_id: '1', name: "Track 1", artist: "Executor 1", text: "text 1", listens: 15, audio: "http://localhost:5000/audio/2923b657-85bf-4107-bf93-3ca40d28f56e.mp3", picture: "http://localhost:5000/image/2e1b0f2d-74ac-45ba-ace7-82fa3147dd2b.jpg", comments: []},
+    //     {_id: '2', name: "Track 2", artist: "Executor 2", text: "text 2", listens: 25, audio: "http://localhost:5000/audio/", picture: "http://localhost:5000/image/", comments: []},
+    //     {_id: '3', name: "Track 3", artist: "Executor 3", text: "text 3", listens: 35, audio: "http://localhost:5000/audio/", picture: "http://localhost:5000/image/", comments: []},
+    // ];
 
     return ( 
        
@@ -59,3 +59,12 @@ export default Track;
     //     await dispatch(await fetchTracks())
     // }
 
+
+export const getServerSideProps = wrapper.getServerSideProps( 
+    (store) => async ({req}) => {
+    // console.log("1111" + store);
+    const dispatch = store.dispatch as NextThunkDispatch
+    await dispatch(await fetchTracks());
+    // console.log("222" + store);
+});
+    

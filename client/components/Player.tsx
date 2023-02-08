@@ -11,15 +11,12 @@ import TrackProgress from "./TrackProgress";
 let audio;
 
 const Player = () => {
-    const track: ITrack =  {_id: '1', name: "Track 1", artist: "Executor 1", text: "text 1", listens: 15, audio: "http://localhost:5000/audio/2e1b0f2d-74ac-45ba-ace7-82fa3147dd2b.jpg", picture: "http://localhost:5000/image/657ae529-3ae0-4c8f-a873-8107062942ab.jpg", comments: []}
-    
-    const {pause, volume, active, duration, currentTime} = useTypedSelector(state => state.player);
-    const {pauseTrack, playTrack, setVolume, setCurrentTime, setDuration, setActiveTrack} = useActions();
+    const {pause, volume, active, duration, currentTime} = useTypedSelector(state => state.player)
+    const {pauseTrack, playTrack, setVolume, setCurrentTime, setDuration, setActiveTrack} = useActions()
 
     useEffect(() => {
         if (!audio) {
             audio = new Audio()
-   
         } else {
             setAudio()
             play()
@@ -27,13 +24,13 @@ const Player = () => {
     }, [active])
 
     const setAudio = () => {
-        if(active){
-            audio.src = active.audio
+        if (active) {
+            audio.src = 'http://localhost:5000/' + active.audio
             audio.volume = volume / 100
-            audio.onloadedmetadata =() => {
+            audio.onloadedmetadata = () => {
                 setDuration(Math.ceil(audio.duration))
             }
-            audio.ontimeupdate =() => {
+            audio.ontimeupdate = () => {
                 setCurrentTime(Math.ceil(audio.currentTime))
             }
         }
@@ -58,8 +55,8 @@ const Player = () => {
         setCurrentTime(Number(e.target.value))
     }
 
-    if(!active){
-        return null;
+    if (!active) {
+        return null
     }
 
     return (
@@ -76,9 +73,9 @@ const Player = () => {
             </Grid>
             <TrackProgress left={currentTime} right={duration} onChange={changeCurrentTime}/>
             <VolumeUp style={{marginLeft: 'auto'}}/>
-            <TrackProgress left={volume} right={100} onChange={changeVolume} />
+            <TrackProgress left={volume} right={100} onChange={changeVolume}/>
         </div>
-    )
-}
+    );
+};
 
 export default Player;
