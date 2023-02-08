@@ -13,9 +13,17 @@ interface TrackItemProps {
 const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
     const router = useRouter();
 
+    const {playTrack, pauseTrack, setActiveTrack} = useActions()
+
+    const play = (e) => {
+        e.stopPropagation()
+        setActiveTrack(track)
+        playTrack()
+    }
+
     return (
         <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)}>
-            <IconButton >
+            <IconButton onClick={play}>
                 {!active
                     ? <PlayArrow/>
                     : <Pause/>
