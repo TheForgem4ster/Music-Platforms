@@ -1,18 +1,35 @@
-import React from "react";
-import { Box, Button, Card, Grid } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Button, Card, Grid, TextField } from "@mui/material";
 import TrackList from "components/TrackList";
 import MainLayouts from "layouts/MainLayouts";
 import { useRouter } from "next/router";
 import { NextThunkDispatch, wrapper } from "store";
-import { fetchTracks } from "store/action-creators/track";
+import { fetchTracks, searchTracks } from "store/action-creators/track";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import { ITrack } from "types/track";
+import { useDispatch } from "react-redux";
 
 
 const Track = () => {
     const router = useRouter();
-
+    const [query, seacrh] = useState<string>('');
     const {tracks, error} = useTypedSelector(state => state.track)
+    const [timer, setTimer] = useState(null);
+    const dispatch = useDispatch() as NextThunkDispatch;
+
+
+    const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        setQuery(e.target.value)
+        if(timer){
+            clearTimeout(timer)
+        }
+        setTimer(
+            setTimeout(async ()=>{
+                await dispatch(await searchTracks(e.target.value));
+            }, 500)
+        )
+       
+    }
 
     if(error) {
         return (
@@ -29,7 +46,7 @@ const Track = () => {
 
     return ( 
        
-        <MainLayouts>
+        <MainLayouts title={"list track - music platform"}>
             <Grid justifyContent='center' minWidth="100%" display="flex" >
                 <Card style={{width: 900}}>
                     <Box p={3}>
@@ -38,6 +55,11 @@ const Track = () => {
                             <Button onClick={()=> router.push('/tracks/create')}>Download</Button>
                         </Grid>
                     </Box>
+                    <TextField 
+                        fullWidth
+                        value={query}
+                        onChange={seacrh}
+                    />
                     <TrackList tracks={tracks}/>
                 </Card>
             </Grid>
