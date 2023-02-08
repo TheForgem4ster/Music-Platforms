@@ -11,7 +11,7 @@ import TrackProgress from "./TrackProgress";
 let audio;
 
 const Player = () => {
-    const track: ITrack =  {_id: '1', name: "Track 1", artist: "Executor 1", text: "text 1", listens: 15, audio: "https://localhost:5000/audio/", picture: "https://localhost:5000/picture/", comments: []}
+    const track: ITrack =  {_id: '1', name: "Track 1", artist: "Executor 1", text: "text 1", listens: 15, audio: "http://localhost:5000/audio/d101ca83-fa70-4616-a589-39fc4e187612.mp3", picture: "http://localhost:5000/image/657ae529-3ae0-4c8f-a873-8107062942ab.jpg", comments: []}
     
     const {pause, volume, active, duration, currentTime} = useTypedSelector(state => state.player);
     const {pauseTrack, playTrack} = useActions();
@@ -34,7 +34,7 @@ const Player = () => {
     return (
         <div className={styles.player}>
             <IconButton onClick={play}>
-                {!pause
+                {pause
                     ? <PlayArrow/>
                     : <Pause/>
                 }
