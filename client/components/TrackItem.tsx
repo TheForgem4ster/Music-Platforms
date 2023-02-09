@@ -23,6 +23,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
     }
 
     return (
+
         <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)}>
             <IconButton onClick={play}>
                 {!active
@@ -35,7 +36,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
                 <div>{track.name}</div>
                 <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>
             </Grid>
-            {active && <div>02:42 / 03:22</div>}
+            {/* {active && <div>02:42 / 03:22</div>} */}
             <IconButton onClick={e => e.stopPropagation()} style={{marginLeft: 'auto'}}>
                 <Delete/>
             </IconButton>

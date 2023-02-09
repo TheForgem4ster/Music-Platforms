@@ -12,7 +12,7 @@ interface MainLayoutProps {
     keywords?: string;
 }
 const MainLayouts : React.FC<MainLayoutProps> = ({children, title, description,  keywords}) => (
-    <>
+    <div>
         <Head>
             <title>{title || "Music platform"}</title>
             <meta name="description" content={"music platform for all. Now all maybe track and become famous" + description}/>
@@ -25,7 +25,7 @@ const MainLayouts : React.FC<MainLayoutProps> = ({children, title, description, 
             {children}
         </Container>
         <Player/>
-    </>
+    </div>
 )
 
 export default MainLayouts;

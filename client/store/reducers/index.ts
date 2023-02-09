@@ -9,6 +9,7 @@ const rootReducer = combineReducers({
 })
 
 export const reducer = (state, action) => {
+   
     if (action.type === HYDRATE) {
         const nextState = {
             ...state, // use previous state
