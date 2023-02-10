@@ -1,0 +1,16 @@
+.appBar {
+    background: #101012;
+    border: 0;
+    border-right: none;
+}
+
+.leftBar {
+    background: #101118;
+    color: white;
+    height: 92%;
+
+}
+
+.icon {
+    color: white;
+}

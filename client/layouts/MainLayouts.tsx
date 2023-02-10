@@ -1,8 +1,9 @@
 import { Container } from "@mui/system";
-import Havbar from "components/Navbar";
+import Navbar from "components/Navbar/Navbar";
 import Player from "components/Player";
 import Head from "next/head";
 import React from "react";
+import NewNavbar from "../components/Navbar/NewNavbar";
 
 
 interface MainLayoutProps {
@@ -20,7 +21,7 @@ const MainLayouts : React.FC<MainLayoutProps> = ({children, title, description, 
             <meta name="keywords" content={keywords || "Музыка, треки, артисты"}/>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
         </Head>
-        <Havbar />
+        <NewNavbar />
         <Container  style={{margin: '90px 0',minWidth: "100%", }}>
             {children}
         </Container>
