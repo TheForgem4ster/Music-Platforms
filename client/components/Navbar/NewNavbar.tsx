@@ -17,6 +17,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import style from "./Navbar.module.css";
+import { LeftIcon } from './LeftIcon/LeftIcon';
 
 const drawerWidth = 240;
 
@@ -100,6 +101,7 @@ export default function NewNavbar(props: Props) {
                         Music Platform
                     </Typography>
                 </Toolbar>
+                {/*<LeftIcon/>*/}
             </AppBar>
             <Box
                 component="nav"
@@ -139,7 +141,9 @@ export default function NewNavbar(props: Props) {
                 component="main"
                 sx={{ flexGrow: 1, p: 5, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
+
             </Box>
+
         </Box>
     );
 }
