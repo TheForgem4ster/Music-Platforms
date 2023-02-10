@@ -9,7 +9,8 @@ import {alpha, styled} from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import {Toolbar} from "@mui/material";
+import { Toolbar } from "@mui/material";
+import MailIcon from "@mui/icons-material/Mail";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -38,7 +39,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
-        padding: theme.spacing(2, 2, 2, 0),
+        padding: theme.spacing(1, 1, 1, 1),
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
@@ -49,12 +50,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+
 export const LeftIcon = () => {
     const menuId = 'primary-search-account-menu';
+    const mobileMenuId = 'primary-search-account-menu-mobile';
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
-
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -86,11 +89,61 @@ export const LeftIcon = () => {
         </Menu>
     );
 
+    const renderMobileMenu = (
+        <Menu
+            anchorEl={mobileMoreAnchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={mobileMenuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMobileMenuOpen}
+            onClose={handleMobileMenuClose}
+        >
+            <MenuItem>
+                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                    <Badge badgeContent={4} color="error">
+                        <MailIcon />
+                    </Badge>
+                </IconButton>
+                <p>Messages</p>
+            </MenuItem>
+            <MenuItem>
+                <IconButton
+                    size="large"
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                >
+                    <Badge badgeContent={17} color="error">
+                        <NotificationsIcon />
+                    </Badge>
+                </IconButton>
+                <p>Notifications</p>
+            </MenuItem>
+            <MenuItem onClick={handleProfileMenuOpen}>
+                <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="primary-search-account-menu"
+                    aria-haspopup="true"
+                    color="inherit"
+                >
+                    <AccountCircle />
+                </IconButton>
+                <p>Profile</p>
+            </MenuItem>
+        </Menu>
+    );
 
     return (
         <div>
-            <Toolbar>
-            <Box sx={{display: {xs: 'none', md: 'flex'}}}>
+            <Toolbar sx={{justifyContent: 'flex-end'}}>
+                <Box sx={{ flexGrow: 1 }} />
                 <Search>
                     <SearchIconWrapper>
                         <SearchIcon/>
@@ -100,6 +153,8 @@ export const LeftIcon = () => {
                         inputProps={{'aria-label': 'search'}}
                     />
                 </Search>
+            <Box sx={{display: {xs: 'none', md: 'flex', justifyContent: 'flex-end'}}}>
+
                 <IconButton
                     size="large"
                     aria-label="show 17 new notifications"
@@ -121,8 +176,10 @@ export const LeftIcon = () => {
                     <AccountCircle/>
                 </IconButton>
             </Box>
+                {renderMobileMenu}
+                {renderMenu}
             </Toolbar>
-            {renderMenu}
+
         </div>
     );
 }

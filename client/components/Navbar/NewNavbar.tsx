@@ -110,7 +110,10 @@ export default function NewNavbar(props: Props) {
                     <Typography variant="h6" noWrap component="div">
                         Music Platform
                     </Typography>
-                    <LeftIcon/>
+                    <Box sx={{ flexGrow: 1 }}>
+                        <LeftIcon />
+                    </Box>
+
                 </Toolbar>
 
             </AppBar>
@@ -138,7 +141,6 @@ export default function NewNavbar(props: Props) {
                     {drawer}
                 </Drawer>
                 <Drawer
-
                     variant="permanent"
                     sx={{
                         display: { xs: 'none', sm: 'block' },
@@ -153,7 +155,6 @@ export default function NewNavbar(props: Props) {
                 component="main"
                 sx={{ flexGrow: 1, p: 5, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
-
             </Box>
 
         </Box>
