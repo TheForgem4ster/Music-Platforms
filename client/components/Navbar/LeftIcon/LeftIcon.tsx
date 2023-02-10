@@ -7,6 +7,9 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import {alpha, styled} from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import {Toolbar} from "@mui/material";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -35,7 +38,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
+        padding: theme.spacing(2, 2, 2, 0),
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
@@ -49,25 +52,54 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export const LeftIcon = () => {
     const menuId = 'primary-search-account-menu';
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
+    const isMenuOpen = Boolean(anchorEl);
 
     const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
+    const handleMobileMenuClose = () => {
+        setMobileMoreAnchorEl(null);
+    };
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+        handleMobileMenuClose();
+    };
+    const renderMenu = (
+        <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={menuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
+        >
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        </Menu>
+    );
+
 
     return (
         <div>
-            <Box sx={{flexGrow: 1}}/>
-            <Search>
-                <SearchIconWrapper>
-                    <SearchIcon/>
-                </SearchIconWrapper>
-                <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{'aria-label': 'search'}}
-                />
-            </Search>
+            <Toolbar>
             <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-
+                <Search>
+                    <SearchIconWrapper>
+                        <SearchIcon/>
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                        placeholder="Search…"
+                        inputProps={{'aria-label': 'search'}}
+                    />
+                </Search>
                 <IconButton
                     size="large"
                     aria-label="show 17 new notifications"
@@ -89,6 +121,8 @@ export const LeftIcon = () => {
                     <AccountCircle/>
                 </IconButton>
             </Box>
+            </Toolbar>
+            {renderMenu}
         </div>
     );
 }

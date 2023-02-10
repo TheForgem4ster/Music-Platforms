@@ -18,6 +18,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import style from "./Navbar.module.css";
 import { LeftIcon } from './LeftIcon/LeftIcon';
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 const drawerWidth = 240;
 
@@ -97,17 +98,28 @@ export default function NewNavbar(props: Props) {
                     >
                         <MenuIcon />
                     </IconButton>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 2 }}
+                    >
+                        <MusicNoteIcon/>
+                    </IconButton>
                     <Typography variant="h6" noWrap component="div">
                         Music Platform
                     </Typography>
+                    <LeftIcon/>
                 </Toolbar>
-                {/*<LeftIcon/>*/}
+
             </AppBar>
             <Box
                 component="nav"
                 sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
                 aria-label="mailbox folders"
             >
+
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Drawer
                     className={style.appBar}
@@ -130,7 +142,7 @@ export default function NewNavbar(props: Props) {
                     variant="permanent"
                     sx={{
                         display: { xs: 'none', sm: 'block' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, borderRight: 1 },
                     }}
                     open
                 >
