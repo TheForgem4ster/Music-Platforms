@@ -16,7 +16,7 @@ import {useRouter} from "next/router";
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
-import style from "./Navbar.module.css";
+import style from "../Navbar/Navbar.module.css";
 import { LeftIcon } from './LeftIcon/LeftIcon';
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
@@ -34,7 +34,7 @@ const menuItem = [
     {text: 'List track', href: '/tracks'},
     {text: 'List album', href: '/albums'},
 ];
-export default function NewNavbar(props: Props) {
+export default function Header(props: Props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 

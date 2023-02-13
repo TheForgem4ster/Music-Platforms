@@ -3,9 +3,8 @@ import Navbar from "components/Navbar/Navbar";
 import Player from "components/Player";
 import Head from "next/head";
 import React from "react";
-import NewNavbar from "../components/Navbar/NewNavbar";
-import HeaderBar from "../components/Navbar/HeaderBar";
-
+import Header from "../components/Header/Header";
+import style from "./MainLayouts.module.css";
 
 interface MainLayoutProps {
     children?: React.ReactNode
@@ -14,7 +13,7 @@ interface MainLayoutProps {
     keywords?: string;
 }
 const MainLayouts : React.FC<MainLayoutProps> = ({children, title, description,  keywords}) => (
-    <div>
+    <div className={style.pageContainer}>
         <Head>
             <title>{title || "Music platform"}</title>
             <meta name="description" content={"music platform for all. Now all maybe track and become famous" + description}/>
@@ -22,10 +21,11 @@ const MainLayouts : React.FC<MainLayoutProps> = ({children, title, description, 
             <meta name="keywords" content={keywords || "Музыка, треки, артисты"}/>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
         </Head>
-    <Navbar/>
+        {/*<Navbar/>*/}
         {/*<HeaderBar/>*/}
-        {/*<NewNavbar />*/}
-        <Container  style={{margin: '90px 0',minWidth: "100%", }}>
+        <Header className={style.header}/>
+
+        <Container className={style.main}>
             {children}
         </Container>
         <Player/>

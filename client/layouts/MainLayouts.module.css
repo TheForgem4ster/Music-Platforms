@@ -1,0 +1,26 @@
+.pageContainer {
+    display: grid;
+    grid-template-areas:
+    "h h h h h"
+    "n m m m m"
+    "n m m m m"
+    "f f f f f";
+}
+
+.header {
+    grid-area: h;
+}
+
+.navbar {
+    grid-area: n;
+}
+
+.main {
+    grid-area: m;
+    margin: 90px 0;
+    minWidth: 100%;
+}
+
+.footer {
+    grid-area: f;
+}
