@@ -1,34 +1,60 @@
 import { Delete, Pause, PlayArrow } from "@mui/icons-material";
 import { Card, Grid, IconButton } from "@mui/material";
 import { useActions } from "hooks/useActions";
+import { useTypedSelector } from "hooks/useTypedSelector";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import { ITrack } from "types/track";
 import styles from "../styles/TrackItem.module.scss";
 
 interface TrackItemProps {
     track: ITrack;
-    active?: boolean;
+    
 }
-
-const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
+let audio;
+    const TrackItem: React.FC<TrackItemProps> = ({track}) => {
     const router = useRouter();
+    const {pause, volume,active, duration, currentTime} = useTypedSelector(state => state.player)//здесь мы узнаем информацию о состоянии трека в нашем конетексте
+    const {pauseTrack, playTrack, setVolume, setCurrentTime, setDuration, setActiveTrack} = useActions()//обращается к нашим событим ActionCreator
 
-    const {playTrack, pauseTrack, setActiveTrack} = useActions()
-
-    const play = (e) => {
-        e.stopPropagation()
+    useEffect(() => {
+        if (!audio) {
+            audio = new Audio()
+            setAudio()
+            play()
+        } else {
+            setAudio()
+            play()
+        }
+    }, [active])
+    
+    const setAudio = () => {
+        if (active) {
+            audio.src =  'http://localhost:5000/' + active.audio;
+            audio.volume = volume / 100
+            audio.onloadedmetadata = () => {
+                setDuration(Math.ceil(audio.duration))
+            }
+            audio.ontimeupdate = () => {
+                setCurrentTime(Math.ceil(audio.currentTime))
+            }
+        }
+    }
+    const play = () => {//наш трек подключается к Player
         setActiveTrack(track)
         playTrack()
+        e.stopPropagation()
+        
+        
     }
 
     return (
 
         <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)}>
             <IconButton onClick={play}>
-                {!active
-                    ? <PlayArrow/>
-                    : <Pause/>
+            {pause
+                    ? <Pause/>
+                    : <PlayArrow/>
                 }
             </IconButton>
             <img width={70} height={70} src={'http://localhost:5000/' + track.picture}/>

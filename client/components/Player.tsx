@@ -17,13 +17,15 @@ const Player = () => {
     useEffect(() => {
         if (!audio) {
             audio = new Audio()
+            setAudio()
+            play()
         } else {
             setAudio()
             play()
         }
     }, [active])
 
-    const setAudio = () => {
+   const setAudio = () => {
         if (active) {
             audio.src =  'http://localhost:5000/' + active.audio;
             audio.volume = volume / 100
@@ -60,7 +62,7 @@ const Player = () => {
     return (
         <div className={styles.player}>
             <IconButton onClick={play}>
-                {pause
+                {!pause
                     ? <PlayArrow/>
                     : <Pause/>
                 }

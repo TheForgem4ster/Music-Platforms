@@ -14,7 +14,7 @@ const Track = () => {
     const router = useRouter();
     const [query, seacrh] = useState<string>('');
     const {tracks, error} = useTypedSelector(state => {
-        debugger;
+        
         return state.track})
     const [timer, setTimer] = useState(null);
     const dispatch = useDispatch() as NextThunkDispatch;
