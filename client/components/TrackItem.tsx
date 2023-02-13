@@ -31,7 +31,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
                     : <Pause/>
                 }
             </IconButton>
-            <img width={70} height={70} src={`${process.env.API_URL} + ${track.picture}`}/>
+            <img width={70} height={70} src={'http://localhost:5000/' + track.picture}/>
             <Grid container direction="column" style={{width: 200, margin: '0 20px'}}>
                 <div>{track.name}</div>
                 <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>

@@ -25,7 +25,7 @@ const Player = () => {
 
     const setAudio = () => {
         if (active) {
-            audio.src =  `${process.env.API_URL} + ${active.audio}`
+            audio.src =  'http://localhost:5000/' + active.audio;
             audio.volume = volume / 100
             audio.onloadedmetadata = () => {
                 setDuration(Math.ceil(audio.duration))
@@ -55,9 +55,7 @@ const Player = () => {
         setCurrentTime(Number(e.target.value))
     }
 
-    if (!active) {
-        return null
-    }
+   
 
     return (
         <div className={styles.player}>

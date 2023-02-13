@@ -1,6 +1,6 @@
-
+$playerHeight:60px;
 .player {
-    height: 60px;
+    height: $playerHeight;
     width: 100%;
     position: fixed;
     bottom: 0;

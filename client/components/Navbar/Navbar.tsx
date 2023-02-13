@@ -19,7 +19,8 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import {useRouter} from 'next/router';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
+const playerHeight = 60;
 
 const menuItem = [
     {text: 'Head Page', href: '/'},
@@ -53,13 +54,13 @@ const DrawerHeader = styled('div')(({theme}) => ({
     alignItems: 'center',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
+   
     justifyContent: 'flex-end',
 }));
 
 export default function Navbar() {
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const router = useRouter();
 
     const handleDrawerOpen = () => {
@@ -90,22 +91,22 @@ export default function Navbar() {
                 </Toolbar>
             </AppBar>
             <Drawer
+               
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,
                     '& .MuiDrawer-paper': {
                         width: drawerWidth,
+                        height:`calc(100% - ${playerHeight}px)`,
                         boxSizing: 'border-box',
                     },
                 }}
-                variant="persistent"
+                variant="permanent"
                 anchor="left"
                 open={open}
             >
                 <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
-                    </IconButton>
+
                 </DrawerHeader>
 
                 <List>

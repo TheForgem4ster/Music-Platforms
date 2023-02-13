@@ -21,13 +21,13 @@ const MainLayouts : React.FC<MainLayoutProps> = ({children, title, description, 
             <meta name="keywords" content={keywords || "Музыка, треки, артисты"}/>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
         </Head>
-        {/*<Navbar/>*/}
-        {/*<HeaderBar/>*/}
-        <Header className={style.header}/>
+       
+        <Navbar/>
 
         <Container className={style.main}>
             {children}
         </Container>
+        
         <Player/>
     </div>
 )
