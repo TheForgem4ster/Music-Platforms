@@ -22,9 +22,9 @@ const MainLayouts : React.FC<MainLayoutProps> = ({children, title, description, 
             <meta name="keywords" content={keywords || "Музыка, треки, артисты"}/>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
         </Head>
-
+    <Navbar/>
         {/*<HeaderBar/>*/}
-        <NewNavbar />
+        {/*<NewNavbar />*/}
         <Container  style={{margin: '90px 0',minWidth: "100%", }}>
             {children}
         </Container>
