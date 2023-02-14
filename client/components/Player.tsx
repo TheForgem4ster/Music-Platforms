@@ -60,7 +60,7 @@ const Player = () => {
     return (
         <div className={styles.player}>
             <IconButton onClick={play}>
-                {!pause
+                {pause
                     ? <PlayArrow/>
                     : <Pause/>
                 }

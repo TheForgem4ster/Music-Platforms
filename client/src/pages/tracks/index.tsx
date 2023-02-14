@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 
 const Track = () => {
     const router = useRouter();
-    const [query, seacrh] = useState<string>('');
+    const [query, setQuery] = useState<string>('');
     const {tracks, error} = useTypedSelector(state => {
         
         return state.track})
@@ -60,7 +60,7 @@ const Track = () => {
                 <TextField 
                     fullWidth
                     value={query}
-                    onChange={seacrh}
+                    onChange={search}
                 />
                 <TrackList tracks={tracks}/>
             </Card>
@@ -79,4 +79,3 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const dispatch = store.dispatch as NextThunkDispatch
     await dispatch(await fetchTracks());
 });
-    

@@ -6,6 +6,7 @@ export interface PlayerState {
     duration: number;
     currentTime: number;
     pause: boolean;
+    id?: string;
 }
 
 export enum PlayerActionTypes {

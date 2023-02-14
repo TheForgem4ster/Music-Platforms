@@ -17,22 +17,22 @@ interface TrackItemProps {
 let audio;
 
 
-const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
+const TrackItem: React.FC<TrackItemProps> = ({track, active = false},key) => {
     const router = useRouter()
     const {playTrack, pauseTrack, setActiveTrack} = useActions()
-
+    let audioId;
     const {setCurrentTime, setDuration} = useActions()
-    const {activePlay, volumepause, pause, volume} = useTypedSelector(state => state.player)
+    const {id,activePlay, volumepause, pause, volume} = useTypedSelector(state => state.player)
 
 
     useEffect(() => {
         if (!audio) {
             audio = new Audio()
             setAudio()
-            play()
+            check()
         } else {
             setAudio()
-            play()
+            check()
         }
     }, [activePlay])
 
@@ -57,36 +57,31 @@ const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
     //     setCurrentTime(Number(e.target.value))
     // }
 
-    const play = () => {
-        // e.stopPropagation()
-        setActiveTrack(track)
-        playTrack()
-
-
-    }
+   
 
     const check = () => {
         if (pause) {
+            if(track._id!==id){
             setActiveTrack(track)
+            }
             playTrack()
             audio.play()
         } else {
-            setActiveTrack(false)
+            
             pauseTrack()
             audio.pause()
         }
     }
 
     return (
+    
         <Card className={styles.track}>
-            <IconButton onClick={check}>
-                {/*{!active*/}
-                {/*    ? <PlayArrow/>*/}
-                {/*    : <Pause/>*/}
-                {/*}*/}
-                {!active && !pause
-                    ? <PlayArrow/>
-                    : <Pause/>
+            <IconButton onClick={check} >
+                
+                { 
+                    ((track._id===id)&&!pause)
+                    ? <Pause/>
+                    : <PlayArrow/>
                 }
             </IconButton>
 
