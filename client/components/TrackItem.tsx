@@ -16,7 +16,6 @@ interface TrackItemProps {
 
 let audio;
 
-
 const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
     const router = useRouter()
     const {playTrack, pauseTrack, setActiveTrack} = useActions()
@@ -61,8 +60,6 @@ const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
         // e.stopPropagation()
         setActiveTrack(track)
         playTrack()
-
-
     }
 
     const check = () => {
@@ -88,6 +85,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
                     ? <PlayArrow/>
                     : <Pause/>
                 }
+
             </IconButton>
 
             <img width={70} height={70} src={'http://localhost:5000/' + track.picture}/>
