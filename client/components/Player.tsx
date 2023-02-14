@@ -1,9 +1,9 @@
-import { Pause, PlayArrow, VolumeUp } from "@mui/icons-material";
-import { Grid, IconButton } from "@mui/material";
-import { useActions } from "hooks/useActions";
-import { useTypedSelector } from "hooks/useTypedSelector";
-import React, { useEffect } from "react";
-import { ITrack } from "types/track";
+import {Pause, PlayArrow, VolumeUp} from "@mui/icons-material";
+import {Grid, IconButton} from "@mui/material";
+import {useActions} from "hooks/useActions";
+import {useTypedSelector} from "hooks/useTypedSelector";
+import React, {useEffect} from "react";
+import {ITrack} from "types/track";
 import styles from "../styles/Player.module.scss";
 import TrackProgress from "./TrackProgress";
 
@@ -25,9 +25,9 @@ const Player = () => {
         }
     }, [active])
 
-   const setAudio = () => {
+    const setAudio = () => {
         if (active) {
-            audio.src =  'http://localhost:5000/' + active.audio;
+            audio.src = 'http://localhost:5000/' + active.audio;
             audio.volume = volume / 100
             audio.onloadedmetadata = () => {
                 setDuration(Math.ceil(audio.duration))
@@ -56,8 +56,6 @@ const Player = () => {
         audio.currentTime = Number(e.target.value)
         setCurrentTime(Number(e.target.value))
     }
-
-   
 
     return (
         <div className={styles.player}>
