@@ -1,55 +1,66 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ITrack} from "../types/track";
 import styles from '../styles/TrackItem.module.scss'
 import {useRouter} from "next/router";
 import {useActions} from "../hooks/useActions";
-import {Play} from "@next/font/google";
-import Player from "./Player";
 import {Card, Grid, IconButton} from '@mui/material';
-import {Delete, Pause, PlayArrow} from '@mui/icons-material';
+import {Delete, Pause, PlayArrow, VolumeUp} from '@mui/icons-material';
 import {useTypedSelector} from "../hooks/useTypedSelector";
+import { PlayerState } from 'types/player';
+import PlayButton from './PlayButton';
+
 
 interface TrackItemProps {
     track: ITrack;
-    active?: boolean;
+    activePlay?: boolean;
 }
 
 let audio;
 
-<<<<<<< HEAD
-
-const TrackItem: React.FC<TrackItemProps> = ({track, active = false},key) => {
-=======
-const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
->>>>>>> cdad898198d84bacc05f521c30607ab778cf1818
+const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) => {
     const router = useRouter()
-    const {playTrack, pauseTrack, setActiveTrack} = useActions()
-    let audioId;
-    const {setCurrentTime, setDuration} = useActions()
-    const {id,activePlay, volumepause, pause, volume} = useTypedSelector(state => state.player)
-
-
+   
+    const {playTrack, pauseTrack, setActiveTrack,setCurrentTime, setDuration,SetCurrentAudio} = useActions()
+    const {id,pause, volume, active,audioHandler} = useTypedSelector(state => state.player)
+    
+    
     useEffect(() => {
-        if (!audio) {
-            audio = new Audio()
-            setAudio()
-            check()
-        } else {
-            setAudio()
-            check()
+       
+            if(active)
+            {
+                if (!audio) {
+                    audio = new Audio();
+                    setAudio()
+                    
+                } 
+            }
+       
+     }, [active])
+    
+    useEffect(() => {
+    
+        if(audioHandler){
+            audio =audioHandler
+            play()
         }
-    }, [activePlay])
+   
+    },[audioHandler])
 
     const setAudio = () => {
-        if (activePlay) {
-            audio.src = 'http://localhost:5000/' + activePlay.audio;
+      
+        if (active) {
+            
+            audio.src = 'http://localhost:5000/' + active.audio;
             audio.volume = volume / 100
             audio.onloadedmetadata = () => {
-                setDuration(Math.ceil(audio.duration))
+                setDuration(Math.ceil(audio.duration)/100)
             }
+            
             audio.ontimeupdate = () => {
-                setCurrentTime(Math.ceil(audio.currentTime))
+                setCurrentTime(Math.ceil(audio.currentTime)/100)
             }
+            
+            SetCurrentAudio(audio);
         }
     }
     // const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,26 +73,44 @@ const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
     // }
 
    
-
+const play=()=>{
+    if (pause) {
+        playTrack()
+        audio.play()
+    } else {
+        
+        pauseTrack()
+        audio.pause()
+    }
+}
     const check = () => {
-        if (pause) {
-            if(track._id!==id){
-            setActiveTrack(track)
-            }
-            playTrack()
-            audio.play()
-        } else {
-            
+      
+        if(track._id!==id){
+            if(audio&&!pause){
             pauseTrack()
             audio.pause()
+            }
+            audio=""
+            setActiveTrack(track)
+        }else{
+            play()
         }
+        
+        // if (!audio) {
+        //     audio = new Audio()
+        //     setAudio()
+        // }
+        
+        
+        
     }
 
     return (
     
         <Card className={styles.track}>
-            <IconButton onClick={check} >
-                
+           
+            <IconButton onClick={check}  >
+                 
                 { 
                     ((track._id===id)&&!pause)
                     ? <Pause/>
@@ -89,7 +118,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, active = false}) => {
                 }
 
             </IconButton>
-
+            
             <img width={70} height={70} src={'http://localhost:5000/' + track.picture}/>
             <Grid container direction="column" style={{width: 200, margin: '0 20px'}}>
                 <div>{track.name}</div>

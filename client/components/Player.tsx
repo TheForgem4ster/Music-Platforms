@@ -2,60 +2,46 @@ import {Pause, PlayArrow, VolumeUp} from "@mui/icons-material";
 import {Grid, IconButton} from "@mui/material";
 import {useActions} from "hooks/useActions";
 import {useTypedSelector} from "hooks/useTypedSelector";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
+import { SetCurrentAudio } from "store/action-creators/player";
 import {ITrack} from "types/track";
 import styles from "../styles/Player.module.scss";
 import TrackProgress from "./TrackProgress";
 
-
-let audio;
+let audio
 
 const Player = () => {
-    const {pause, volume, active, duration, currentTime} = useTypedSelector(state => state.player)
-    const {pauseTrack, playTrack, setVolume, setCurrentTime, setDuration, setActiveTrack} = useActions()
-
-    useEffect(() => {
-        if (!audio) {
-            audio = new Audio()
-            setAudio()
-            play()
-        } else {
-            setAudio()
-            play()
-        }
-    }, [active])
-
-    const setAudio = () => {
-        if (active) {
-            audio.src = 'http://localhost:5000/' + active.audio;
-            audio.volume = volume / 100
-            audio.onloadedmetadata = () => {
-                setDuration(Math.ceil(audio.duration))
-            }
-            audio.ontimeupdate = () => {
-                setCurrentTime(Math.ceil(audio.currentTime))
+    const {pause, volume, active, duration, currentTime, audioHandler} = useTypedSelector(state => state.player)
+    const {pauseTrack, playTrack, setVolume, setCurrentTime} = useActions()
+   
+   const  play = () => {
+        
+        if(audio!==null)
+        {
+        if(active){
+            
+             audio = audioHandler;
+             if (pause) {
+                playTrack()
+                audio.play()
+            } else {
+                pauseTrack()
+                audio.pause()
             }
         }
     }
-
-    const play = () => {
-        if (pause) {
-            playTrack()
-            audio.play()
-        } else {
-            pauseTrack()
-            audio.pause()
-        }
     }
-
     const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
         audio.volume = Number(e.target.value) / 100
         setVolume(Number(e.target.value))
     }
     const changeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
+       
         audio.currentTime = Number(e.target.value)
         setCurrentTime(Number(e.target.value))
+        SetCurrentAudio(audio);
     }
+ 
 
     return (
         <div className={styles.player}>
