@@ -3,12 +3,14 @@ import React from "react";
 interface TrackProgressProps {
     left: number;
     right: number;
+    leftIcon:number;
+    rightIcon:number;
     onChange: (e) => void
 }
 
 const TrackProgress: React.FC<TrackProgressProps> =
 ({
-     left, right, onChange
+     left, right,leftIcon,rightIcon, onChange
  }) => {
     return (
         <div style={{display: 'flex'}}>
@@ -19,7 +21,7 @@ const TrackProgress: React.FC<TrackProgressProps> =
                 value={left}
                 onChange={onChange}
             />
-            <div>{left} / {right}</div>
+            <div>{leftIcon} / {rightIcon}</div>
         </div>
     );
 };

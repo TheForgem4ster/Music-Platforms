@@ -70,9 +70,9 @@ const Player = () => {
                 <div>{active?.name}</div>
                 <div style={{fontSize: 12, color: 'gray'}}>{active?.artist}</div>
             </Grid>
-            <TrackProgress left={currentTime} right={duration} onChange={changeCurrentTime}/>
+            <TrackProgress left={currentTime} right={duration} leftIcon={+(currentTime/60%60).toFixed(2)} rightIcon={+(duration/60%60).toFixed(2)} onChange={changeCurrentTime}/>
             <VolumeUp style={{marginLeft: 'auto'}}/>
-            <TrackProgress left={volume} right={100} onChange={changeVolume}/>
+            <TrackProgress left={volume} right={100}leftIcon={volume} rightIcon={100} onChange={changeVolume}/>
         </div>
     );
 };
