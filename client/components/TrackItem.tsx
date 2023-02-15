@@ -8,6 +8,7 @@ import {Delete, Pause, PlayArrow, VolumeUp} from '@mui/icons-material';
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import { PlayerState } from 'types/player';
 import PlayButton from './PlayButton';
+import { NULL } from 'sass';
 
 
 interface TrackItemProps {
@@ -37,14 +38,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
        
      }, [active])
     
-    useEffect(() => {
     
-        if(audioHandler){
-            audio =audioHandler
-            play()
-        }
-   
-    },[audioHandler])
 
     const setAudio = () => {
       
@@ -52,37 +46,10 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
             
             audio.src = 'http://localhost:5000/' + active.audio;
             audio.volume = volume / 100
-            audio.onloadedmetadata = () => {
-                setDuration(Math.ceil(audio.duration)/100)
-            }
-            
-            audio.ontimeupdate = () => {
-                setCurrentTime(Math.ceil(audio.currentTime)/100)
-            }
-            
             SetCurrentAudio(audio);
         }
     }
-    // const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     audio.volume = Number(e.target.value) / 100
-    //     setVolume(Number(e.target.value))
-    // }
-    // const changeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     audio.currentTime = Number(e.target.value)
-    //     setCurrentTime(Number(e.target.value))
-    // }
-
-   
-const play=()=>{
-    if (pause) {
-        playTrack()
-        audio.play()
-    } else {
-        
-        pauseTrack()
-        audio.pause()
-    }
-}
+    
     const check = () => {
       
         if(track._id!==id){
@@ -92,18 +59,23 @@ const play=()=>{
             }
             audio=""
             setActiveTrack(track)
+            SetCurrentAudio(audio)
         }else{
-            play()
+            if(pause)
+            {
+                audio=audioHandler
+                playTrack()
+                audio.play()
+                SetCurrentAudio(audio)
+
+            }else{
+            pauseTrack()
+            audio=audioHandler
+            audio.pause() 
+            }
         }
         
-        // if (!audio) {
-        //     audio = new Audio()
-        //     setAudio()
-        // }
-        
-        
-        
-    }
+      }
 
     return (
     

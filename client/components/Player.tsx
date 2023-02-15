@@ -12,15 +12,29 @@ let audio
 
 const Player = () => {
     const {pause, volume, active, duration, currentTime, audioHandler} = useTypedSelector(state => state.player)
-    const {pauseTrack, playTrack, setVolume, setCurrentTime} = useActions()
-   
-   const  play = () => {
+    const {pauseTrack, playTrack, setVolume, setCurrentTime,setDuration} = useActions()
+    
+    useEffect(() => {
+    
+            if(audioHandler){
+                audio =audioHandler
+                play()
+            }
+       
+        },[audioHandler])
+
+    const  play = () => {
         
-        if(audio!==null)
-        {
+        
         if(active){
+            audio.onloadedmetadata = () => {
+                setDuration(Math.ceil(audio.duration))
+            }
             
-             audio = audioHandler;
+            audio.ontimeupdate = () => {
+                setCurrentTime(Math.ceil(audio.currentTime))
+            }
+             
              if (pause) {
                 playTrack()
                 audio.play()
@@ -28,9 +42,9 @@ const Player = () => {
                 pauseTrack()
                 audio.pause()
             }
-        }
+           
     }
-    }
+}
     const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
         audio.volume = Number(e.target.value) / 100
         setVolume(Number(e.target.value))
@@ -39,8 +53,9 @@ const Player = () => {
        
         audio.currentTime = Number(e.target.value)
         setCurrentTime(Number(e.target.value))
-        SetCurrentAudio(audio);
+        
     }
+    
  
 
     return (
