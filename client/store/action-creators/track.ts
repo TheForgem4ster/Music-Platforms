@@ -27,3 +27,15 @@ export const searchTracks = (query: string) => {
         }
     }
 }
+export const deleteTracks = (id: string) => {
+    return async (dispatch: Dispatch<TrackAction>) => {
+        try {
+            const response = await axios.delete('http://localhost:5000/tracks/' + id);
+            dispatch({type: TrackActionTypes.DELETE_TRACKS, payload: response.data})
+        } catch (e) {
+            dispatch({
+                type: TrackActionTypes.FETCH_TRACKS_ERROR,
+                payload: 'Произошла ошибка при загрузке треков'})
+        }
+    }
+}

@@ -6,9 +6,11 @@ import {useActions} from "../hooks/useActions";
 import {Card, Grid, IconButton} from '@mui/material';
 import {Delete, Pause, PlayArrow, VolumeUp} from '@mui/icons-material';
 import {useTypedSelector} from "../hooks/useTypedSelector";
-import { PlayerState } from 'types/player';
-import PlayButton from './PlayButton';
-import { NULL } from 'sass';
+import { useDispatch } from 'react-redux';
+import {NextThunkDispatch} from "../store";
+import {deleteTracks} from "../store/action-creators/track";
+
+
 
 
 interface TrackItemProps {
@@ -21,8 +23,8 @@ let audio;
 const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) => {
     const router = useRouter()
    
-    const {playTrack, pauseTrack, setActiveTrack,setCurrentTime, setDuration,SetCurrentAudio} = useActions()
-    const {id,pause, volume, active,audioHandler} = useTypedSelector(state => state.player)
+    const {playTrack, pauseTrack, setActiveTrack,SetCurrentAudio} = useActions()
+    const {id,pause, volume, active,audioHandler,currentTime,duration} = useTypedSelector(state => state.player)
     
     
     useEffect(() => {
@@ -76,12 +78,22 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
         }
         
       }
-
+      const dispatch = useDispatch() as NextThunkDispatch;
+      const [domLoaded, setDomLoaded] = useState(true);
+  
+      const onDeleteTrack = async () => {
+          dispatch(deleteTracks(track._id));
+          setDomLoaded(false);
+      }
+      const newPages = (e) => {
+        e.stopPropagation()
+        check();
+    }
     return (
-    
-        <Card className={styles.track}>
+        <>{domLoaded && (
+        <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)}>
            
-            <IconButton onClick={check}  >
+            <IconButton onClick={newPages}  >
                  
                 { 
                     ((track._id===id)&&!pause)
@@ -96,11 +108,13 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
                 <div>{track.name}</div>
                 <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>
             </Grid>
-            {/*{active && <div>02:42 / 03:22</div>}*/}
+            { active &&(<div>{currentTime} /{duration}</div>)}
             <IconButton onClick={e => e.stopPropagation()} style={{marginLeft: 'auto'}}>
-                <Delete/>
+                <Delete onClick={onDeleteTrack}/>
             </IconButton>
         </Card>
+        )}
+        </>
     );
 };
 
