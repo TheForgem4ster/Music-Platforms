@@ -12,13 +12,14 @@ let audio
 
 const Player = () => {
     const {pause, volume, active, duration, currentTime, audioHandler} = useTypedSelector(state => state.player)
-    const {pauseTrack, playTrack, setVolume, setCurrentTime,setDuration} = useActions()
+    const {pauseTrack, playTrack, setVolume, setCurrentTime,setDuration,setActiveTrack} = useActions()
     
     useEffect(() => {
     
             if(audioHandler){
                 audio =audioHandler
                 play()
+                
             }
        
         },[audioHandler])

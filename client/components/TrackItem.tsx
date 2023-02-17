@@ -108,7 +108,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
                 <div>{track.name}</div>
                 <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>
             </Grid>
-            { active &&(<div>{currentTime} /{duration}</div>)}
+            { ((track._id===id)?(<div>{(currentTime/60%60).toFixed(2)} /{(duration/60%60).toFixed(2)}</div>):(<div/>))}
             <IconButton onClick={e => e.stopPropagation()} style={{marginLeft: 'auto'}}>
                 <Delete onClick={onDeleteTrack}/>
             </IconButton>
