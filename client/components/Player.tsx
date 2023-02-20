@@ -15,28 +15,21 @@ const Player = () => {
     const {pauseTrack, playTrack, setVolume, setCurrentTime,setDuration,setActiveTrack} = useActions()
     
     useEffect(() => {
-    
             if(audioHandler){
                 audio =audioHandler
                 play()
-                
             }
-       
         },[audioHandler])
 
     const  play = () => {
-        
-        
         if(active){
             audio.onloadedmetadata = () => {
                 setDuration(Math.ceil(audio.duration))
             }
-            
             audio.ontimeupdate = () => {
                 setCurrentTime(Math.ceil(audio.currentTime))
             }
-             
-             if (pause) {
+            if (pause) {
                 playTrack()
                 audio.play()
             } else {
@@ -51,13 +44,10 @@ const Player = () => {
         setVolume(Number(e.target.value))
     }
     const changeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
-       
         audio.currentTime = Number(e.target.value)
         setCurrentTime(Number(e.target.value))
-        
     }
-    
- 
+
 
     return (
         <div className={styles.player}>
