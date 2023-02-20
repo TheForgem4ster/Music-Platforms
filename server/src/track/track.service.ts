@@ -19,7 +19,7 @@ export class TrackService {
        
         const audioPath = this.fileService.createFile(FileType.AUDIO, audio);
         const picturePath = this.fileService.createFile(FileType.IMAGE, picture);
-        const track = await this.trackModel.create({...dto, listens: 0,audio:audioPath,picture:picturePath});
+        const track = await this.trackModel.create({...dto, listens: 0, audio:audioPath, picture:picturePath});
         
         return track;
     }

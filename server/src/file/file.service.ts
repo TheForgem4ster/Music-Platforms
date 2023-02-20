@@ -2,6 +2,8 @@ import{HttpException, HttpStatus, Injectable} from "@nestjs/common"
 import * as path from 'path'
 import * as fs from 'fs'
 import * as uuid from 'uuid'
+import {S3Service} from "../../s3/s3.service";
+
 export enum FileType{
     AUDIO = 'audio',
     IMAGE = 'image' 
@@ -9,6 +11,10 @@ export enum FileType{
 
 @Injectable()
 export class FileService{
+
+    constructor(
+        private s3Service: S3Service,
+    ) { }
 
     createFile(type:FileType, file): string{
         try {
@@ -27,5 +33,6 @@ export class FileService{
     removeFile(fileName:string){
 
     }
+
 
 }

@@ -3,10 +3,10 @@ import {Grid, IconButton} from "@mui/material";
 import {useActions} from "hooks/useActions";
 import {useTypedSelector} from "hooks/useTypedSelector";
 import React, {useEffect, useState} from "react";
-import { SetCurrentAudio } from "store/action-creators/player";
-import {ITrack} from "types/track";
 import styles from "../styles/Player.module.scss";
 import TrackProgress from "./TrackProgress";
+import LoopIcon from '@mui/icons-material/Loop';
+
 
 let audio
 
@@ -51,17 +51,25 @@ const Player = () => {
 
     return (
         <div className={styles.player}>
+            <IconButton>
+                <img src={"https://cdn-icons-png.flaticon.com/512/73/73511.png"} style={{height: 30}}/>
+            </IconButton>
+            <Grid container direction="column" style={{display: "block", width: 50, margin: '0 20px'}}>
+                <div>{active?.name}</div>
+                <div style={{fontSize: 12, color: 'gray'}}>{active?.artist}</div>
+            </Grid>
+
+                <LoopIcon />
+
             <IconButton onClick={play}>
                 {pause
                     ? <PlayArrow/>
                     : <Pause/>
                 }
             </IconButton>
-            <Grid container direction="column" style={{width: 200, margin: '0 20px'}}>
-                <div>{active?.name}</div>
-                <div style={{fontSize: 12, color: 'gray'}}>{active?.artist}</div>
-            </Grid>
-            <TrackProgress left={currentTime} right={duration} leftIcon={+(currentTime/60%60).toFixed(2)} rightIcon={+(duration/60%60).toFixed(2)} onChange={changeCurrentTime}/>
+            <TrackProgress left={currentTime} right={duration}
+                           leftIcon={+(currentTime/60%60).toFixed(2)}
+                           rightIcon={+(duration/60%60).toFixed(2)} onChange={changeCurrentTime}/>
             <VolumeUp style={{marginLeft: 'auto'}}/>
             <TrackProgress left={volume} right={100}leftIcon={volume} rightIcon={100} onChange={changeVolume}/>
         </div>

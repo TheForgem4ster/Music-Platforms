@@ -6,6 +6,7 @@ import * as path from 'path';
 import {ServeStaticModule} from "@nestjs/serve-static";
 import {AlbumModule} from "./album/album.module.ts";
 import {UserModule} from "./user/user.module";
+import {S3Module} from "../s3/s3.module";
 
 @Module({
     imports: [
@@ -14,7 +15,8 @@ import {UserModule} from "./user/user.module";
         TrackModule,
         FileModule,
         AlbumModule,
-        UserModule
+        UserModule,
+        S3Module
     ],
 })
 export class AppModule {
