@@ -18,7 +18,10 @@ export class S3Service {
        console.log('hi'); this.region =  'eu-central-1';
         this.s3 = new S3Client({
             region: this.region,
-           
+            credentials: {
+                accessKeyId: "AKIA4O2WS4RN5URO56YU",
+                secretAccessKey: "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"
+              }
 
         });
     }
