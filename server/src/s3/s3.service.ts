@@ -1,4 +1,4 @@
-import {Injectable,, Logger Logger} from '@nestjs/common';
+import {Injectable,Logger } from '@nestjs/common';
 import {Express} from 'express';
 import {
     S3Client,
@@ -6,6 +6,7 @@ import {
     PutObjectCommandInput,
     PutObjectCommandOutput,
 } from "@aws-sdk/client-s3";
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class S3Service {
@@ -13,19 +14,16 @@ export class S3Service {
     private region: string;
     private s3: S3Client;
 
-    constructor(private configService: ConfigService) {
-        this.region = configService.get<string>('eu-central-1');
+    constructor() {
+       console.log('hi'); this.region =  'eu-central-1';
         this.s3 = new S3Client({
             region: this.region,
-            credentials: {
-                secretAccessKey: '',
-                accessKeyId: ''
-            }
+           
 
         });
     }
     async uploadFile(file: Express.Multer.File, key: string) {
-        const bucket = this.configService.get<string>('musicplatform');
+        const bucket ='musicplatform';
         const input: PutObjectCommandInput = {
             Body: file.buffer,
             Bucket: bucket,
