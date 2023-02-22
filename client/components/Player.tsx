@@ -6,23 +6,24 @@ import React, {useEffect, useState} from "react";
 import styles from "../styles/Player.module.scss";
 import TrackProgress from "./TrackProgress";
 import LoopIcon from '@mui/icons-material/Loop';
-
-
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import ReplayIcon from '@mui/icons-material/Replay';
 let audio
 
 const Player = () => {
     const {pause, volume, active, duration, currentTime, audioHandler} = useTypedSelector(state => state.player)
-    const {pauseTrack, playTrack, setVolume, setCurrentTime,setDuration,setActiveTrack} = useActions()
-    
-    useEffect(() => {
-            if(audioHandler){
-                audio =audioHandler
-                play()
-            }
-        },[audioHandler])
+    const {pauseTrack, playTrack, setVolume, setCurrentTime, setDuration, setActiveTrack} = useActions()
 
-    const  play = () => {
-        if(active){
+    useEffect(() => {
+        if (audioHandler) {
+            audio = audioHandler
+            play()
+        }
+    }, [audioHandler])
+
+    const play = () => {
+        if (active) {
             audio.onloadedmetadata = () => {
                 setDuration(Math.ceil(audio.duration))
             }
@@ -36,9 +37,9 @@ const Player = () => {
                 pauseTrack()
                 audio.pause()
             }
-           
+
+        }
     }
-}
     const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
         audio.volume = Number(e.target.value) / 100
         setVolume(Number(e.target.value))
@@ -59,19 +60,22 @@ const Player = () => {
                 <div style={{fontSize: 12, color: 'gray'}}>{active?.artist}</div>
             </Grid>
 
-                <LoopIcon />
-
+            <LoopIcon/>
+            <SkipPreviousIcon/>
             <IconButton onClick={play}>
                 {pause
                     ? <PlayArrow/>
                     : <Pause/>
                 }
             </IconButton>
+            <SkipNextIcon/>
+            <ReplayIcon/>
+
             <TrackProgress left={currentTime} right={duration}
-                           leftIcon={+(currentTime/60%60).toFixed(2)}
-                           rightIcon={+(duration/60%60).toFixed(2)} onChange={changeCurrentTime}/>
+                           leftIcon={+(currentTime / 60 % 60).toFixed(2)}
+                           rightIcon={+(duration / 60 % 60).toFixed(2)} onChange={changeCurrentTime}/>
             <VolumeUp style={{marginLeft: 'auto'}}/>
-            <TrackProgress left={volume} right={100}leftIcon={volume} rightIcon={100} onChange={changeVolume}/>
+            <TrackProgress left={volume} right={100} leftIcon={volume} rightIcon={100} onChange={changeVolume}/>
         </div>
     );
 };
