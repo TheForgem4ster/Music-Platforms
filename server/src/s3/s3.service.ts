@@ -1,13 +1,11 @@
 import {Injectable,Logger } from '@nestjs/common';
-import {Express} from 'express';
 import {
     S3Client,
     PutObjectCommand,
     PutObjectCommandInput,
     PutObjectCommandOutput,
 } from "@aws-sdk/client-s3";
-import { ConfigService } from '@nestjs/config';
-import multer from 'multer';
+
 
 
 
@@ -36,14 +34,15 @@ export class S3Service {
             Bucket: bucket,
             Key: key,
             ContentType: file.mimetype,
-            ACL: 'public-read'
+            
         }
-        console.log(file.buffer);
+        
         try {
             const response: PutObjectCommandOutput = await this.s3.send(
                 new PutObjectCommand(input),
             );
             if (response.$metadata.httpStatusCode === 200) {
+               
                 return `https://${bucket}.s3.${this.region}.amazonaws.com/${key}`;
             }
             throw new Error('Image not saved in s3!');

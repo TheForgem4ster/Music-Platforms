@@ -21,7 +21,7 @@ export class TrackService {
        
         const audioPath = this.s3Service.uploadFile(audio,"NewAudio")//fileService.createFile(FileType.AUDIO, audio);
         const picturePath = this.s3Service.uploadFile(picture,"NewPicture")//fileService.createFile(FileType.IMAGE, picture);
-        const track = await this.trackModel.create({...dto, listens: 0, audio:audioPath, picture:picturePath});
+        const track = await this.trackModel.create({...dto, listens: 0, audio: (await audioPath).toString(), picture:(await picturePath).toString()});
         
         return track;
     }
