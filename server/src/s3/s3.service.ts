@@ -7,6 +7,9 @@ import {
     PutObjectCommandOutput,
 } from "@aws-sdk/client-s3";
 import { ConfigService } from '@nestjs/config';
+import multer from 'multer';
+
+
 
 @Injectable()
 export class S3Service {
@@ -15,18 +18,19 @@ export class S3Service {
     private s3: S3Client;
 
     constructor() {
-       console.log('hi'); this.region =  'eu-central-1';
+        this.region =  'eu-central-1';
         this.s3 = new S3Client({
             region: this.region,
             credentials: {
-                accessKeyId: "AKIA4O2WS4RN5URO56YU",
-                secretAccessKey: "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"
+                accessKeyId: "AKIA4O2WS4RNSD2DSJKH",
+                secretAccessKey: "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"
               }
 
         });
     }
     async uploadFile(file: Express.Multer.File, key: string) {
         const bucket ='musicplatform';
+        
         const input: PutObjectCommandInput = {
             Body: file.buffer,
             Bucket: bucket,
@@ -34,6 +38,7 @@ export class S3Service {
             ContentType: file.mimetype,
             ACL: 'public-read'
         }
+        console.log(file.buffer);
         try {
             const response: PutObjectCommandOutput = await this.s3.send(
                 new PutObjectCommand(input),

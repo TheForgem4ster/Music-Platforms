@@ -12,8 +12,6 @@ export enum FileType{
 @Injectable()
 export class FileService{
 
-    
-
     createFile(type:FileType, file): string{
         try {
             const fileExtension =  file.originalname.split('.').pop();
