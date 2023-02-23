@@ -4,8 +4,6 @@ import { CreateTrackDto } from './dto/create-track.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { TrackService } from './track.service';
 import {FileFieldsInterceptor} from "@nestjs/platform-express";
-import * as AWS from 'aws-sdk';
-import * as multerS3 from 'multer-s3';
 
 @Controller('/tracks')
 export class TrackController {

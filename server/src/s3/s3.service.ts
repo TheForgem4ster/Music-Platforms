@@ -5,36 +5,37 @@ import {
     PutObjectCommandInput,
     PutObjectCommandOutput,
 } from "@aws-sdk/client-s3";
-
-
+import { ConfigService } from '@nestjs/config';
 
 
 @Injectable()
 export class S3Service {
+
     private logger = new Logger(S3Service.name);
     private region: string;
     private s3: S3Client;
 
-    constructor() {
-        this.region =  'eu-central-1';
+    constructor(private configService: ConfigService) {
+        this.region = this.configService.get<string>('REGION');
+        const accessKeyId = this.configService.get<string>('ACCESS_KEY_ID');
+        const secretAccessKey = this.configService.get<string>('SECRET_ACCESS_KEY');
         this.s3 = new S3Client({
             region: this.region,
             credentials: {
-                accessKeyId: "AKIA4O2WS4RNSD2DSJKH",
-                secretAccessKey: "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"
+                accessKeyId,
+                secretAccessKey
               }
 
         });
     }
     async uploadFile(file: Express.Multer.File, key: string) {
-        const bucket ='musicplatform';
-        
+        const bucket = this.configService.get<string>('BUCKET');
+
         const input: PutObjectCommandInput = {
             Body: file.buffer,
             Bucket: bucket,
             Key: key,
             ContentType: file.mimetype,
-            
         }
         
         try {
@@ -42,8 +43,8 @@ export class S3Service {
                 new PutObjectCommand(input),
             );
             if (response.$metadata.httpStatusCode === 200) {
-               
-                return `https://${bucket}.s3.${this.region}.amazonaws.com/${key}`;
+                const apiUrlAws = this.configService.get<string>('API_URL_AWS');
+                return `${apiUrlAws}${key}`;
             }
             throw new Error('Image not saved in s3!');
         } catch (err) {

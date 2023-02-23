@@ -11,7 +11,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
     imports: [
-        ConfigModule.forRoot({expandVariables: true}),
+        ConfigModule.forRoot({
+            expandVariables: true,
+            envFilePath: '.env',
+            isGlobal: true,
+        }),
         ServeStaticModule.forRoot({rootPath: path.resolve(__dirname, 'static')}),
         MongooseModule.forRoot('mongodb+srv://admin:admin@cluster0.ofndcvj.mongodb.net/music-platform?retryWrites=true&w=majority'),
         TrackModule,
