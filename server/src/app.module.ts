@@ -17,7 +17,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
             isGlobal: true,
         }),
         ServeStaticModule.forRoot({rootPath: path.resolve(__dirname, 'static')}),
-        MongooseModule.forRoot('mongodb+srv://admin:admin@cluster0.ofndcvj.mongodb.net/music-platform?retryWrites=true&w=majority'),
+        MongooseModule.forRoot(process.env.CONNECT),
         TrackModule,
         FileModule,
         AlbumModule,
