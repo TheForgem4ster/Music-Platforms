@@ -6,7 +6,7 @@ import {
     PutObjectCommandOutput,
 } from "@aws-sdk/client-s3";
 import { ConfigService } from '@nestjs/config';
-
+import * as uuid from 'uuid'
 
 @Injectable()
 export class S3Service {
@@ -30,11 +30,12 @@ export class S3Service {
     }
     async uploadFile(file: Express.Multer.File, key: string) {
         const bucket = this.configService.get<string>('BUCKET');
-
+        const fileExtension =  file.originalname.split('.').pop();
+        const fileName = `${file.fieldname}/`+uuid.v4()+'.'+fileExtension;
         const input: PutObjectCommandInput = {
             Body: file.buffer,
             Bucket: bucket,
-            Key: key,
+            Key: fileName,
             ContentType: file.mimetype,
         }
         
@@ -44,7 +45,7 @@ export class S3Service {
             );
             if (response.$metadata.httpStatusCode === 200) {
                 const apiUrlAws = this.configService.get<string>('API_URL_AWS');
-                return `${apiUrlAws}${key}`;
+                return `${apiUrlAws}${fileName}`;
             }
             throw new Error('Image not saved in s3!');
         } catch (err) {
