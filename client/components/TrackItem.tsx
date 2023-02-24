@@ -10,12 +10,10 @@ import { useDispatch } from 'react-redux';
 import {NextThunkDispatch} from "../store";
 import {deleteTracks} from "../store/action-creators/track";
 
-
-
-
 interface TrackItemProps {
     track: ITrack;
     activePlay?: boolean;
+    // audio: null;
 }
 
 let audio;
@@ -26,27 +24,21 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
     const {playTrack, pauseTrack, setActiveTrack,SetCurrentAudio} = useActions()
     const {id,pause, volume, active,audioHandler,currentTime,duration} = useTypedSelector(state => state.player)
     
-    
     useEffect(() => {
-       
             if(active)
             {
                 if (!audio) {
                     audio = new Audio();
                     setAudio()
-                    
                 } 
             }
-       
      }, [active])
-    
-    
 
     const setAudio = () => {
       
         if (active) {
             
-            audio.src = 'http://localhost:5000/' + active.audio;
+            audio.src = `${process.env.API_URL}` + active.audio;
             audio.volume = volume / 100
             SetCurrentAudio(audio);
         }
@@ -103,7 +95,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
 
             </IconButton>
             
-            <img width={70} height={70} src={'http://localhost:5000/' + track.picture}/>
+            <img width={70} height={70} src={`${process.env.API_URL}` + track.picture}/>
             <Grid container direction="column" style={{width: 200, margin: '0 20px'}}>
                 <div>{track.name}</div>
                 <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>

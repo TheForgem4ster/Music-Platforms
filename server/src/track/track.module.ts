@@ -4,11 +4,7 @@ import { Module } from '@nestjs/common';
 import { TrackController } from './track.controller';
 import { Track, TrackSchema } from './schemas/track.schemas';
 import { Comment,CommentSchema } from './schemas/comment.schemas';
-import { FileModule } from 'src/file/file.module';
-import { FileService } from 'src/file/file.service';
 import { S3Service } from 'src/s3/s3.service';
-
-
 
 @Module({
     imports: [
