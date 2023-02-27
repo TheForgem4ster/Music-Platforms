@@ -1,6 +1,6 @@
 import { Container } from "@mui/system";
 import Navbar from "components/Navbar/Navbar";
-import Player from "components/Player";
+import Player from "components/Footer/Player";
 import Head from "next/head";
 import React from "react";
 import Header from "../components/Header/Header";

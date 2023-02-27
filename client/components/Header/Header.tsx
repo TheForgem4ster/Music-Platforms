@@ -16,6 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import LeftPanel from "./LeftPanel";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -45,6 +46,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
+
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
@@ -57,7 +59,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function HeaderBar() {
+export default function Header() {
+
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
         React.useState<null | HTMLElement>(null);
@@ -190,7 +193,6 @@ export default function HeaderBar() {
                         />
                     </Search>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-
                         <IconButton
                             size="large"
                             aria-label="show 17 new notifications"
@@ -212,8 +214,8 @@ export default function HeaderBar() {
                             <AccountCircle />
                         </IconButton>
                     </Box>
-
                 </Toolbar>
+                <LeftPanel/>
             </AppBar>
             {renderMobileMenu}
             {renderMenu}

@@ -1,7 +1,7 @@
 import { Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
-import FileUpload from "components/FileUpload";
-import StepWrapper from "components/StepWrapper";
+import FileUpload from "components/Main/FileUpload";
+import StepWrapper from "components/Main/StepWrapper";
 import { useInput } from "hooks/useInput";
 import MainLayouts from "layouts/MainLayouts";
 import { useRouter } from "next/router";
@@ -17,7 +17,6 @@ const Create = () =>{
     const artist = useInput('')
     const text = useInput('')
     const router = useRouter()
-
 
     const next = () => {
         
@@ -67,7 +66,7 @@ const Create = () =>{
                 }
                 {
                     activeStep === 1 &&
-                    <FileUpload setFile={getInitialProps} accept="image/*">
+                    <FileUpload setFile={setPicture} accept="image/*">
                         <Button>Загрузите изображение</Button>
                     </FileUpload>
                 }

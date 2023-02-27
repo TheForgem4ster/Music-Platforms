@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Card, Grid, TextField } from "@mui/material";
-import TrackList from "components/TrackList";
+import TrackList from "components/Main/TrackList";
 import MainLayouts from "layouts/MainLayouts";
 import { useRouter } from "next/router";
 import { NextThunkDispatch, wrapper } from "store";

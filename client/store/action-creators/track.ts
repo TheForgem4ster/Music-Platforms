@@ -28,6 +28,7 @@ export const searchTracks = (query: string) => {
         }
     }
 }
+
 export const deleteTracks = (id: string) => {
     return async (dispatch: Dispatch<TrackAction>) => {
         try {
@@ -36,7 +37,7 @@ export const deleteTracks = (id: string) => {
         } catch (e) {
             dispatch({
                 type: TrackActionTypes.FETCH_TRACKS_ERROR,
-                payload: 'Произошла ошибка при загрузке треков'})
+                payload: 'Произошла ошибка при удалении трека'})
         }
     }
 }
