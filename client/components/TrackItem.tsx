@@ -9,12 +9,10 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import { useDispatch } from 'react-redux';
 import {NextThunkDispatch} from "../store";
 import {deleteTracks} from "../store/action-creators/track";
-import getInitialProps from "../api/api";
 
 interface TrackItemProps {
     track: ITrack;
     activePlay?: boolean;
-    // audio: null;
 }
 
 let audio;

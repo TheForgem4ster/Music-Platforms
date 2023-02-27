@@ -6,7 +6,6 @@ import { useInput } from "hooks/useInput";
 import MainLayouts from "layouts/MainLayouts";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import getInitialProps from "../../../api/api";
 
 const Create = () =>{
 

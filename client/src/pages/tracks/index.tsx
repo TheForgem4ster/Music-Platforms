@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { NextThunkDispatch, wrapper } from "store";
 import { fetchTracks, searchTracks } from "store/action-creators/track";
 import { useTypedSelector } from "hooks/useTypedSelector";
-import { ITrack } from "types/track";
 import { useDispatch } from "react-redux";
 
 

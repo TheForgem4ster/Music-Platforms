@@ -3,7 +3,6 @@ import React from "react";
 import { ITrack } from "types/track";
 import TrackItem from "./TrackItem";
 
-
 interface TrackListProps {
     tracks: ITrack[],
 }

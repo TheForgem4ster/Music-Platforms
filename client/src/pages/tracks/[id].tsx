@@ -4,14 +4,13 @@ import { useInput } from "hooks/useInput";
 import MainLayouts from "layouts/MainLayouts";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import { title } from "process";
 import React, { useState } from "react";
 import { ITrack } from "types/track";
 
 const TrackPage = ({serverTrack}) => {
 
     const [track, setTrack] = useState<ITrack>(serverTrack)
-    // const track: ITrack =  {_id: '1', name: "Track 1", artist: "Executor 1", text: "text 1", listens: 15, audio: "https://localhost:5000/audio/", picture: "https://localhost:5000/picture/", comments: []}
+
     const router = useRouter();
     const username = useInput('')
     const text = useInput('')

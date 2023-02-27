@@ -2,7 +2,7 @@ import {Pause, PlayArrow, VolumeUp} from "@mui/icons-material";
 import {Grid, IconButton} from "@mui/material";
 import {useActions} from "hooks/useActions";
 import {useTypedSelector} from "hooks/useTypedSelector";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import styles from "../styles/Player.module.scss";
 import TrackProgress from "./TrackProgress";
 import LoopIcon from '@mui/icons-material/Loop';
