@@ -28,6 +28,7 @@ export class S3Service {
 
         });
     }
+    
     async uploadFile(file: Express.Multer.File, key: string) {
         const bucket = this.configService.get<string>('BUCKET');
         const fileExtension =  file.originalname.split('.').pop();
