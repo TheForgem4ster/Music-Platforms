@@ -6,6 +6,7 @@ import { useInput } from "hooks/useInput";
 import MainLayouts from "layouts/MainLayouts";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import getInitialProps from "../../../api/api";
 
 const Create = () =>{
 
@@ -67,7 +68,7 @@ const Create = () =>{
                 }
                 {
                     activeStep === 1 &&
-                    <FileUpload setFile={setPicture} accept="image/*">
+                    <FileUpload setFile={getInitialProps} accept="image/*">
                         <Button>Загрузите изображение</Button>
                     </FileUpload>
                 }

@@ -62,6 +62,7 @@ const Track = () => {
                     value={query}
                     onChange={search}
                 />
+
                 <TrackList tracks={tracks}/>
             </Card>
         </Grid>

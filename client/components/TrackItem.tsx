@@ -9,6 +9,7 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import { useDispatch } from 'react-redux';
 import {NextThunkDispatch} from "../store";
 import {deleteTracks} from "../store/action-creators/track";
+import getInitialProps from "../api/api";
 
 interface TrackItemProps {
     track: ITrack;
@@ -38,7 +39,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
       
         if (active) {
             
-            audio.src = `${process.env.API_URL}` + active.audio;
+            audio.src = active.audio;
             audio.volume = volume / 100
             SetCurrentAudio(audio);
         }
@@ -94,8 +95,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
                 }
 
             </IconButton>
-            
-            <img width={70} height={70} src={`${process.env.API_URL}` + track.picture}/>
+            <img width={70} height={70} src={track.picture}/>
             <Grid container direction="column" style={{width: 200, margin: '0 20px'}}>
                 <div>{track.name}</div>
                 <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>

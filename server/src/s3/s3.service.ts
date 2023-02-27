@@ -31,7 +31,7 @@ export class S3Service {
     async uploadFile(file: Express.Multer.File, key: string) {
         const bucket = this.configService.get<string>('BUCKET');
         const fileExtension =  file.originalname.split('.').pop();
-        const fileName = `${file.fieldname}/`+uuid.v4()+'.'+fileExtension;
+        const fileName = `media/${file.fieldname}/`+uuid.v4()+'.'+fileExtension;
         const input: PutObjectCommandInput = {
             Body: file.buffer,
             Bucket: bucket,
