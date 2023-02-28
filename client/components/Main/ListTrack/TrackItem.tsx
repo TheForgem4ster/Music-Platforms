@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {ITrack} from "../../types/track";
-import styles from '../../styles/TrackItem.module.scss'
+import {ITrack} from "../../../types/track";
+import styles from '../../../styles/TrackItem.module.scss'
 import {useRouter} from "next/router";
-import {useActions} from "../../hooks/useActions";
+import {useActions} from "../../../hooks/useActions";
 import {Card, Grid, IconButton} from '@mui/material';
 import {Delete, Pause, PlayArrow, VolumeUp} from '@mui/icons-material';
-import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import { useDispatch } from 'react-redux';
-import {NextThunkDispatch} from "../../store";
-import {deleteTracks} from "../../store/action-creators/track";
+import {NextThunkDispatch} from "../../../store";
+import {deleteTracks} from "../../../store/action-creators/track";
 
 interface TrackItemProps {
     track: ITrack;

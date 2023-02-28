@@ -1,4 +1,4 @@
-import PopularTrack from "components/Main/PopularTrack";
+import PopularTrack from "components/Main/HeaderPage/PopularTrack";
 import MainLayouts from "layouts/MainLayouts";
 import React from "react";
 

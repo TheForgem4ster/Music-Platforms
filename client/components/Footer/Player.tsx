@@ -4,7 +4,7 @@ import {useActions} from "hooks/useActions";
 import {useTypedSelector} from "hooks/useTypedSelector";
 import React, {useEffect} from "react";
 import styles from "../../styles/Player.module.scss";
-import TrackProgress from "../Main/TrackProgress";
+import TrackProgress from "../Main/ListTrack/TrackProgress";
 import LoopIcon from '@mui/icons-material/Loop';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';

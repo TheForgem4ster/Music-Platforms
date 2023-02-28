@@ -1,7 +1,7 @@
 import { Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
-import FileUpload from "components/Main/FileUpload";
-import StepWrapper from "components/Main/StepWrapper";
+import FileUpload from "components/Main/ListTrack/DownloadTrack/FileUpload";
+import StepWrapper from "components/Main/ListTrack/DownloadTrack/StepWrapper";
 import { useInput } from "hooks/useInput";
 import MainLayouts from "layouts/MainLayouts";
 import { useRouter } from "next/router";
