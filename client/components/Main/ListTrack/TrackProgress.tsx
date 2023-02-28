@@ -1,10 +1,11 @@
+import { Slider } from "@mui/material";
 import React from "react";
 
 interface TrackProgressProps {
     left: number;
     right: number;
-    leftIcon:number;
-    rightIcon:number;
+    leftIcon?:number;
+    rightIcon?:number;
     onChange: (e) => void
 }
 
@@ -14,14 +15,17 @@ const TrackProgress: React.FC<TrackProgressProps> =
  }) => {
     return (
         <div style={{display: 'flex'}}>
-            <input
+            <div>{leftIcon}</div>
+            {/*<Slider*/}
+
+                <input
                 type="range"
                 min={0}
                 max={right}
                 value={left}
                 onChange={onChange}
             />
-            <div>{leftIcon} / {rightIcon}</div>
+            <div>{rightIcon}</div>
         </div>
     );
 };

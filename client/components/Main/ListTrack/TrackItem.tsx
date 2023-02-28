@@ -17,7 +17,7 @@ interface TrackItemProps {
 
 let audio;
 
-const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) => {
+const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false}) => {
     const router = useRouter()
    
     const {playTrack, pauseTrack, setActiveTrack,SetCurrentAudio} = useActions()
@@ -44,7 +44,6 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
     }
     
     const check = () => {
-      
         if(track._id!==id){
             if(audio&&!pause){
             pauseTrack()
@@ -67,7 +66,6 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
             audio.pause() 
             }
         }
-        
       }
       const dispatch = useDispatch() as NextThunkDispatch;
       const [domLoaded, setDomLoaded] = useState(true);
@@ -80,6 +78,17 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
         e.stopPropagation()
         check();
     }
+
+    const formatTime = (seconds: number) =>{
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
+        return `${minutes}:${formattedSeconds}`;
+    }
+
+    const leftIcon = formatTime(currentTime)
+    const rightIcon = formatTime(duration)
+
     return (
         <>{domLoaded && (
         <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)}>
@@ -98,7 +107,8 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false},key) =>
                 <div>{track.name}</div>
                 <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>
             </Grid>
-            { ((track._id===id)?(<div>{(currentTime/60%60).toFixed(2)} /{(duration/60%60).toFixed(2)}</div>):(<div/>))}
+            { ((track._id===id)?(<div>
+                {leftIcon} - {rightIcon}</div>):(<div/>))}
             <IconButton onClick={e => e.stopPropagation()} style={{marginLeft: 'auto'}}>
                 <Delete onClick={onDeleteTrack}/>
             </IconButton>

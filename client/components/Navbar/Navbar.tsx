@@ -21,7 +21,7 @@ const drawerWidth = 240;
 const playerHeight = 60;
 
 const menuItem = [
-    {text: 'Music'},
+    {text: 'Music', href: ''},
     {text: 'Head Page', href: '/'},
     {text: 'List track', href: '/tracks'},
     {text: 'List album', href: '/albums'},

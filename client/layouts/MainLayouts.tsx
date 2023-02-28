@@ -5,6 +5,7 @@ import Head from "next/head";
 import React from "react";
 import Header from "../components/Header/Header";
 import style from "./MainLayouts.module.css";
+import MusicPlayer from "../components/Footer/MusicPlayer";
 
 interface MainLayoutProps {
     children?: React.ReactNode
@@ -21,14 +22,13 @@ const MainLayouts : React.FC<MainLayoutProps> = ({children, title, description, 
             <meta name="keywords" content={keywords || "Музыка, треки, артисты"}/>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
         </Head>
-       
         <Navbar/>
-
         <Container className={style.main}>
             {children}
         </Container>
         
         <Player/>
+
     </div>
 )
 
