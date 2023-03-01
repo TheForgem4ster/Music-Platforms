@@ -17,7 +17,6 @@ const TrackProgress: React.FC<TrackProgressProps> =
         <div style={{display: 'flex'}}>
             <div>{leftIcon}</div>
             {/*<Slider*/}
-
                 <input
                 type="range"
                 min={0}

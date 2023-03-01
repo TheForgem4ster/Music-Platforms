@@ -61,16 +61,15 @@ const Player = () => {
 
     return (
         <div className={styles.player}>
-                <IconButton>
+                <IconButton >
                     <img src={"https://cdn-icons-png.flaticon.com/512/73/73511.png"} style={{height: 30}}/>
                 </IconButton>
-                <Grid container direction="column" style={{display: "block", width: 50, margin: '0 20px'}}>
+                <Grid container direction="column" style={{display: "block", width: 200, margin: '0 20px'}}>
                     <div>{active?.name}</div>
                     <div style={{fontSize: 12, color: 'gray'}}>{active?.artist}</div>
                 </Grid>
-
                 <ButtonPlayerGroup play={play} pause={pause} />
-                <Box width={500}>
+                <Box style={{margin: 'auto'}}>
                     <TrackProgress left={currentTime} right={duration}
                                    leftIcon={leftIcon}
                                    rightIcon={rightIcon} onChange={changeCurrentTime}
@@ -79,7 +78,7 @@ const Player = () => {
                 {/*<TrackProgress left={currentTime} right={duration}*/}
                 {/*               leftIcon={leftIcon}*/}
                 {/*               rightIcon={rightIcon} onChange={changeCurrentTime}/>*/}
-                <VolumeUp />
+                <VolumeUp style={{marginLeft: 'auto'}}/>
                     {/*style={{marginLeft: 'auto'}}*/}
                 <TrackProgress left={volume} right={100} onChange={changeVolume}/>
         </div>
