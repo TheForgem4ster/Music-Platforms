@@ -11,11 +11,8 @@ export class Album {
     @Prop()
     name: string;
 
-    @Prop()
-    author: string;
-
-    @Prop()
-    time: Date;
+    @Prop({type: mongoose.Schema.Types.ObjectId, ref:'User' })
+    authorId: User;
 
     @Prop()
     likeCount: Number;
@@ -29,8 +26,6 @@ export class Album {
     @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Track' }] })
     tracks: Track[];
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-    album: User
 }
 
 export const AlbumSchema = SchemaFactory.createForClass(Album);

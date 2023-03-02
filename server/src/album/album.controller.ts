@@ -1,13 +1,15 @@
-import {Body, Controller, Get, Post} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Post, Put} from "@nestjs/common";
+import { ObjectId } from "mongoose";
 import {AlbumService} from "./album.service";
 import {CreateAlbumDto} from "./dto/create-album.dto";
+import {TrackService} from "../track/track.service";
 
 @Controller('/album')
 export class AlbumController {
-    constructor(private albumService:  AlbumService) { }
+    constructor(private albumService:  AlbumService,
+                private trackService:  TrackService) { }
     @Post()
     create(@Body() dto: CreateAlbumDto) {
-
         return this.albumService.create(dto);
     }
     @Get()
@@ -15,12 +17,20 @@ export class AlbumController {
         return this.albumService.getAll()
     }
 
-    getOne(){
-
+    @Get(":id")
+    getOne(@Param('id') id: ObjectId){
+        return this.albumService.getOne(id);
     }
 
-    delete() {
+    @Delete(":id")
+    delete(@Param('id') id: ObjectId) {
+        return this.albumService.delete(id);
+    }
 
+    @Put(":id")
+    updateTrackAlbum(@Param('id') id: ObjectId){
+
+        return this.albumService.updateTrackAlbum(id);
     }
 }
 
