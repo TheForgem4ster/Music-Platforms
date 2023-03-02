@@ -9,7 +9,6 @@ const Index = () => {
             <MainLayouts>
                 <h1>Popular track</h1>
                 <div className="center">
-
                     <PopularTrack/>
                 </div>
             </MainLayouts>

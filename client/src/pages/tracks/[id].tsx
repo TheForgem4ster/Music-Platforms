@@ -38,7 +38,7 @@ const TrackPage = ({serverTrack}) => {
                 In List
             </Button>
             <Grid container style={{margin: '20px 0'}}>
-                <img src={'http://localhost:5000/' + track.picture} width={200} height={200}/>
+                <img src={track.picture} width={200} height={200}/>
                 <div style={{marginLeft: 30}}>
                     <h1>Name track - {track.name}</h1>
                     <h1>Executor - {track.artist}</h1>

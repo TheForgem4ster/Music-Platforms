@@ -7,11 +7,12 @@ export class AlbumController {
     constructor(private albumService:  AlbumService) { }
     @Post()
     create(@Body() dto: CreateAlbumDto) {
+
         return this.albumService.create(dto);
     }
     @Get()
     getAll() {
-        return 'Илья ты что клоун?';
+        return this.albumService.getAll()
     }
 
     getOne(){

@@ -12,9 +12,7 @@ import { useDispatch } from "react-redux";
 const Track = () => {
     const router = useRouter();
     const [query, setQuery] = useState<string>('');
-    const {tracks, error} = useTypedSelector(state => {
-        
-        return state.track})
+    const {tracks, error} = useTypedSelector(state => state.track)
     const [timer, setTimer] = useState(null);
     const dispatch = useDispatch() as NextThunkDispatch;
     const [domLoaded, setDomLoaded] = useState(false);
@@ -52,7 +50,7 @@ const Track = () => {
             <Card style={{width: 900}}>
                 <Box p={3}>
                     <Grid container justifyContent='space-between'>
-                        <h1>List Track</h1>
+                        <h1 style={{color: "black"}}>List Track</h1>
                         <Button onClick={()=> router.push('/tracks/create')}>Download</Button>
                     </Grid>
                 </Box>

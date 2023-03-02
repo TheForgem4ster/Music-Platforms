@@ -15,7 +15,7 @@ export class Album {
     author: string;
 
     @Prop()
-    time: Number;
+    time: Date;
 
     @Prop()
     likeCount: Number;

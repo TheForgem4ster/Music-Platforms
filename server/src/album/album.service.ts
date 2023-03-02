@@ -11,12 +11,13 @@ export class AlbumService {
     constructor(@InjectModel(Album.name) private albumModule: Model<AlbumDocument> ) { }
 
     async create(dto: CreateAlbumDto) : Promise<Album> {
-        const album = await this.albumModule.create({...dto, time: 0, likeCount: 0, dateCreate: Date().toLocaleString(), picture: ''})
+        const album = await this.albumModule.create({...dto, time: new Date().setHours(0), likeCount: 0, dateCreate: Date().toLocaleString(), picture: ''})
         return album;
     }
 
-    async getAll() {
-
+    async getAll() : Promise<Album[]> {
+        const album = await this.albumModule.find();
+        return album;
     }
 
     async getOne(){

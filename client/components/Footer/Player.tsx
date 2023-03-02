@@ -28,6 +28,7 @@ const Player = () => {
     useEffect(() => {
         if (audioHandler) {
             audio = audioHandler
+            if(currentTime<=0)
             play()
         }
     }, [audioHandler])
@@ -66,9 +67,10 @@ const Player = () => {
                 </IconButton>
                 <Grid container direction="column" style={{display: "block", width: 200, margin: '0 20px'}}>
                     <div>{active?.name}</div>
-                    <div style={{fontSize: 12, color: 'gray'}}>{active?.artist}</div>
+                    <div style={{fontSize: 12, color: 'black'}}>{active?.artist}</div>
                 </Grid>
-                <ButtonPlayerGroup play={play} pause={pause} />
+
+                <ButtonPlayerGroup play={play} pause={pause}/>
                 <Box style={{margin: 'auto'}}>
                     <TrackProgress left={currentTime} right={duration}
                                    leftIcon={leftIcon}
