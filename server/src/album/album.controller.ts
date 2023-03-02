@@ -7,7 +7,7 @@ import {TrackService} from "../track/track.service";
 @Controller('/album')
 export class AlbumController {
     constructor(private albumService:  AlbumService,
-                private trackService:  TrackService) { }
+               ) { }
     @Post()
     create(@Body() dto: CreateAlbumDto) {
         return this.albumService.create(dto);
@@ -27,10 +27,7 @@ export class AlbumController {
         return this.albumService.delete(id);
     }
 
-    @Put(":id")
-    updateTrackAlbum(@Param('id') id: ObjectId){
-
-        return this.albumService.updateTrackAlbum(id);
-    }
+   
+   
 }
 

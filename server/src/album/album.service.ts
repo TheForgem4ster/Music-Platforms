@@ -9,7 +9,7 @@ import { TrackDocument } from "src/track/schemas/track.schemas";
 export class AlbumService {
 
     constructor(@InjectModel(Album.name) private albumModule: Model<AlbumDocument>,
-                private trackModule: Model<TrackDocument>) { }
+               ) { }
 
     async create(dto: CreateAlbumDto) : Promise<Album> {
         const album = await this.albumModule.create({...dto, likeCount: 0, dateCreate: Date().toLocaleString(), picture: ''})
@@ -31,11 +31,6 @@ export class AlbumService {
         return album.id;
     }
 
-    async updateTrackAlbum(id: ObjectId) : Promise<ObjectId> {
-        const album = await this.albumModule.findById(id);
-        return album.id;
-        // const album = await this.albumModule.create({})
-        // return album;
-    }
+   
 
 }

@@ -9,10 +9,10 @@ import {TrackModule} from "../track/track.module";
 @Module({
     imports: [
         MongooseModule.forFeature([{name: Album.name, schema: AlbumSchema}]),
-        TrackModule
     ],
     controllers: [AlbumController],
     providers: [AlbumService],
+    exports: [AlbumService]
 })
 
 export class AlbumModule { }

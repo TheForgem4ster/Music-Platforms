@@ -19,7 +19,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         ServeStaticModule.forRoot({rootPath: path.resolve(__dirname, 'static')}),
         MongooseModule.forRoot(process.env.CONNECT),
         TrackModule,
-        FileModule,
         AlbumModule,
         UserModule,
         S3Module
