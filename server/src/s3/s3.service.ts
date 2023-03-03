@@ -37,9 +37,9 @@ export class S3Service {
     async uploadFile(file: Express.Multer.File, key: string) {
         const bucket = this.configService.get<string>('BUCKET');
         const fileExtension = file.originalname.split('.').pop();
-        
-          const  fileName = `media/${key}/${file.fieldname}/` + uuid.v4() + '.' + fileExtension;
-    
+
+        const fileName = `media/${key}/${file.fieldname}/` + uuid.v4() + '.' + fileExtension;
+
         const input: PutObjectCommandInput = {
             Body: file.buffer,
             Bucket: bucket,
@@ -61,26 +61,25 @@ export class S3Service {
             throw err;
         }
     }
-async deleteFile(_key:string){
-   
-    const parsedUrl = url.parse(_key);
-    console.log(parsedUrl)
-    const input: DeleteObjectCommandInput = {
-     Bucket: this.configService.get<string>('BUCKET'),
-     Key:'/media/tracks/picture/4dc00423-d77e-4d5c-a026-06484c039c72.png',
-     
+    async deleteFile(_key: string) {
+
+        const parsedUrl = url.parse(_key);
+        const input: DeleteObjectCommandInput = {
+            Bucket: this.configService.get<string>('BUCKET'),
+            Key: (parsedUrl.path).substring(1),
+
+        }
+
+        try {
+            const response: DeleteObjectCommandOutput = await this.s3.send(
+                new DeleteObjectCommand(input),
+            );
+           
+
+        } catch (err) {
+            this.logger.error('Cannot delete file to s3,', err);
+            throw err;
+        }
     }
-    
-    try {
-        const response: DeleteObjectCommandOutput = await this.s3.send(
-            new DeleteObjectCommand(input),
-        );
-        console.log("Success. Object deleted.", response);
-         
-    } catch (err) {
-        this.logger.error('Cannot delete file to s3,', err);
-        throw err;
-    }
-}
 }
 
