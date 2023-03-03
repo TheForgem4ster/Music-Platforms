@@ -23,8 +23,8 @@ export class TrackService {
 
     async create(dto: CreateTrackDto, picture, audio): Promise<Track> {
 
-        const audioPath = this.s3Service.uploadFile(audio, "NewAudio")
-        const picturePath = this.s3Service.uploadFile(picture, "NewPicture")
+        const audioPath = this.s3Service.uploadFile(audio, "tracks")
+        const picturePath = this.s3Service.uploadFile(picture, "tracks")
         const track = await this.trackModel.create({
             ...dto,
             listens: 0,

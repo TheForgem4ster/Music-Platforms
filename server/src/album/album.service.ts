@@ -14,7 +14,7 @@ export class AlbumService {
     }
 
     async create(dto: CreateAlbumDto, picture): Promise<Album> {
-        const picturePath = this.s3Service.uploadFile(picture, "NewAlbumPicture")
+        const picturePath = this.s3Service.uploadFile(picture, "albums")
         const album = await this.albumModule.create({
             ...dto,
             likeCount: 0,
