@@ -4,6 +4,7 @@ import {AlbumService} from "./album.service";
 import {MongooseModule} from "@nestjs/mongoose";
 import {Album, AlbumSchema} from "./schemas/album.schemas";
 import {TrackModule} from "../track/track.module";
+import {S3Service} from "../s3/s3.service";
 
 
 @Module({
@@ -11,7 +12,7 @@ import {TrackModule} from "../track/track.module";
         MongooseModule.forFeature([{name: Album.name, schema: AlbumSchema}]),
     ],
     controllers: [AlbumController],
-    providers: [AlbumService],
+    providers: [AlbumService, S3Service],
     exports: [AlbumService]
 })
 
