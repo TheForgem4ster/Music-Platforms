@@ -7,7 +7,7 @@ export class UserController {
     }
     @Get()
     getAll() {
-        return 'max ты что клоун?';
+        return '';
     }
 
     getOne(){

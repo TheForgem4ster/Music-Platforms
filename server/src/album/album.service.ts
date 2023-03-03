@@ -36,6 +36,7 @@ export class AlbumService {
 
     async delete(id: ObjectId): Promise<ObjectId> {
         const album = await this.albumModule.findByIdAndDelete(id);
+        
         return album.id;
     }
 

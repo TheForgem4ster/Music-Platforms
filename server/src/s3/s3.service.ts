@@ -4,9 +4,14 @@ import {
     PutObjectCommand,
     PutObjectCommandInput,
     PutObjectCommandOutput,
+    DeleteObjectCommandInput,
+    DeleteObjectCommandOutput,
+    DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import { ConfigService } from '@nestjs/config';
 import * as uuid from 'uuid'
+import * as url from 'url';
+
 
 @Injectable()
 export class S3Service {
@@ -56,5 +61,26 @@ export class S3Service {
             throw err;
         }
     }
-
+async deleteFile(_key:string){
+   
+    const parsedUrl = url.parse(_key);
+    console.log(parsedUrl)
+    const input: DeleteObjectCommandInput = {
+     Bucket: this.configService.get<string>('BUCKET'),
+     Key:'/media/tracks/picture/4dc00423-d77e-4d5c-a026-06484c039c72.png',
+     
+    }
+    
+    try {
+        const response: DeleteObjectCommandOutput = await this.s3.send(
+            new DeleteObjectCommand(input),
+        );
+        console.log("Success. Object deleted.", response);
+         
+    } catch (err) {
+        this.logger.error('Cannot delete file to s3,', err);
+        throw err;
+    }
 }
+}
+
