@@ -27,8 +27,7 @@ import { RolesModule } from './roles/roles.module';
         S3Module,
         RolesModule
     ],
-    providers: [RolesService],
-    controllers: [RolesController],
+    
 })
 export class AppModule {
 
