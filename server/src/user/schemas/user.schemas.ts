@@ -27,6 +27,10 @@ export class User {
     @ApiProperty({example: "{64008a0a28d36e560f2946cf, 64008a0a28d36e560f2946f5}", description: "array of albums"})
     @Prop()
     albums:  mongoose.ObjectId[];
+
+    @ApiProperty({example: "{64008a0a28d36e560f294234, 64008a0a28d36e560f294235}", description: "array of roles"})
+    @Prop()
+    roles: mongoose.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

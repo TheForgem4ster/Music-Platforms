@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from "mongoose";
 import { CreateTrackDto } from './dto/create-track.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { FileService, FileType } from 'src/file/file.service';
+import { FileService, FileType } from 'src/file delete later/file.service';
 import { S3Service } from 'src/s3/s3.service';
 import { Album, AlbumDocument } from 'src/album/schemas/album.schemas';
 import { AlbumService } from 'src/album/album.service';

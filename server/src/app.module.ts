@@ -1,13 +1,16 @@
 import { TrackModule } from './track/track.module';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { FileModule } from './file/file.module';
+import { FileModule } from './file delete later/file.module';
 import * as path from 'path';
 import {ServeStaticModule} from "@nestjs/serve-static";
 import {AlbumModule} from "./album/album.module.ts";
 import {UserModule} from "./user/user.module";
 import {S3Module} from "./s3/s3.module";
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { RolesService } from './roles/roles.service';
+import { RolesController } from './roles/roles.controller';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
     imports: [
@@ -21,9 +24,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         TrackModule,
         AlbumModule,
         UserModule,
-        S3Module
-        
+        S3Module,
+        RolesModule
     ],
+    providers: [RolesService],
+    controllers: [RolesController],
 })
 export class AppModule {
 
