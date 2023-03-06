@@ -1,7 +1,7 @@
 import {ObjectId} from "mongoose";
 
 export class CreateUserDto {
-    readonly name;
+    readonly username;
     readonly email;
     readonly password;
     readonly birthday;
