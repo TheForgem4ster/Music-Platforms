@@ -11,6 +11,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { RolesService } from './roles/roles.service';
 import { RolesController } from './roles/roles.controller';
 import { RolesModule } from './roles/roles.module';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -25,8 +28,11 @@ import { RolesModule } from './roles/roles.module';
         AlbumModule,
         UserModule,
         S3Module,
-        RolesModule
+        RolesModule,
+        AuthModule
     ],
+    controllers: [AuthController],
+    providers: [AuthService],
     
 })
 export class AppModule {

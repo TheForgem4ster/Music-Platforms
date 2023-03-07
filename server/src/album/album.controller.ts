@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, UploadedFiles, UseInterceptors } from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Post, Put, UploadedFiles, UseInterceptors} from "@nestjs/common";
 import mongoose, { ObjectId } from "mongoose";
 import { AlbumService } from "./album.service";
 import { CreateAlbumDto } from "./dto/create-album.dto";
@@ -10,6 +10,7 @@ import { Album } from "./schemas/album.schemas";
 export class AlbumController {
     constructor(private albumService: AlbumService,
     ) { }
+
     @ApiOperation({ summary: "Create Album" })
     @ApiResponse({ status: 200, type: Album })
     @Post()
@@ -21,18 +22,21 @@ export class AlbumController {
         const { picture } = files;
         return this.albumService.create(dto, picture[0]);
     }
+
     @ApiOperation({ summary: "Get all Albums" })
     @ApiResponse({ status: 200, type: [Album] })
     @Get()
     getAll() {
         return this.albumService.getAll()
     }
+
     @ApiOperation({ summary: "Get Album by ID" })
     @ApiResponse({ status: 200, type: Album })
     @Get(":id")
     getOne(@Param('id') id: ObjectId) {
         return this.albumService.getOne(id);
     }
+
     @ApiOperation({ summary: "Delete Album by ID" })
     @ApiResponse({ status: 200, type: mongoose.Types.ObjectId })
     @Delete(":id")
@@ -40,7 +44,12 @@ export class AlbumController {
         return this.albumService.delete(id);
     }
 
-
+    @ApiOperation({ summary: "Add a track to the album" })
+    @ApiResponse({ status: 200, type: Album })
+    @Put(':albumId/:trackId')
+    addToAlbum(@Param('trackId') trackId: ObjectId, @Param('albumId') albumId: ObjectId) {
+        return this.albumService.addTrack(trackId, albumId)
+    }
 
 }
 

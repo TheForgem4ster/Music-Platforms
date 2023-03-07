@@ -17,7 +17,6 @@ export class TrackService {
 
     constructor(@InjectModel(Track.name) private trackModel: Model<TrackDocument>,
         @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
-        @InjectModel(Album.name) private albumModel: Model<AlbumDocument>,
         private s3Service: S3Service,) {
     }
 
@@ -72,13 +71,5 @@ export class TrackService {
             name: { $regex: new RegExp(query, 'i') }
         })
         return tracks;
-    }
-    async addToAlbum(id: ObjectId, albumId: ObjectId): Promise<ObjectId> {
-        const album = await this.albumModel.findById(albumId)
-        if (!album.tracks.includes(id)) {
-            album.tracks.push(id)
-        }
-        album.save()
-        return album.id;
     }
 }

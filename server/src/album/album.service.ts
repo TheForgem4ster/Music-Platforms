@@ -36,9 +36,15 @@ export class AlbumService {
 
     async delete(id: ObjectId): Promise<ObjectId> {
         const album = await this.albumModule.findByIdAndDelete(id);
-        
         return album.id;
     }
 
-
+    async addTrack(trackId: ObjectId, albumId: ObjectId): Promise<Album>{
+        const album = await this.albumModule.findById(albumId);
+        if (!album.tracks.includes(trackId)) {
+            album.tracks.push(trackId)
+        }
+        album.save()
+        return album
+    }
 }

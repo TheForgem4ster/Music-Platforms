@@ -14,8 +14,6 @@ import { Album, AlbumSchema } from 'src/album/schemas/album.schemas';
     imports: [
         MongooseModule.forFeature([{name: Track.name, schema: TrackSchema}]),
         MongooseModule.forFeature([{name: Comment.name, schema: CommentSchema}]),
-        MongooseModule.forFeature([{name: Album.name, schema: AlbumSchema}]),
-        
     ],
     controllers: [TrackController],
     providers: [TrackService, S3Service],

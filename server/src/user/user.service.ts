@@ -6,16 +6,17 @@ import { UserModule } from "./user.module";
 import { CreateUserDto } from "./dto/create-user";
 import { RolesModule } from "src/roles/roles.module";
 import { Role } from "src/roles/schemas/roles.schemas";
+import {RolesService} from "../roles/roles.service";
 
 
 @Injectable()
 export class UserService {
 
     constructor(@InjectModel(User.name) private userModel: Model<UserModule>,
-        @InjectModel(Role.name) private rolesModel: Model<RolesModule>) { }
+                private roleService: RolesService) { }
 
     async createUser(dto: CreateUserDto) {
-        const role = await this.rolesModel.findOne({ "value": dto.rolesvalue });
+        const role = await this.roleService.getRoleByValue(dto.rolesvalue);;
         const user = await this.userModel.create({ ...dto, roles: role.id });
         return user;
     }
