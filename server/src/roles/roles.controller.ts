@@ -17,8 +17,8 @@ export class RolesController {
     }
     @ApiOperation({ summary: "Get role by ID" })
     @ApiResponse({ status: 200, type: mongoose.Schema.Types.ObjectId })
-    @Get('/:id')
-    getById(@Param('id') id: ObjectId) {
-        return this.roleService.getRoleById(id);
+    @Get('/:value')
+    getByValue(@Param('value') value: string) {
+        return this.roleService.getRoleByValue(value);
     }
 }

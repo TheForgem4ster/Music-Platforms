@@ -16,5 +16,5 @@ export class CreateUserDto {
     readonly birthday: Date;
 
     @ApiProperty({example: "admin", description: "User roleId"})
-    readonly rolesId: ObjectId;
+    readonly rolesvalue:string;
 }

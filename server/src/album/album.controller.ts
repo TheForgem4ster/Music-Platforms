@@ -34,7 +34,7 @@ export class AlbumController {
         return this.albumService.getOne(id);
     }
     @ApiOperation({ summary: "Delete Album by ID" })
-    @ApiResponse({ status: 200, type: mongoose.Schema.Types.ObjectId })
+    @ApiResponse({ status: 200, type: mongoose.Types.ObjectId })
     @Delete(":id")
     delete(@Param('id') id: ObjectId) {
         return this.albumService.delete(id);

@@ -13,8 +13,8 @@ export class RolesService {
         const role = await this.roleModel.create(dto);
         return role;
     }
-    async getRoleById(id: ObjectId) {
-        const role = await this.roleModel.findById(id);
+    async getRoleByValue(value: string) {
+        const role = await this.roleModel.findOne( {"value":value} );
         return role;
     }
 }
