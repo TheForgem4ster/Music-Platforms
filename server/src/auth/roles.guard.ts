@@ -6,17 +6,17 @@ import {
     Injectable,
     UnauthorizedException
 } from "@nestjs/common";
-import {Observable} from "rxjs";
-import {JwtService} from "@nestjs/jwt";
-import {ROLES_KEY} from "./roles-auth.decorator";
-import {Reflector} from "@nestjs/core";
-import {RolesService} from "../roles/roles.service";
+import { Observable } from "rxjs";
+import { JwtService } from "@nestjs/jwt";
+import { ROLES_KEY } from "./roles-auth.decorator";
+import { Reflector } from "@nestjs/core";
+import { RolesService } from "../roles/roles.service";
 
 @Injectable()
 export class RolesGuard implements CanActivate {
     constructor(private jwtService: JwtService,
-                private reflector: Reflector,
-                private roleService: RolesService) {
+        private reflector: Reflector,
+        private roleService: RolesService) {
     }
 
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
@@ -36,7 +36,7 @@ export class RolesGuard implements CanActivate {
 
             if (bearer !== 'Bearer' || !token) {
 
-                throw new UnauthorizedException({message: 'User not registered'})
+                throw new UnauthorizedException({ message: 'User not registered' })
             }
 
             const user = this.jwtService.verify(token);

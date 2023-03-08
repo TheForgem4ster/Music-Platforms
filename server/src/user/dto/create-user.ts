@@ -15,6 +15,6 @@ export class CreateUserDto {
     @ApiProperty({example: "2002-03-21", description: "User birthday"})
     readonly birthday: Date;
 
-    @ApiProperty({example: "admin", description: "User roleId"})
+    @ApiProperty({example: "Admin", description: "User roleId"})
     rolesvalue: string;
 }
