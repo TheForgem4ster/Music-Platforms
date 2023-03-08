@@ -6,15 +6,17 @@ import {
     Injectable,
     UnauthorizedException
 } from "@nestjs/common";
-import { Observable } from "rxjs";
+import {Observable} from "rxjs";
 import {JwtService} from "@nestjs/jwt";
 import {ROLES_KEY} from "./roles-auth.decorator";
 import {Reflector} from "@nestjs/core";
+import {RolesService} from "../roles/roles.service";
 
 @Injectable()
-export class RolesGuard implements CanActivate{
+export class RolesGuard implements CanActivate {
     constructor(private jwtService: JwtService,
-                private reflector: Reflector) {
+                private reflector: Reflector,
+                private roleService: RolesService) {
     }
 
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
@@ -38,11 +40,8 @@ export class RolesGuard implements CanActivate{
             }
 
             const user = this.jwtService.verify(token);
-            console.log("user" + this.jwtService.verify(token))
             req.user = user;
-            let a = user.roles.some(role => requiredRoles.includes(role.value));
-            console.log("a ", a)
-            return user.roles.some(role => requiredRoles.includes(role.value));
+            return user.roles.some(role => requiredRoles.includes(role));
 
         } catch (e) {
             throw new HttpException('Access denied', HttpStatus.FORBIDDEN)
