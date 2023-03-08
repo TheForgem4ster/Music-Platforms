@@ -1,6 +1,6 @@
 import {Body, Controller, Get, Post, UseGuards} from "@nestjs/common";
 import {UserService} from "./user.service";
-import {CreateUserDto} from "./dto/create-user";
+import {CreateUserDto} from "./dto/create-user.dto";
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {User} from "./schemas/user.schemas";
 import {RolesGuard} from "../auth/roles.guard";
@@ -34,7 +34,7 @@ export class UserController {
     @Roles('Admin')
     @UseGuards(RolesGuard)
     @Post('/role')
-    addRole(dto: AddRoleDto) {
+    addRole(@Body() dto: AddRoleDto) {
         return this.userService.addRole(dto);
     }
 
