@@ -1,18 +1,19 @@
-import { Injectable } from "@nestjs/common";
+import {HttpException, HttpStatus, Injectable} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { User } from "./schemas/user.schemas";
+import {User, UserDocument} from "./schemas/user.schemas";
 import { Model } from "mongoose";
 import { UserModule } from "./user.module";
 import { CreateUserDto } from "./dto/create-user";
 import { RolesModule } from "src/roles/roles.module";
 import { Role } from "src/roles/schemas/roles.schemas";
 import {RolesService} from "../roles/roles.service";
+import {AddRoleDto} from "./dto/add-role.dto";
 
 
 @Injectable()
 export class UserService {
 
-    constructor(@InjectModel(User.name) private userModel: Model<UserModule>,
+    constructor(@InjectModel(User.name) private userModel: Model<UserDocument>,
                 private roleService: RolesService) { }
 
     async createUser(dto: CreateUserDto) {
@@ -33,8 +34,14 @@ export class UserService {
         return user;
     }
 
-    async delete() {
-
+    async addRole(dto: AddRoleDto): Promise<User> {
+        const user = await this.userModel.findById(dto.userId);
+        const role = await this.roleService.getRoleByValue(dto.value);
+        if(user && role){
+            await user.roles.push();
+            user.save();
+            return user;
+        }
+        throw new HttpException("User and Role undefined", HttpStatus.NOT_FOUND);
     }
-
 }

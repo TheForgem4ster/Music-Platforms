@@ -3,9 +3,9 @@ import {UserService} from "./user.service";
 import {CreateUserDto} from "./dto/create-user";
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {User} from "./schemas/user.schemas";
-import {JwtAuthGuart} from "../auth/jwt-auth.guart";
 import {RolesGuard} from "../auth/roles.guard";
 import { Roles } from "src/auth/roles-auth.decorator";
+import {AddRoleDto} from "./dto/add-role.dto";
 
 @ApiTags("Users")
 @Controller('/user')
@@ -27,6 +27,15 @@ export class UserController {
     @Get()
     getAll() {
         return this.userService.getAllUsers();
+    }
+
+    @ApiOperation({summary: "Issue a role"})
+    @ApiResponse({status: 200})
+    @Roles('Admin')
+    @UseGuards(RolesGuard)
+    @Post('/role')
+    addRole(dto: AddRoleDto) {
+        return this.userService.addRole(dto);
     }
 
     getOne(){
