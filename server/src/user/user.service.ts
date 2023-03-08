@@ -16,7 +16,10 @@ export class UserService {
                 private roleService: RolesService) { }
 
     async createUser(dto: CreateUserDto) {
-        const role = await this.roleService.getRoleByValue(dto.rolesvalue);;
+        if(!dto.rolesvalue) {
+            dto.rolesvalue = "User";
+        }
+        const role = await this.roleService.getRoleByValue(dto.rolesvalue);
         const user = await this.userModel.create({ ...dto, roles: role.id });
         return user;
     }
@@ -26,8 +29,9 @@ export class UserService {
         return users;
     }
 
-    async getOne() {
-
+    async getUserByEmail(email: string) {
+        const user = await this.userModel.findOne({"email" : email});
+        return user;
     }
 
     async delete() {

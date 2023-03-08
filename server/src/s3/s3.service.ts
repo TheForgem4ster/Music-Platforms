@@ -30,7 +30,6 @@ export class S3Service {
                 accessKeyId,
                 secretAccessKey
             }
-
         });
     }
 
