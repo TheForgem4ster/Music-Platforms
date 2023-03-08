@@ -17,7 +17,7 @@ export class UserService {
 
     async createUser(dto: CreateUserDto) {
         if(!dto.rolesvalue) {
-            dto.rolesvalue = "User";
+            dto.rolesvalue = "Admin";
         }
         const role = await this.roleService.getRoleByValue(dto.rolesvalue);
         const user = await this.userModel.create({ ...dto, roles: role.id });
