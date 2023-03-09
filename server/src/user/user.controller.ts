@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, UseGuards, UsePipes} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Post, UseGuards, UsePipes} from "@nestjs/common";
 import {UserService} from "./user.service";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
@@ -7,6 +7,7 @@ import {RolesGuard} from "../auth/roles.guard";
 import { Roles } from "src/auth/roles-auth.decorator";
 import {AddRoleDto} from "./dto/add-role.dto";
 import { ValidationPipe } from "src/pipes/validation.pipe";
+import mongoose, { ObjectId } from "mongoose";
 
 @ApiTags("Users")
 @Controller('/user')
@@ -39,11 +40,17 @@ export class UserController {
         return this.userService.addRole(dto);
     }
 
-    getOne(){
-
+    @ApiOperation({ summary: "Get user by ID" })
+    @ApiResponse({ status: 200, type: User })
+    @Get(':id')
+    getOne(@Param('id') id: ObjectId) {
+        return this.userService.getOne(id);
     }
 
-    delete() {
-
+    @ApiOperation({ summary: "Delete user by ID" })
+    @ApiResponse({ status: 200, type: mongoose.Schema.Types.ObjectId })
+    @Delete(':id')
+    delete(@Param('id') id: ObjectId) {
+        return this.userService.delete(id);
     }
 }
