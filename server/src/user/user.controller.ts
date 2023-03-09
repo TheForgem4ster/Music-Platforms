@@ -17,6 +17,7 @@ export class UserController {
 
     @ApiOperation({summary: "Create user"})
     @ApiResponse({status: 200, type: User})
+    @UsePipes(ValidationPipe)
     @Post()
     create(@Body() userDto: CreateUserDto) {
         return this.userService.createUser(userDto)
@@ -35,6 +36,7 @@ export class UserController {
     @ApiResponse({status: 200})
     @Roles('Admin')
     @UseGuards(RolesGuard)
+    @UsePipes(ValidationPipe)
     @Post('/role')
     addRole(@Body() dto: AddRoleDto) {
         return this.userService.addRole(dto);
@@ -42,6 +44,8 @@ export class UserController {
 
     @ApiOperation({ summary: "Get user by ID" })
     @ApiResponse({ status: 200, type: User })
+    @Roles('Admin')
+    @UseGuards(RolesGuard)
     @Get(':id')
     getOne(@Param('id') id: ObjectId) {
         return this.userService.getOne(id);
@@ -49,6 +53,8 @@ export class UserController {
 
     @ApiOperation({ summary: "Delete user by ID" })
     @ApiResponse({ status: 200, type: mongoose.Schema.Types.ObjectId })
+    @Roles('Admin')
+    @UseGuards(RolesGuard)
     @Delete(':id')
     delete(@Param('id') id: ObjectId) {
         return this.userService.delete(id);
