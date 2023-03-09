@@ -14,7 +14,7 @@ export class CreateUserDto {
 
     @ApiProperty({example: "123456", description: "User password"})
     @IsString({message: "Password should be a string"})
-    @Length(4,20, {message: "Password at least 4 more than 20"})
+    @Length(4,20, {message: "Password must be at least 4 and no more than 20 characters"})
     readonly password: string;
 
     @ApiProperty({example: "2002-03-21", description: "User birthday"})
