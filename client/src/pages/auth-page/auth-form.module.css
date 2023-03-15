@@ -1,0 +1,30 @@
+.authForm {
+    width: 50vw;
+    height: 100vh;
+    background: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.authFormSubtitle {
+    color: rgb(180, 184, 193);
+}
+
+.authFormWithForm {
+    max-width: 360px;
+}
+
+.auth-form__keep-logged-in {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.authFormFooter {
+    margin-top: 8px;
+}

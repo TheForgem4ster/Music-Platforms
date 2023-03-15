@@ -1,0 +1,5 @@
+.auth-page {
+    height: 100vh;
+    background: no-repeat url(./../../../assets/img/IconLogin.jpg);
+    background-size: cover;
+}

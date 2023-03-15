@@ -17,6 +17,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import LeftPanel from "./LeftPanel";
+import Link from 'next/link';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -103,7 +104,7 @@ export default function Header() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose} >Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose} >My account</MenuItem>
+            <MenuItem onClick={handleMenuClose} ><Link style={{textDecoration: 'none',color: '#fff'}} href="/auth-page">My account</Link></MenuItem>
         </Menu>
     );
 

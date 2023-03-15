@@ -3,9 +3,17 @@ import Navbar from "components/Navbar/Navbar";
 import Player from "components/Footer/Player";
 import Head from "next/head";
 import React from "react";
-import Header from "../components/Header/Header";
 import style from "./MainLayouts.module.css";
-import MusicPlayer from "../components/Footer/MusicPlayer";
+import {createTheme, ThemeProvider } from "@mui/material";
+
+const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+        primary: {
+            main: '#1976d2',
+        },
+    },
+});
 
 interface MainLayoutProps {
     children?: React.ReactNode
@@ -13,8 +21,10 @@ interface MainLayoutProps {
     description?: string;
     keywords?: string;
 }
+
 const MainLayouts : React.FC<MainLayoutProps> = ({children, title, description,  keywords}) => (
     <div className={style.pageContainer}>
+        <ThemeProvider theme={darkTheme}>
         <Head>
             <title>{title || "Music platform"}</title>
             <meta name="description" content={"music platform for all. Now all maybe track and become famous" + description}/>
@@ -28,7 +38,7 @@ const MainLayouts : React.FC<MainLayoutProps> = ({children, title, description, 
         </Container>
         
         <Player/>
-
+        </ThemeProvider>
     </div>
 )
 
