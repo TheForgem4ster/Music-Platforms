@@ -33,7 +33,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false}) => {
     }, [active])
 
     const setAudio = () => {
-        audio.src = active.audio;
+        audio.src =process.env.API_URL+ active.audio;
         audio.volume = volume / 100
         SetCurrentAudio(audio);
     }
@@ -94,7 +94,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false}) => {
                             : <PlayArrow/>
                     }
                 </IconButton>
-                <img width={70} height={70} src={track.picture}/>
+                <img width={70} height={70} src={process.env.API_URL+track.picture}/>
                 <Grid container direction="column" style={{width: 200, margin: '0 20px'}}>
                     <div>{track.name}</div>
                     <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>
