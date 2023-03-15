@@ -3,6 +3,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import * as uuid from 'uuid'
 import {S3Service} from "../s3/s3.service";
+import { unlink } from "fs";
 
 export enum FileType{
     AUDIO = 'audio',
@@ -26,8 +27,15 @@ export class FileService{
             throw new HttpException(e.message,HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
-    removeFile(fileName:string){
-
+    removeFile(filePath:string){
+        unlink("dist/static/"+filePath, (err) => {
+            if (err) {
+              console.error(err);
+              return;
+            }
+          
+            console.log(`${filePath} was deleted`);
+          });
     }
 
 

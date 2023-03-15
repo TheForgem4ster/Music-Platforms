@@ -18,7 +18,10 @@ interface ISignInForm {
 
 export const AuthForm: React.FC = () => {
     const [selectedDate, setSelectedDate] = React.useState(new Date(""));
-
+   
+    // const handleDateChange = (date) => {
+    //     selectedDate(date)
+    // }
 
     const { handleSubmit, control } = useForm<ISignInForm>({
         mode: "onChange"

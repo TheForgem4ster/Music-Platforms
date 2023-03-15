@@ -47,8 +47,8 @@ export class TrackService {
 
     async delete(id: ObjectId ): Promise<ObjectId> {
         const track = await this.trackModel.findByIdAndDelete(id);
-        await this.s3Service.deleteFile(track.audio)
-        await this.s3Service.deleteFile(track.picture)
+        await this.fileService.removeFile(track.audio)
+        await this.fileService.removeFile(track.picture)
         return track.id;
     }
 
