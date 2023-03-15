@@ -3,17 +3,23 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useForm, SubmitHandler, Controller, useFormState } from "react-hook-form";
-import styles from './auth-form.module.css';
+import styles from './../auth-page/auth-form.module.css';
 import { loginValidation, passwordValidation } from './validation';
-import "./../../../assets/img/IconLogin.jpg";
-import Link from "next/link";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 interface ISignInForm {
+    username: string;
     email: string;
     password: string;
+    birthday: Date;
 }
 
 export const AuthForm: React.FC = () => {
+    const [selectedDate, setSelectedDate] = React.useState(new Date(""));
+
+
     const { handleSubmit, control } = useForm<ISignInForm>({
         mode: "onChange"
     });
@@ -24,9 +30,28 @@ export const AuthForm: React.FC = () => {
     return (
         <div className={styles.authForm}>
             <Typography variant="h4" component="div">
-                Login
+                Registration
             </Typography>
             <form className={styles.authFormWithForm} onSubmit={handleSubmit(onSubmit)}>
+
+                <Controller
+                    control={control}
+                    name="username"
+                    // rules={loginValidation}
+                    render={({ field }) => (
+                        <TextField
+                            label="User name"
+                            onChange={(e) => field.onChange(e)}
+                            value={field.value}
+                            fullWidth={ true }
+                            size="small"
+                            margin="normal"
+                            className={styles.authFormInput}
+                            error={!!errors.email?.message}
+                            helperText={ errors?.email?.message }
+                        />
+                    )}
+                />
                 <Controller
                     control={control}
                     name="email"
@@ -64,6 +89,16 @@ export const AuthForm: React.FC = () => {
                         />
                     )}
                 />
+                <Controller
+                    control={control}
+                    name="birthday"
+                    // rules={loginValidation}
+                    render={({ field }) => (
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker />
+                        </LocalizationProvider>
+                    )}
+                />
                 <Button
                     type="submit"
                     variant="contained"
@@ -76,15 +111,6 @@ export const AuthForm: React.FC = () => {
                     Submit
                 </Button>
             </form>
-
-            <div className={styles.authFormFooter}>
-                <Typography variant="subtitle1" component="span">
-                    Don't have an account?{" "}
-                </Typography>
-                <Typography variant="subtitle1" component="span" sx={{ color: 'blue'}}>
-                    <Link href={"/registration"} >Register</Link>
-                </Typography>
-            </div>
         </div>
     );
 }

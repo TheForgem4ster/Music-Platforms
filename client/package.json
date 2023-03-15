@@ -13,12 +13,15 @@
     "@emotion/styled": "^11.10.5",
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.11.0",
-    "@mui/material": "^5.11.8",
+    "@mui/material": "^5.11.13",
+    "@mui/styled-engine-sc": "^5.11.11",
+    "@mui/x-date-pickers": "^6.0.1",
     "@next/font": "13.1.6",
     "@redux-devtools/extension": "^3.2.5",
     "@types/react-dom": "18.0.10",
     "@types/react-redux": "^7.1.25",
     "axios": "^1.3.2",
+    "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
@@ -30,7 +33,8 @@
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
-    "sass": "^1.58.0"
+    "sass": "^1.58.0",
+    "styled-components": "^5.3.9"
   },
   "devDependencies": {
     "@types/node": "^18.13.0",

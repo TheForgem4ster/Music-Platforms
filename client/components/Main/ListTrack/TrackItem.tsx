@@ -3,7 +3,7 @@ import {ITrack} from "../../../types/track";
 import styles from '../../../styles/TrackItem.module.scss'
 import {useRouter} from "next/router";
 import {useActions} from "../../../hooks/useActions";
-import {Card, Grid, IconButton} from '@mui/material';
+import {Avatar, Card, Grid, IconButton} from '@mui/material';
 import {Delete, Pause, PlayArrow, VolumeUp} from '@mui/icons-material';
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useDispatch} from 'react-redux';
@@ -87,11 +87,11 @@ const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false}) => {
         <>{domLoaded && (
             <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)}>
 
-                <IconButton onClick={newPages}>
+                <IconButton onClick={newPages} size={'small'} disableRipple={true} >
                     {
                         ((track._id === id) && !pause)
-                            ? <Pause/>
-                            : <PlayArrow/>
+                            ? <Avatar sx={{ bgcolor:'#4048c4', width: 40, height: 40 }}><Pause color="action"/></Avatar>
+                            : <Avatar sx={{ bgcolor:'transparent', width: 40, height: 40 }}><PlayArrow color="action"/></Avatar>
                     }
                 </IconButton>
                 <img width={70} height={70} src={process.env.API_URL+track.picture}/>
