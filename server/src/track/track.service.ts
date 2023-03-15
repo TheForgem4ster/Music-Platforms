@@ -16,19 +16,19 @@ import { AlbumService } from 'src/album/album.service';
 export class TrackService {
 
     constructor(@InjectModel(Track.name) private trackModel: Model<TrackDocument>,
-        @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
-        private s3Service: S3Service,) {
+                @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
+                private s3Service: S3Service,private fileService: FileService,) {
     }
 
     async create(dto: CreateTrackDto, picture, audio): Promise<Track> {
 
-        const audioPath = this.s3Service.uploadFile(audio, "tracks")
-        const picturePath = this.s3Service.uploadFile(picture, "tracks")
+        const audioPath = this.fileService.createFile(FileType.AUDIO,audio)//s3Service.uploadFile(audio, "tracks")
+        const picturePath = this.fileService.createFile(FileType.IMAGE,picture)
         const track = await this.trackModel.create({
             ...dto,
             listens: 0,
-            audio: (await audioPath).toString(),
-            picture: (await picturePath).toString()
+            audio: audioPath,
+            picture: picturePath,
         });
 
         return track;
