@@ -12,12 +12,12 @@ import {deleteTracks} from "../../../store/action-creators/track";
 
 interface TrackItemProps {
     track: ITrack;
-    activePlay?: boolean;
+    
 }
 
 let audio;
 
-const TrackItem: React.FC<TrackItemProps> = ({track, activePlay = false}) => {
+const TrackItem: React.FC<TrackItemProps> = ({track}) => {
     const router = useRouter()
 
     const {playTrack, pauseTrack, setActiveTrack, SetCurrentAudio} = useActions()

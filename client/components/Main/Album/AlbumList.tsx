@@ -6,7 +6,7 @@ import {IAlbum} from "../../../types/album";
 
 interface AlbumListProps {
     albums: IAlbum[],
-    trackId: string[],
+   
 
 }
 
@@ -28,12 +28,12 @@ const AlbumList: React.FC<AlbumListProps> = ({albums}) => {
             </div>
             <Grid container direction="column">
                 <Box p={2}>
-                    {albums.map(album => {
+                    {albums.map(album => 
                         <AlbumCard
                             key={album._id}
-                            tracksId={album.track}
+                            tracksId={album}
                         />
-                    })}
+                    )}
                 </Box>
             </Grid>
         </div>

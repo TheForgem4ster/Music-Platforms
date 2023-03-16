@@ -24,7 +24,7 @@ export const searchTracks = (query: string) => {
         } catch (e) {
             dispatch({
                 type: TrackActionTypes.FETCH_TRACKS_ERROR,
-                payload: 'Произошла ошибка при загрузке треков'})
+                payload: 'An error occurred while loading tracks'})
         }
     }
 }
@@ -37,7 +37,7 @@ export const deleteTracks = (id: string) => {
         } catch (e) {
             dispatch({
                 type: TrackActionTypes.FETCH_TRACKS_ERROR,
-                payload: 'Произошла ошибка при удалении трека'})
+                payload: 'An error occurred while deleting track'})
         }
     }
 }
