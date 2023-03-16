@@ -3,24 +3,26 @@ import {InjectModel} from "@nestjs/mongoose";
 import {Album, AlbumDocument} from "./schemas/album.schemas";
 import {Model, ObjectId} from "mongoose";
 import {CreateAlbumDto} from "./dto/create-album.dto";
-import {TrackDocument} from "src/track/schemas/track.schemas";
+import {Track, TrackDocument} from "src/track/schemas/track.schemas";
 import {S3Service} from "../s3/s3.service";
+import {FileService, FileType} from "../file delete later/file.service";
 
 @Injectable()
 export class AlbumService {
 
     constructor(@InjectModel(Album.name) private albumModule: Model<AlbumDocument>,
-                private s3Service: S3Service) {
+                private s3Service: S3Service,  private fileService: FileService) {
     }
 
     async create(dto: CreateAlbumDto, picture): Promise<Album> {
-        const picturePath = this.s3Service.uploadFile(picture, "albums")
+        const picturePath = this.fileService.createFile(FileType.IMAGE, picture)
         const album = await this.albumModule.create({
             ...dto,
             likeCount: 0,
             dateCreate: Date().toLocaleString(),
-            picture: (await picturePath).toString()
+            picture: picturePath,
         })
+        console.log(album)
         return album;
     }
 
@@ -46,5 +48,13 @@ export class AlbumService {
         }
         album.save()
         return album
+    }
+
+    async search(query: string, query1: string): Promise<Album[]> {
+        const regex = new RegExp(`${query}|${query1}`, 'i');
+        const albums = await this.albumModule.find({
+            name: { $regex: regex }
+        })
+        return albums;
     }
 }

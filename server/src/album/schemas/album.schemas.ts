@@ -12,9 +12,9 @@ export class Album {
     @Prop()
     name: string;
 
-    @ApiProperty({ example: "Maksym", description: "Author name" })
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-    authorId: User;
+    @ApiProperty({ example: "Maksym", description: "AuthorId name" })
+    @Prop()
+    authorId: mongoose.ObjectId[];
 
     @ApiProperty({ example: "1000", description: "Quantity of likes" })
     @Prop()

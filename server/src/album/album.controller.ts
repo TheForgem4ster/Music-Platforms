@@ -1,10 +1,11 @@
-import {Body, Controller, Delete, Get, Param, Post, Put, UploadedFiles, UseInterceptors} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFiles, UseInterceptors} from "@nestjs/common";
 import mongoose, { ObjectId } from "mongoose";
 import { AlbumService } from "./album.service";
 import { CreateAlbumDto } from "./dto/create-album.dto";
 import { FileFieldsInterceptor } from "@nestjs/platform-express";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { Album } from "./schemas/album.schemas";
+import {Track} from "../track/schemas/track.schemas";
 @ApiTags("Album")
 @Controller('/album')
 export class AlbumController {
@@ -28,6 +29,13 @@ export class AlbumController {
     @Get()
     getAll() {
         return this.albumService.getAll()
+    }
+
+    @ApiOperation({ summary: "Search albums" })
+    @ApiResponse({ status: 200, type: [Album] })
+    @Get('/search')
+    search(@Query('query') query: string, @Query('query1') query1: string ) {
+        return this.albumService.search(query, query1)
     }
 
     @ApiOperation({ summary: "Get Album by ID" })
