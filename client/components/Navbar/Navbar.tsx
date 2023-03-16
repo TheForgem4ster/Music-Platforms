@@ -12,19 +12,24 @@ import ListItemText from '@mui/material/ListItemText';
 import {useRouter} from 'next/router';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import HomeIcon from '@mui/icons-material/Home';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAddCircle';
+import AlbumIcon from '@mui/icons-material/Album';
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import SearchIcon from '@mui/icons-material/Search';
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
-import style from "./Navbar.module.css";
+import style from "../../styles/Navbar.module.css";
 import Header from 'components/Header/Header';
+
 
 const drawerWidth = 240;
 const playerHeight = 60;
 
 const menuItem = [
-    {text: 'Music', href: ''},
+    {text: 'Music', href: '/'},
     {text: 'Head Page', href: '/'},
     {text: 'List track', href: '/tracks'},
     {text: 'List album', href: '/albums'},
+    {text: 'My album', href: '/albums'},
 ];
 
 interface AppBarProps extends MuiAppBarProps {
@@ -71,9 +76,11 @@ export default function Navbar() {
             case '1':
                 return <HomeIcon className={style.icon}/>
             case '2':
-                return <SearchIcon className={style.icon}/>
+                return <LibraryMusicIcon className={style.icon}/>
             case '3':
-                return <PlaylistPlayIcon className={style.icon}/>
+                return <AlbumIcon className={style.icon}/>
+            case '4':
+                return <PlaylistAddIcon className={style.icon}/>
         }
     }
 

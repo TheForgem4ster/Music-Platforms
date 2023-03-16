@@ -62,9 +62,10 @@ const Player = () => {
 
     return (
         <div className={styles.player}>
-                <IconButton >
-                    <img src={"https://cdn-icons-png.flaticon.com/512/73/73511.png"} style={{height: 30}}/>
-                </IconButton>
+                <img src={active?.picture !== undefined ? process.env.API_URL + active?.picture :
+                    'https://img.freepik.com/free-photo/curvy-creative-abstract-wavy-effects-color-curves-flow-minimalist-luxury-stylish-trendy-colorful-wav_1258-150872.jpg'}
+                     style={{height: 35}}/>
+
                 <Grid container direction="column" style={{display: "block", width: 200, margin: '0 20px'}}>
                     <div>{active?.name}</div>
                     <div style={{fontSize: 12, color: 'black'}}>{active?.artist}</div>

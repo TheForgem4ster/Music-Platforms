@@ -3,7 +3,7 @@ import Navbar from "components/Navbar/Navbar";
 import Player from "components/Footer/Player";
 import Head from "next/head";
 import React from "react";
-import style from "./MainLayouts.module.css";
+import style from "../styles/MainLayouts.module.css";
 import {createTheme, ThemeProvider } from "@mui/material";
 
 const darkTheme = createTheme({
@@ -12,6 +12,14 @@ const darkTheme = createTheme({
         primary: {
             main: '#1976d2',
         },
+        background: {
+            paper: '#080a10',
+            default: '#0a0d11'
+        },
+        text: {
+            primary: '#fff',
+            secondary: '#fff'
+        }
     },
 });
 
