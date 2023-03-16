@@ -34,8 +34,8 @@ export class AlbumController {
     @ApiOperation({ summary: "Search albums" })
     @ApiResponse({ status: 200, type: [Album] })
     @Get('/search')
-    search(@Query('query') query: string, @Query('query1') query1: string ) {
-        return this.albumService.search(query, query1)
+    search(@Query('name') name: string, @Query('authorId') authorId: string ) {
+        return this.albumService.search(name, authorId)
     }
 
     @ApiOperation({ summary: "Get Album by ID" })

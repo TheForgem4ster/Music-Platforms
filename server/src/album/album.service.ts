@@ -50,10 +50,11 @@ export class AlbumService {
         return album
     }
 
-    async search(query: string, query1: string): Promise<Album[]> {
-        const regex = new RegExp(`${query}|${query1}`, 'i');
+    async search(name: string, authorId: string): Promise<Album[]> {
+
         const albums = await this.albumModule.find({
-            name: { $regex: regex }
+            name: { $regex: new RegExp(name, 'i') },
+            authorId: { $regex: new RegExp(authorId, 'i')}
         })
         return albums;
     }
