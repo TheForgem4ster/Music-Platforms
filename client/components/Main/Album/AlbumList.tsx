@@ -30,8 +30,8 @@ const AlbumList: React.FC<AlbumListProps> = ({albums}) => {
                     {genres.map(genre => <option key={genre.value} value={genre.value}>{genre.title}</option>)}
                 </select>
             </div>
-            <Grid container direction="column">
-                <Box p={2}>
+            <Grid container direction="row">
+
                     <>{domLoaded && (<>
                             {albums.map(album =>
                                 <MusicPlayerSlider/>
@@ -42,7 +42,7 @@ const AlbumList: React.FC<AlbumListProps> = ({albums}) => {
                                 // />
                             )}
                         </>)}</>
-                </Box>
+              
             </Grid>
         </div>
     )

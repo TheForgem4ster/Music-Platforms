@@ -62,11 +62,10 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
         }
     }
     const dispatch = useDispatch() as NextThunkDispatch;
-    const [domLoaded, setDomLoaded] = useState(true);
 
     const onDeleteTrack = async () => {
         dispatch(deleteTracks(track._id));
-        setDomLoaded(false);
+
     }
     const newPages = (e) => {
         e.stopPropagation()
@@ -84,7 +83,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
     const rightIcon = formatTime(duration)
 
     return (
-        <>{domLoaded && (
+
             <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)}>
 
                 <IconButton onClick={newPages} size={'small'} disableRipple={true} >
@@ -105,8 +104,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
                     <Delete onClick={onDeleteTrack}/>
                 </IconButton>
             </Card>
-        )}
-        </>
+
     );
 };
 
