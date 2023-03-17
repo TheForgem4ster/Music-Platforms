@@ -25,11 +25,11 @@ const drawerWidth = 240;
 const playerHeight = 60;
 
 const menuItem = [
-    {text: 'Music', href: '/'},
+    {text: 'Music', href: ''},
     {text: 'Head Page', href: '/'},
     {text: 'List track', href: '/tracks'},
-    {text: 'List album', href: '/albums'},
-    {text: 'My album', href: '/albums'},
+    {text: 'List album', href: '/album'},
+    {text: 'My album', href: '/Myalbum'},
 ];
 
 interface AppBarProps extends MuiAppBarProps {

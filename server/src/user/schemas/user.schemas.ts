@@ -24,7 +24,7 @@ export class User {
     @Prop()
     birthday: Date;
 
-    @ApiProperty({example: "{64008a0a28d36e560f2946cf, 64008a0a28d36e560f2946f5}", description: "array of albums"})
+    @ApiProperty({example: "{64008a0a28d36e560f2946cf, 64008a0a28d36e560f2946f5}", description: "array of album"})
     @Prop()
     albums:  mongoose.ObjectId[];
 

@@ -12,7 +12,7 @@ export const fetchAlbum = () => {
         } catch(e) {
             dispatch({
                 type: AlbumActionType.FETCH_ALBUM_ERROR,
-                payload: 'An error occurred while loading albums'})
+                payload: 'An error occurred while loading album'})
         }
     }
 }
@@ -25,7 +25,7 @@ export const searchAlbums = (name: string,authorId:string) => {
         } catch(e) {
             dispatch({
                 type: AlbumActionType.FETCH_ALBUM_ERROR,
-                payload: 'An error occurred while loading albums'})
+                payload: 'An error occurred while loading album'})
         }
     }
 }
