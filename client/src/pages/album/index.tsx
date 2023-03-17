@@ -7,6 +7,7 @@ import {NextThunkDispatch, wrapper} from "store";
 import router from "next/router";
 import AlbumList from "components/Main/Album/AlbumList";
 import {fetchAlbum, searchAlbums} from "store/action-creators/album";
+import MusicPlayerSlider from "components/Main/Album/CardMusicPlayer";
 
 const Album = () => {
     const {albums, error} = useTypedSelector(state => state.album);
@@ -47,6 +48,11 @@ const Album = () => {
                 onChange={search}
             />
             <AlbumList albums={albums} />
+            <div>
+
+
+            </div>
+
         </MainLayouts>
 
     )

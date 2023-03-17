@@ -3,6 +3,7 @@ import {genres} from "../../../assets/constants";
 import {Box, Grid} from "@mui/material";
 import AlbumCard from "./AlbumCard";
 import {IAlbum} from "../../../types/album";
+import MusicPlayerSlider from "./CardMusicPlayer";
 
 interface AlbumListProps {
     albums: IAlbum[],
@@ -33,10 +34,12 @@ const AlbumList: React.FC<AlbumListProps> = ({albums}) => {
                 <Box p={2}>
                     <>{domLoaded && (<>
                             {albums.map(album =>
-                                <AlbumCard
-                                    key={album._id}
-                                    tracksId={album}
-                                />
+                                <MusicPlayerSlider/>
+
+                                // <AlbumCard
+                                //     key={album._id}
+                                //     tracksId={album}
+                                // />
                             )}
                         </>)}</>
                 </Box>
