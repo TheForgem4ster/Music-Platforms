@@ -8,11 +8,26 @@ import TrackProgress from "../Main/ListTrack/TrackProgress";
 import ButtonPlayerGroup from "./ButtonPlayerGroup";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
+import {styled, useTheme} from '@mui/material/styles';
+import ScrollBar from "../ScrollBar";
 
 let audio
 
+const Widget = styled('div')(({ theme }) => ({
+    padding: 16,
+    borderRadius: 16,
+    width: 600,
+    maxWidth: '100%',
+    position: 'relative',
+    zIndex: 1,
+    backgroundColor:
+        theme.palette.mode === 'dark' ? 'rgb(18, 18, 26)' : 'rgba(10, 1, 23,0.4)',
+    backdropFilter: 'blur(40px)',
+}));
+
 const Player = () => {
+    const theme = useTheme();
+    const [position, setPosition] = React.useState(32);
     const {pause, volume, active, duration, currentTime, audioHandler} = useTypedSelector(state => state.player)
     const {pauseTrack, playTrack, setVolume, setCurrentTime, setDuration} = useActions()
     const formatTime = (seconds: number) =>{
@@ -73,10 +88,14 @@ const Player = () => {
 
                 <ButtonPlayerGroup play={play} pause={pause}/>
                 <Box style={{margin: 'auto'}}>
-                    <TrackProgress left={currentTime} right={duration}
-                                   leftIcon={leftIcon}
-                                   rightIcon={rightIcon} onChange={changeCurrentTime}
-                    />
+                    <Widget>
+                        <ScrollBar duration={duration} position={position} theme={theme}
+                                   onChangeSetPosition={(_, value) => setPosition(value as number)} />
+                    </Widget>
+                    {/*<TrackProgress left={currentTime} right={duration}*/}
+                    {/*               leftIcon={leftIcon}*/}
+                    {/*               rightIcon={rightIcon} onChange={changeCurrentTime}*/}
+                    {/*/>*/}
                 </Box>
                 {/*<TrackProgress left={currentTime} right={duration}*/}
                 {/*               leftIcon={leftIcon}*/}
