@@ -15,7 +15,7 @@ const Search = styled('div')(({ theme , heightBar}) => ({
     width: '100%',
     height: heightBar,
     [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(3),
+        marginLeft: theme.spacing(1.9),
         width: 'auto',
     },
 }));
@@ -44,10 +44,10 @@ const StyledInputBase = styled(InputBase)(({ theme , spacingNumber}) => ({
     },
 }));
 
-const SearchString = ({heightBar, spacingNumber, placeholder}) => {
+const SearchString = ({heightBar,widthBar, spacingNumber, placeholder}) => {
 
     return (
-        <div>
+        <div style={{width:widthBar}}>
             <Search heightBar={heightBar}>
                 <SearchIconWrapper>
                     <SearchIcon />

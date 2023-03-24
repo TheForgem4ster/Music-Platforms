@@ -45,7 +45,7 @@ const Album = () => {
             </Grid>
 
             <Grid style={{display: 'flex'}}>
-                <SearchString heightBar={60} spacingNumber={2} placeholder={"Search albums..."} />
+                <SearchString heightBar={60} widthBar={800} spacingNumber={2} placeholder={"Search albums..."} />
                 <div style={{marginLeft: "auto"}}>
                     <select
                         onChange={() => {
