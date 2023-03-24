@@ -2,15 +2,32 @@ import React from "react";
 import Slider from "@mui/material/Slider";
 
 const ScrollBar = ({position, duration, onChangeSetPosition, theme}) => {
+      
+        React.useEffect(() => {
+            if(!isMouseDown)
+         setValue(position);
+        }, [position]);
+
+        const [value, setValue] = React.useState<number>(position);
+        const [isMouseDown, setIsMouseDown] = React.useState<boolean>(false);
+        const handleChange = (event: Event, newValue: number | number[]) => {
+            setValue(newValue as number);
+            setIsMouseDown(true)
+          };
+          const handleChangeCommitted = (event: Event | React.SyntheticEvent<Element, Event>,newValue: number | number[] ) => {
+            onChangeSetPosition(event as Event,newValue as number)
+            setIsMouseDown(false)
+          };    
     return(
         <Slider
             aria-label="time-indicator"
             size="small"
-            value={position}
+            value={value}
             min={0}
             step={1}
             max={duration}
-            onChange={onChangeSetPosition}
+            onChangeCommitted={handleChangeCommitted}
+            onChange={handleChange}
             sx={{
                 color: theme.palette.mode === 'dark' ? '#fff' : 'rgba(0,0,0,0.87)',
                 height: 4,
