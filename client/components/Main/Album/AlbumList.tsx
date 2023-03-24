@@ -20,29 +20,49 @@ const AlbumList: React.FC<AlbumListProps> = ({albums}) => {
     return (
         <div>
             Album
-            <div>
-                <select
-                    onChange={() => {
-                    }}
-                    value={""}
-                    className={""}
-                >
-                    {genres.map(genre => <option key={genre.value} value={genre.value}>{genre.title}</option>)}
-                </select>
-            </div>
-            <Grid container direction="row">
+
+            <Grid container >
 
                     <>{domLoaded && (<>
-                            {albums.map(album =>
+                        {albums.map(album =>
                                 <MusicPlayerSlider/>
 
-                                // <AlbumCard
-                                //     key={album._id}
-                                //     tracksId={album}
-                                // />
-                            )}
-                        </>)}</>
-              
+                            // <AlbumCard
+                            //     key={album._id}
+                            //     tracksId={album}
+                            // />
+                        )}
+                    </>)}</>
+                <>{domLoaded && (<>
+                    {albums.map(album =>
+                            <MusicPlayerSlider/>
+
+                        // <AlbumCard
+                        //     key={album._id}
+                        //     tracksId={album}
+                        // />
+                    )}
+                </>)}</>
+                <>{domLoaded && (<>
+                    {albums.map(album =>
+                            <MusicPlayerSlider/>
+
+                        // <AlbumCard
+                        //     key={album._id}
+                        //     tracksId={album}
+                        // />
+                    )}
+                </>)}</>
+                <>{domLoaded && (<>
+                    {albums.map(album =>
+                            <MusicPlayerSlider/>
+
+                        // <AlbumCard
+                        //     key={album._id}
+                        //     tracksId={album}
+                        // />
+                    )}
+                </>)}</>
             </Grid>
         </div>
     )

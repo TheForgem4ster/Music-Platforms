@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 const Widget = styled('div')(({ theme }) => ({
+    margin: 15,
     padding: 16,
     borderRadius: 16,
     width: 200,

@@ -8,6 +8,8 @@ import router from "next/router";
 import AlbumList from "components/Main/Album/AlbumList";
 import {fetchAlbum, searchAlbums} from "store/action-creators/album";
 import MusicPlayerSlider from "components/Main/Album/CardMusicPlayer";
+import SearchString from "../../../components/SearchString";
+import {genres} from "../../../assets/constants";
 
 const Album = () => {
     const {albums, error} = useTypedSelector(state => state.album);
@@ -42,16 +44,22 @@ const Album = () => {
                 <h1 style={{color: "white"}}>List Album</h1>
             </Grid>
 
-            <TextField
-                fullWidth
-                value={query}
-                onChange={search}
-            />
+            <Grid style={{display: 'flex'}}>
+                <SearchString heightBar={60} spacingNumber={2} placeholder={"Search albums..."} />
+                <div style={{marginLeft: "auto"}}>
+                    <select
+                        onChange={() => {
+                        }}
+                        value={""}
+                        className={""}
+                    >
+                        {genres.map(genre => <option key={genre.value} value={genre.value}>{genre.title}</option>)}
+                    </select>
+                </div>
+            </Grid>
+
+
             <AlbumList albums={albums} />
-            <div>
-
-
-            </div>
 
         </MainLayouts>
 
