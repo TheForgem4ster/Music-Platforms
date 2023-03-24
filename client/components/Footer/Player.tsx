@@ -1,36 +1,25 @@
-import {VolumeUp} from "@mui/icons-material";
-import {Box, IconButton, Slider} from "@mui/material";
-import {useActions} from "hooks/useActions";
-import {useTypedSelector} from "hooks/useTypedSelector";
-import React, {useEffect} from "react";
+import { VolumeUp } from "@mui/icons-material";
+import { Box, IconButton, Slider } from "@mui/material";
+import { useActions } from "hooks/useActions";
+import { useTypedSelector } from "hooks/useTypedSelector";
+import React, { useEffect } from "react";
 import styles from "../../styles/Player.module.scss";
 import TrackProgress from "../Main/ListTrack/TrackProgress";
 import ButtonPlayerGroup from "./ButtonPlayerGroup";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import {styled, useTheme} from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import ScrollBar from "../ScrollBar";
 
 let audio
 
-const Widget = styled('div')(({ theme }) => ({
-    padding: 16,
-    borderRadius: 16,
-    width: 400,
-    maxWidth: '100%',
-    position: 'relative',
-    zIndex: 1,
-    backgroundColor:
-        theme.palette.mode === 'dark' ? 'rgb(18, 18, 26)' : 'rgba(10, 1, 23,0.4)',
-    backdropFilter: 'blur(40px)',
-}));
 
 const Player = () => {
     const theme = useTheme();
     const [position, setPosition] = React.useState(32);
-    const {pause, volume, active, duration, currentTime, audioHandler} = useTypedSelector(state => state.player)
-    const {pauseTrack, playTrack, setVolume, setCurrentTime, setDuration} = useActions()
-    const formatTime = (seconds: number) =>{
+    const { pause, volume, active, duration, currentTime, audioHandler } = useTypedSelector(state => state.player)
+    const { pauseTrack, playTrack, setVolume, setCurrentTime, setDuration } = useActions()
+    const formatTime = (seconds: number) => {
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = Math.floor(seconds % 60);
         const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
@@ -43,8 +32,8 @@ const Player = () => {
     useEffect(() => {
         if (audioHandler) {
             audio = audioHandler
-            if(currentTime<=0)
-            play()
+            if (currentTime <= 0)
+                play()
         }
     }, [audioHandler])
 
@@ -70,39 +59,32 @@ const Player = () => {
         audio.volume = Number(e.target.value) / 100
         setVolume(Number(e.target.value))
     }
-    const changeCurrentTime = (value:Number) => {
+    const changeCurrentTime = (value: Number) => {
         audio.currentTime = Number(value)
         setCurrentTime(Number(value))
     }
 
     return (
         <div className={styles.player}>
-                <img src={active?.picture !== undefined ? process.env.API_URL + active?.picture :
-                    'https://img.freepik.com/free-photo/curvy-creative-abstract-wavy-effects-color-curves-flow-minimalist-luxury-stylish-trendy-colorful-wav_1258-150872.jpg'}
-                     style={{height: 35}}/>
+            <img src={active?.picture !== undefined ? process.env.API_URL + active?.picture :
+                'https://img.freepik.com/free-photo/curvy-creative-abstract-wavy-effects-color-curves-flow-minimalist-luxury-stylish-trendy-colorful-wav_1258-150872.jpg'}
+                style={{ height: 35 }} />
 
-                <Grid container direction="column" style={{display: "block", width: 200, margin: '0 20px'}}>
-                    <div>{active?.name}</div>
-                    <div style={{fontSize: 12, color: 'black'}}>{active?.artist}</div>
-                </Grid>
+            <Grid container direction="column" style={{ display: "block", width: 200, margin: '0 20px' }}>
+                <div>{active?.name}</div>
+                <div style={{ fontSize: 12, color: 'black' }}>{active?.artist}</div>
+            </Grid>
 
-                <ButtonPlayerGroup play={play} pause={pause}/>
-                <Box style={{margin: 'auto'}}>
-                    <Widget>
-                        <ScrollBar duration={duration} position={currentTime} theme={theme}
-                                   onChangeSetPosition={(_, value) => changeCurrentTime(value as number)} />
-                    </Widget>
-                    {/*<TrackProgress left={currentTime} right={duration}*/}
-                    {/*               leftIcon={leftIcon}*/}
-                    {/*               rightIcon={rightIcon} onChange={changeCurrentTime}*/}
-                    {/*/>*/}
-                </Box>
-                {/*<TrackProgress left={currentTime} right={duration}*/}
-                {/*               leftIcon={leftIcon}*/}
-                {/*               rightIcon={rightIcon} onChange={changeCurrentTime}/>*/}
-                <VolumeUp style={{marginLeft: 'auto'}}/>
-                    {/*style={{marginLeft: 'auto'}}*/}
-                <TrackProgress left={volume} right={100} onChange={changeVolume}/>
+            <ButtonPlayerGroup play={play} pause={pause} />
+            <Box sx={{ width: 400, display: "flex" }}>
+                <ScrollBar duration={duration} position={currentTime} theme={theme}
+                    onChangeSetPosition={(_, value) => changeCurrentTime(value as number)} />
+            </Box>
+
+            <div className={styles.volume}>
+                <VolumeUp />
+                <TrackProgress left={volume} right={100} onChange={changeVolume} />
+            </div>
         </div>
     );
 };
