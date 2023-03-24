@@ -16,7 +16,7 @@ let audio
 const Widget = styled('div')(({ theme }) => ({
     padding: 16,
     borderRadius: 16,
-    width: 600,
+    width: 400,
     maxWidth: '100%',
     position: 'relative',
     zIndex: 1,
@@ -70,9 +70,9 @@ const Player = () => {
         audio.volume = Number(e.target.value) / 100
         setVolume(Number(e.target.value))
     }
-    const changeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
-        audio.currentTime = Number(e.target.value)
-        setCurrentTime(Number(e.target.value))
+    const changeCurrentTime = (value:Number) => {
+        audio.currentTime = Number(value)
+        setCurrentTime(Number(value))
     }
 
     return (
@@ -89,8 +89,8 @@ const Player = () => {
                 <ButtonPlayerGroup play={play} pause={pause}/>
                 <Box style={{margin: 'auto'}}>
                     <Widget>
-                        <ScrollBar duration={duration} position={position} theme={theme}
-                                   onChangeSetPosition={(_, value) => setPosition(value as number)} />
+                        <ScrollBar duration={duration} position={currentTime} theme={theme}
+                                   onChangeSetPosition={(_, value) => changeCurrentTime(value as number)} />
                     </Widget>
                     {/*<TrackProgress left={currentTime} right={duration}*/}
                     {/*               leftIcon={leftIcon}*/}

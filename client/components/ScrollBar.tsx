@@ -29,8 +29,8 @@ const ScrollBar = ({position, duration, onChangeSetPosition, theme}) => {
                         }`,
                     },
                     '&.Mui-active': {
-                        width: 20,
-                        height: 20,
+                        width: 15,
+                        height: 15,
                     },
                 },
                 '& .MuiSlider-rail': {
