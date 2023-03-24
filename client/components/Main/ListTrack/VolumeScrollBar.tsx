@@ -10,7 +10,7 @@ interface TrackProgressProps {
     onChange: (e) => void
 }
 
-const TrackProgress: React.FC<TrackProgressProps> =
+const VolumeScrollBar: React.FC<TrackProgressProps> =
 ({
      left, right,leftIcon,rightIcon, onChange
  }) => {
@@ -55,4 +55,4 @@ const TrackProgress: React.FC<TrackProgressProps> =
     );
 };
 
-export default TrackProgress;
+export default VolumeScrollBar;

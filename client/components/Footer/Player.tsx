@@ -4,7 +4,7 @@ import { useActions } from "hooks/useActions";
 import { useTypedSelector } from "hooks/useTypedSelector";
 import React, { useEffect } from "react";
 import styles from "../../styles/Player.module.scss";
-import TrackProgress from "../Main/ListTrack/TrackProgress";
+import VolumeScrollBar from "../Main/ListTrack/VolumeScrollBar";
 import ButtonPlayerGroup from "./ButtonPlayerGroup";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -76,14 +76,14 @@ const Player = () => {
             </Grid>
 
             <ButtonPlayerGroup play={play} pause={pause} />
-            <Box sx={{ width: 400, display: "flex" }}>
+            <Box sx={{ width: 400, display: "flex",  margin: "0 auto" }}>
                 <ScrollBar duration={duration} position={currentTime} theme={theme}
                     onChangeSetPosition={(_, value) => changeCurrentTime(value as number)} />
             </Box>
 
             <div className={styles.volume}>
                 <VolumeUp />
-                <TrackProgress left={volume} right={100} onChange={changeVolume} />
+                <VolumeScrollBar left={volume} right={100} onChange={changeVolume} />
             </div>
         </div>
     );
