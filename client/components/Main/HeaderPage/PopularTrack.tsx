@@ -87,7 +87,7 @@ function PopularTrack(props: MediaProps) {
     );
 }
 
-export default function YouTube() {
+export default function HitTrack() {
     return (
         <Box sx={{ overflow: 'hidden' }}>
             <PopularTrack />

@@ -146,7 +146,7 @@ export default function Header() {
 
                     <Box sx={{ flexGrow: 1 }} />
 
-                    <SearchString heightBar={'100%'} spacingNumber={1} placeholder={"Search…"}/>
+                    <SearchString heightBar={'100%'} widthCursor={'10em'} placeholder={"Search…"}/>
 
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton

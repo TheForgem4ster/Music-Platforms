@@ -1,15 +1,17 @@
 import MainLayouts from "layouts/MainLayouts"
 import React, {useEffect, useState} from "react"
-import {Box, Button, Card, Grid, TextField} from "@mui/material";
+import { Grid} from "@mui/material";
 import {useTypedSelector} from "hooks/useTypedSelector";
 import {useDispatch} from "react-redux";
 import {NextThunkDispatch, wrapper} from "store";
-import router from "next/router";
 import AlbumList from "components/Main/Album/AlbumList";
 import {fetchAlbum, searchAlbums} from "store/action-creators/album";
-import MusicPlayerSlider from "components/Main/Album/CardMusicPlayer";
 import SearchString from "../../../components/SearchString";
 import {genres} from "../../../assets/constants";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const Album = () => {
     const {albums, error} = useTypedSelector(state => state.album);
@@ -37,6 +39,13 @@ const Album = () => {
             </MainLayouts>
         )
     }
+
+    const [Genres, setGenres] = React.useState('');
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setGenres(event.target.value);
+    };
+
     return (
 
         <MainLayouts title={"list album - music platform"}>
@@ -45,22 +54,29 @@ const Album = () => {
             </Grid>
 
             <Grid style={{display: 'flex'}}>
-                <SearchString heightBar={60} widthBar={800} spacingNumber={2} placeholder={"Search albums..."} />
-                <div style={{marginLeft: "auto"}}>
-                    <select
-                        onChange={() => {
-                        }}
-                        value={""}
-                        className={""}
-                    >
-                        {genres.map(genre => <option key={genre.value} value={genre.value}>{genre.title}</option>)}
-                    </select>
+                <div style={{ flexGrow: 1}}>
+                    <SearchString placeholder={"Search albums..."} widthCursor={'45em'} onChange={search}/>
                 </div>
+
+
+                <FormControl sx={{ minWidth: 170 }} size="small" style={{marginLeft: "auto"}}>
+                    <InputLabel id="demo-select-small">Genres</InputLabel>
+                    <Select
+                        labelId="demo-select-small"
+                        id="demo-select-small"
+                        value={Genres}
+                        label="Genres"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        {genres.map(genre =>  <MenuItem key={genre.value} value={genre.value}>{genre.title}</MenuItem>)}
+                    </Select>
+                </FormControl>
+
             </Grid>
-
-
             <AlbumList albums={albums} />
-
         </MainLayouts>
 
     )

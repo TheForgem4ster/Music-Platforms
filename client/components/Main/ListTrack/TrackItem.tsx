@@ -12,7 +12,6 @@ import {deleteTracks} from "../../../store/action-creators/track";
 
 interface TrackItemProps {
     track: ITrack;
-    
 }
 
 let audio;

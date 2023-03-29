@@ -3,7 +3,7 @@ import {genres} from "../../../assets/constants";
 import {Box, Grid} from "@mui/material";
 import AlbumCard from "./AlbumCard";
 import {IAlbum} from "../../../types/album";
-import MusicPlayerSlider from "./CardMusicPlayer";
+import CardMusicPlayer from "./CardMusicPlayer";
 
 interface AlbumListProps {
     albums: IAlbum[],
@@ -16,26 +16,15 @@ const AlbumList: React.FC<AlbumListProps> = ({albums}) => {
         setDomLoaded(true);
     }, []);
 
-    const genreTitle = 'Pop';
     return (
         <div>
-            Album
+           <h1 style={{alignItems: 'center'}}>Album</h1>
 
             <Grid container >
-
-                    <>{domLoaded && (<>
-                        {albums.map(album =>
-                                <MusicPlayerSlider/>
-
-                            // <AlbumCard
-                            //     key={album._id}
-                            //     tracksId={album}
-                            // />
-                        )}
-                    </>)}</>
                 <>{domLoaded && (<>
                     {albums.map(album =>
-                            <MusicPlayerSlider/>
+                            <CardMusicPlayer key={album._id}
+                                               album={album}/>
 
                         // <AlbumCard
                         //     key={album._id}
@@ -43,26 +32,7 @@ const AlbumList: React.FC<AlbumListProps> = ({albums}) => {
                         // />
                     )}
                 </>)}</>
-                <>{domLoaded && (<>
-                    {albums.map(album =>
-                            <MusicPlayerSlider/>
 
-                        // <AlbumCard
-                        //     key={album._id}
-                        //     tracksId={album}
-                        // />
-                    )}
-                </>)}</>
-                <>{domLoaded && (<>
-                    {albums.map(album =>
-                            <MusicPlayerSlider/>
-
-                        // <AlbumCard
-                        //     key={album._id}
-                        //     tracksId={album}
-                        // />
-                    )}
-                </>)}</>
             </Grid>
         </div>
     )
