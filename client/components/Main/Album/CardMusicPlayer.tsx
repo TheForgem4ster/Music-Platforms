@@ -5,6 +5,9 @@ import Typography from '@mui/material/Typography';
 import {IAlbum} from "../../../types/album";
 import LikeIcon from '@mui/icons-material/ThumbUpAlt';
 import {IconButton} from "@mui/material";
+import {useEffect} from "react";
+import {useTypedSelector} from "../../../hooks/useTypedSelector";
+import {useRouter} from "next/router";
 
 const Widget = styled('div')(({theme}) => ({
     margin: 15,
@@ -21,7 +24,7 @@ const Widget = styled('div')(({theme}) => ({
 
 const CoverImage = styled('div')({
     width: 170,
-    height: 170,
+    height: 150,
     objectFit: 'cover',
     overflow: 'hidden',
     margin: "0 auto",
@@ -31,6 +34,7 @@ const CoverImage = styled('div')({
     backgroundColor: 'rgba(0,0,0,0.08)',
     '& > img': {
         width: '100%',
+        height: '100%',
     },
 });
 
@@ -39,16 +43,21 @@ interface AlbumItemProps {
 }
 
 const CardMusicPlayer: React.FC<AlbumItemProps> = ({album}) => {
-
+    const router = useRouter()
+    // const {likeCount} = useTypedSelector(state => state.album)
     const url = process.env.API_URL;
     const [like, setLike] = React.useState(album.likeCount);
 
+
     const countLike = () => {
-       setLike(like + 1);
-    }
+        setLike(++album.likeCount);
+
+        console.log(album.likeCount);
+    };
     return (
         <Box sx={{overflow: 'hidden', display: 'flex'}}>
-            <Widget>
+            <Widget onClick={() => router.push('/album/' + album._id)}>  {/*onClick={() => router.push('/tracks/' )}*/}
+
                 <Box>
                     <CoverImage>
                         <img style={{alignItems: "center"}}
@@ -78,7 +87,6 @@ const CardMusicPlayer: React.FC<AlbumItemProps> = ({album}) => {
                         </div>
                     </Box>
                 </Box>
-
             </Widget>
         </Box>
     );

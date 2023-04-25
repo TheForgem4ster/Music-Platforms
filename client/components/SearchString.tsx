@@ -45,7 +45,7 @@ const StyledInputBase = styled(InputBase)(({ theme, widthCursor }) => ({
     },
 }));
 
-const SearchString = ({widthBar, placeholder, widthCursor}) => {
+const SearchString = ({widthBar, placeholder, widthCursor, value, onChange}) => {
 
     return (
         <div style={{width:widthBar}}>

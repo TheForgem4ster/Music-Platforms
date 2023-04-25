@@ -1,6 +1,6 @@
 import MainLayouts from "layouts/MainLayouts"
 import React, {useEffect, useState} from "react"
-import { Grid} from "@mui/material";
+import {Grid, TextField} from "@mui/material";
 import {useTypedSelector} from "hooks/useTypedSelector";
 import {useDispatch} from "react-redux";
 import {NextThunkDispatch, wrapper} from "store";
@@ -18,17 +18,23 @@ const Album = () => {
     const dispatch = useDispatch() as NextThunkDispatch;
     const [query, setQuery] = useState<string>('');
     const [timer, setTimer] = useState(null);
+    const [domLoaded, setDomLoaded] = useState(false);
 
+    useEffect(() => {
+        setDomLoaded(true);
+    }, []);
     const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setQuery(e.target.value)
         if (timer) {
             clearTimeout(timer)
         }
-        // setTimer(
-        //     setTimeout(async () => {
-        //         await dispatch(await searchAlbums(e.target.value));
-        //     }, 500)
-        // )
+        setTimer(
+            setTimeout(async () => {
+
+                await dispatch(await searchAlbums(e.target.value, null ));
+                console.log(searchAlbums(e.target.value, albums.find(a => a._id)));
+                }, 500)
+        )
 
     }
 
@@ -47,7 +53,7 @@ const Album = () => {
     };
 
     return (
-
+        <>{domLoaded && (
         <MainLayouts title={"list album - music platform"}>
             <Grid container justifyContent='space-between'>
                 <h1 style={{color: "white"}}>List Album</h1>
@@ -55,7 +61,16 @@ const Album = () => {
 
             <Grid style={{display: 'flex'}}>
                 <div style={{ flexGrow: 1}}>
-                    <SearchString placeholder={"Search albums..."} widthCursor={'45em'} onChange={search}/>
+                    {/*<TextField*/}
+                    {/*    fullWidth*/}
+                    {/*    value={query}*/}
+                    {/*    onChange={search}*/}
+                    {/*/>*/}
+                    <SearchString
+                        value={query}
+                        placeholder={"Search albums..."}
+                        widthCursor={'45em'}
+                        onChange={search}/>
                 </div>
 
 
@@ -78,7 +93,7 @@ const Album = () => {
             </Grid>
             <AlbumList albums={albums} />
         </MainLayouts>
-
+        )}</>
     )
 }
 export default Album

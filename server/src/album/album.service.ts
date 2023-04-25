@@ -21,6 +21,7 @@ export class AlbumService {
             likeCount: 0,
             dateCreate: Date().toLocaleString(),
             picture: picturePath,
+            genres: dto.genres,
         })
         console.log(album)
         return album;
@@ -43,6 +44,7 @@ export class AlbumService {
 
     async addTrack(trackId: ObjectId, albumId: ObjectId): Promise<Album>{
         const album = await this.albumModule.findById(albumId);
+        console.log(album)
         if (!album.tracks.includes(trackId)) {
             album.tracks.push(trackId)
         }
@@ -54,8 +56,9 @@ export class AlbumService {
 
         const albums = await this.albumModule.find({
             name: { $regex: new RegExp(name, 'i') },
-            authorId: { $regex: new RegExp(authorId, 'i')}
+            authorId: { $regex: new RegExp(authorId, 'i')},
         })
+
         return albums;
     }
 }

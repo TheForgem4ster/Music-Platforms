@@ -17,10 +17,10 @@ export const fetchAlbum = () => {
     }
 }
 
-export const searchAlbums = (name: string,authorId:string) => {
+export const searchAlbums = (name: string, authorId: string) => {
     return async (dispatch: Dispatch<AlbumAction>) => {
         try {
-            const response = await axios.get(`${process.env.API_URL}albums/search?name=`+name +'&authorId='+authorId)
+            const response = await axios.get(`${process.env.API_URL}album/search?name=`+name +'&authorId='+authorId)
             dispatch({type: AlbumActionType.FETCH_ALBUM, payload: response.data})
         } catch(e) {
             dispatch({

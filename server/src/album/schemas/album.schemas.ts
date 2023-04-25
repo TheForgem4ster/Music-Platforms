@@ -3,6 +3,7 @@ import { HydratedDocument } from 'mongoose';
 import * as mongoose from "mongoose";
 import { User } from 'src/user/schemas/user.schemas';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 
 export type AlbumDocument = HydratedDocument<Album>;
 
@@ -27,7 +28,11 @@ export class Album {
     @ApiProperty({ example: "https://musicplatform.s3.eu-central-1.amazonaws.com/media/picture/*", description: "URL of the picture source" })
     @Prop()
     picture: string;
-    
+
+    @ApiProperty({example: "genres", description: "Genres"})
+    @Prop({ required: true })
+    genres: string;
+
     @ApiProperty({example: "{63ff69f93e2a577dcff552d0,63ff6a1ae0745ebaf548e0c0}", description: "Tracks ID"})
     @Prop()
     tracks: mongoose.ObjectId[];
