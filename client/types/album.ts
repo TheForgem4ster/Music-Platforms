@@ -13,7 +13,7 @@ export interface IAlbum {
 export interface AlbumState {
     id: string;
     albums: IAlbum[];
-    error: string;
+    errorAlbum: string;
 }
 export enum AlbumActionType {
     FETCH_ALBUM = 'FETCH_ALBUM',

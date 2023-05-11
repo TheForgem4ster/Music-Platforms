@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {genres} from "../../../assets/constants";
 import {Box, Grid} from "@mui/material";
-import AlbumCard from "./AlbumCard";
 import {IAlbum} from "../../../types/album";
 import CardMusicPlayer from "./CardMusicPlayer";
 
@@ -10,28 +8,25 @@ interface AlbumListProps {
 }
 
 const AlbumList: React.FC<AlbumListProps> = ({albums}) => {
-    const [domLoaded, setDomLoaded] = useState(false);
 
-    useEffect(() => {
-        setDomLoaded(true);
-    }, []);
+
+    if (!Array.isArray(albums)) {
+        return <div>Loading... ERROR</div>;
+    }
 
     return (
         <div>
-           <h1 style={{alignItems: 'center'}}>Album</h1>
+           <h2 style={{alignItems: 'center', marginTop: 10}}>Genres:   </h2>
 
             <Grid container >
-                <>{domLoaded && (<>
+                {/*<>{domLoaded && (<>*/}
                     {albums.map(album =>
-                            <CardMusicPlayer key={album._id}
-                                               album={album}/>
-
-                        // <AlbumCard
-                        //     key={album._id}
-                        //     tracksId={album}
-                        // />
+                            <CardMusicPlayer
+                                key={album._id}
+                                album={album}
+                            />
                     )}
-                </>)}</>
+                {/*</>)}</>*/}
 
             </Grid>
         </div>

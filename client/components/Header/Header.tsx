@@ -16,13 +16,13 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import LeftPanel from "./LeftPanel";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import SearchString from "../SearchString";
-
+import { useRouter } from 'next/router'
 
 export default function Header() {
-
+    const router = useRouter()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
         React.useState<null | HTMLElement>(null);
@@ -125,7 +125,6 @@ export default function Header() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-
                     <IconButton
                         size="large"
                         edge="start"
@@ -133,7 +132,8 @@ export default function Header() {
                         aria-label="open drawer"
                         sx={{ mr: 2 }}
                     >
-                        <MusicNoteIcon/>
+                        <ArrowBackIcon onClick={() => router.back()}/>
+                        {/*<MusicNoteIcon/>*/}
                     </IconButton>
                     <Typography
                         variant="h6"
@@ -171,7 +171,6 @@ export default function Header() {
                         </IconButton>
                     </Box>
                 </Toolbar>
-                <LeftPanel/>
             </AppBar>
             {renderMobileMenu}
             {renderMenu}

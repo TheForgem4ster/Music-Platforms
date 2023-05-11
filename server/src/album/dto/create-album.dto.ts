@@ -16,7 +16,10 @@ export class CreateAlbumDto {
     
     @ApiProperty({example: "2002-03-21", description: "Date of creation"})
     readonly dateCreate;
-    
+
+    @ApiProperty({example: "Pop", description: "Pop of create"})
+    readonly genres;
+
     @ApiProperty({ example: "https://musicplatform.s3.eu-central-1.amazonaws.com/media/picture/*", description: "URL of the picture source" })
     readonly picture;
 }

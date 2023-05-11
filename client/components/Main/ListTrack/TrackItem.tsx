@@ -79,7 +79,6 @@ const TrackItem: React.FC<TrackItemProps> = ({track,key}) => {
 
     const onDeleteTrack = async () => {
         dispatch(deleteTracks(track._id));
-
     }
     const newPages = (e) => {
         e.stopPropagation()
@@ -97,7 +96,6 @@ const TrackItem: React.FC<TrackItemProps> = ({track,key}) => {
     const rightIcon = formatTime(context.duration)
 
     return (
-
             <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)}>
 
                 <IconButton onClick={newPages} size={'small'} disableRipple={true} >

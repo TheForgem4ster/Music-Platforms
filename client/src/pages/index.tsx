@@ -1,9 +1,11 @@
 import PopularTrack from "components/Main/HeaderPage/PopularTrack";
 import MainLayouts from "layouts/MainLayouts";
 import React from "react";
+import Track from "@/pages/tracks";
 
 
 const Index = () => {
+
     return (
         <div className="main">
             <MainLayouts>

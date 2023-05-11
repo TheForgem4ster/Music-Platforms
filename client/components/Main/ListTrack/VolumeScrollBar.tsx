@@ -11,9 +11,7 @@ interface TrackProgressProps {
 }
 
 const VolumeScrollBar: React.FC<TrackProgressProps> =
-({
-     left, right,leftIcon,rightIcon, onChange
- }) => {
+({left, right,leftIcon,rightIcon, onChange}) => {
     return (
       <Box sx={{width: 100, display:"flex" }}>
         <Slider

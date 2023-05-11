@@ -1,8 +1,6 @@
 import {Dispatch} from "react";
 import {AlbumAction, AlbumActionType} from "../../types/album";
 import axios from "axios";
-import {searchTracks} from "./track";
-
 
 export const fetchAlbum = () => {
     return async (dispatch: Dispatch<AlbumAction>) => {
@@ -17,10 +15,10 @@ export const fetchAlbum = () => {
     }
 }
 
-export const searchAlbums = (name: string,authorId:string) => {
+export const searchAlbums = (name: string, authorId: string = '') => {
     return async (dispatch: Dispatch<AlbumAction>) => {
         try {
-            const response = await axios.get(`${process.env.API_URL}albums/search?name=`+name +'&authorId='+authorId)
+            const response = await axios.get(`${process.env.API_URL}album/search?name=`+name +'&authorId='+authorId)
             dispatch({type: AlbumActionType.FETCH_ALBUM, payload: response.data})
         } catch(e) {
             dispatch({
@@ -30,14 +28,27 @@ export const searchAlbums = (name: string,authorId:string) => {
     }
 }
 
-export const deleteAlbum = (id:string) => {
+export const getSpecificAlbum = (id: string) : (dispatch: Dispatch<AlbumAction>) => Promise<void> => {
     return async (dispatch: Dispatch<AlbumAction>) => {
         try {
-            const response = await axios.delete(`${process.env.API_URL}albums/`+id)
+            const response = await axios.get(`${process.env.API_URL}album/` + id)
             dispatch({type: AlbumActionType.FETCH_ALBUM, payload: response.data})
         } catch(e) {
             dispatch({
                 type: AlbumActionType.FETCH_ALBUM_ERROR,
+                payload: 'An error occurred while loading the album from the id' + id})
+        }
+    }
+}
+
+export const deleteAlbum = (id: string) => {
+    return async (dispatch: Dispatch<AlbumAction>) => {
+        try {
+            const response = await axios.delete(`${process.env.API_URL}album/`+id)
+            dispatch({type: AlbumActionType.DELETE_ALBUM, payload: response.data})
+        } catch(e) {
+            dispatch({
+                type: AlbumActionType.DELETE_ALBUM,
                 payload: 'An error occurred while deleting album'})
         }
     }

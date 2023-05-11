@@ -5,6 +5,12 @@ import Typography from '@mui/material/Typography';
 import {IAlbum} from "../../../types/album";
 import LikeIcon from '@mui/icons-material/ThumbUpAlt';
 import {IconButton} from "@mui/material";
+import {Delete, Pause, PlayArrow, VolumeUp} from '@mui/icons-material';
+import {useRouter} from "next/router";
+import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import {useDispatch} from 'react-redux';
+import {NextThunkDispatch} from "../../../store";
+import {deleteAlbum} from "../../../store/action-creators/album";
 
 const Widget = styled('div')(({theme}) => ({
     margin: 15,
@@ -21,7 +27,7 @@ const Widget = styled('div')(({theme}) => ({
 
 const CoverImage = styled('div')({
     width: 170,
-    height: 170,
+    height: 150,
     objectFit: 'cover',
     overflow: 'hidden',
     margin: "0 auto",
@@ -31,6 +37,7 @@ const CoverImage = styled('div')({
     backgroundColor: 'rgba(0,0,0,0.08)',
     '& > img': {
         width: '100%',
+        height: '100%',
     },
 });
 
@@ -39,16 +46,28 @@ interface AlbumItemProps {
 }
 
 const CardMusicPlayer: React.FC<AlbumItemProps> = ({album}) => {
-
+    const router = useRouter()
+    // const {likeCount} = useTypedSelector(state => state.album)
     const url = process.env.API_URL;
     const [like, setLike] = React.useState(album.likeCount);
+    const dispatch = useDispatch() as NextThunkDispatch;
+
+    const onDeleteAlbum = async () => {
+        dispatch(deleteAlbum(album._id));
+    }
 
     const countLike = () => {
-       setLike(like + 1);
-    }
+        setLike(++album.likeCount);
+
+        console.log(album.likeCount);
+    };
+
+
     return (
         <Box sx={{overflow: 'hidden', display: 'flex'}}>
-            <Widget>
+            {/*onClick={() => router.push('/album/' + album._id)}*/}
+            <Widget >  {/*onClick={() => router.push('/tracks/' )}*/}
+
                 <Box>
                     <CoverImage>
                         <img style={{alignItems: "center"}}
@@ -60,25 +79,32 @@ const CardMusicPlayer: React.FC<AlbumItemProps> = ({album}) => {
                     <Box sx={{
                         ml: 1.5,
                         minWidth: 0,
-                        display: "flex",
                         marginLeft: "auto",
                         alignItems: "center",
                         justifyContent: "space-between"
                     }}>
-                        <Typography variant="caption" color="text.secondary" fontWeight={500} noWrap>
-                            {album.name}
-                        </Typography>
-                        <div style={{display: "flex"}}>
-                            <Typography noWrap style={{margin: "10px 0px"}}>
+                        <div style={{alignItems: "center", textAlign: "center"}}>
+                            <Typography variant="caption" color="text.secondary" fontWeight={500} noWrap fontSize={20}>
+                                {album.name}
+                            </Typography>
+                        </div>
+
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <IconButton style={{ marginLeft: "auto" }}>
+                                <PlaylistAddCheckIcon onClick={() => router.push('/album/' + album._id)} />
+                            </IconButton>
+                            <Typography noWrap style={{ margin: "10px 0px" }}>
                                 {like}
                             </Typography>
                             <IconButton onClick={countLike}>
-                                <LikeIcon/>
+                                <LikeIcon />
+                            </IconButton>
+                            <IconButton style={{ marginRight: "auto" }}>
+                                <Delete onClick={onDeleteAlbum}/>
                             </IconButton>
                         </div>
                     </Box>
                 </Box>
-
             </Widget>
         </Box>
     );

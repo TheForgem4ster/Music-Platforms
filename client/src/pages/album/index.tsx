@@ -1,6 +1,6 @@
 import MainLayouts from "layouts/MainLayouts"
 import React, {useEffect, useState} from "react"
-import { Grid} from "@mui/material";
+import {Grid, TextField} from "@mui/material";
 import {useTypedSelector} from "hooks/useTypedSelector";
 import {useDispatch} from "react-redux";
 import {NextThunkDispatch, wrapper} from "store";
@@ -14,28 +14,22 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const Album = () => {
-    const {albums, error} = useTypedSelector(state => state.album);
-    const dispatch = useDispatch() as NextThunkDispatch;
-    const [query, setQuery] = useState<string>('');
-    const [timer, setTimer] = useState(null);
+    const {albums, errorAlbum} = useTypedSelector(state => state.album);
+    // const dispatch = useDispatch() as NextThunkDispatch;
+    // const [query, setQuery] = useState<string>('');
+    // const [timer, setTimer] = useState(null);
+    const [domLoaded, setDomLoaded] = useState(false);
 
-    const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(e.target.value)
-        if (timer) {
-            clearTimeout(timer)
-        }
-        // setTimer(
-        //     setTimeout(async () => {
-        //         await dispatch(await searchAlbums(e.target.value));
-        //     }, 500)
-        // )
 
-    }
+    useEffect(() => {
+        setDomLoaded(true);
+    }, []);
 
-    if (error) {
+
+    if (errorAlbum) {
         return (
             <MainLayouts>
-                {error}
+                {errorAlbum}
             </MainLayouts>
         )
     }
@@ -47,7 +41,7 @@ const Album = () => {
     };
 
     return (
-
+        <>{domLoaded && (
         <MainLayouts title={"list album - music platform"}>
             <Grid container justifyContent='space-between'>
                 <h1 style={{color: "white"}}>List Album</h1>
@@ -55,9 +49,13 @@ const Album = () => {
 
             <Grid style={{display: 'flex'}}>
                 <div style={{ flexGrow: 1}}>
-                    <SearchString placeholder={"Search albums..."} widthCursor={'45em'} onChange={search}/>
+                    <SearchString
+                        value={true}
+                        placeholder={"Search albums..."}
+                        widthCursor={'45em'}
+                        id={albums._id}
+                    />
                 </div>
-
 
                 <FormControl sx={{ minWidth: 170 }} size="small" style={{marginLeft: "auto"}}>
                     <InputLabel id="demo-select-small">Genres</InputLabel>
@@ -78,12 +76,12 @@ const Album = () => {
             </Grid>
             <AlbumList albums={albums} />
         </MainLayouts>
-
+        )}</>
     )
 }
-export default Album
+export default Album;
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
-    const dispatch = store.dispatch as NextThunkDispatch
-    await dispatch(await fetchAlbum());
-});
+// export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
+//     const dispatch = store.dispatch as NextThunkDispatch
+//     await dispatch(await fetchAlbum());
+// });

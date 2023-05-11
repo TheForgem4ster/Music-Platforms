@@ -30,8 +30,8 @@ const TrackPage = ({serverTrack}) => {
 
     return (
         <MainLayouts   
-            title={"Музыкальная площадка - " + track.name + " - " + track.artist}
-                        keywords={'Музыка, артисты, ' + track.name + ", " + track.artist}>
+            title={"Music Playground - " + track.name + " - " + track.artist}
+                        keywords={'Music, artists, ' + track.name + ", " + track.artist}>
             <Button variant={"outlined"}
                     style={{fontSize: 32}}
                     onClick={() => router.push('/tracks')}>
@@ -45,18 +45,18 @@ const TrackPage = ({serverTrack}) => {
                     <h1>Listening - {track.listens}</h1>
                 </div>
             </Grid>
-            <h1>Слова в треке</h1>
+            <h1>Words on the track</h1>
             <p>{track.text}</p>
-            <h1>Комментарии</h1>
+            <h1>Comments</h1>
              <Grid container>
 
                 <TextField
-                    label="Ваше имя"
+                    label="Your name"
                     fullWidth
                     {...username}
                 />
                 <TextField
-                    label="Комментарий"
+                    label="A comment"
                     {...text}
                     fullWidth
                     multiline
@@ -67,8 +67,8 @@ const TrackPage = ({serverTrack}) => {
             <div>
                 {track.comments.map(comment =>
                     <div>
-                        <div>Автор - {comment.username}</div>
-                        <div>Комментарий - {comment.text}</div>
+                        <div>Author - {comment.username}</div>
+                        <div>A comment - {comment.text}</div>
                     </div>
                 )}
             </div>
