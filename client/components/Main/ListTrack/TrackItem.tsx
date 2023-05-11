@@ -32,7 +32,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
     }, [active])
 
     const setAudio = () => {
-        audio.src =process.env.API_URL+ active.audio;
+        audio.src = process.env.API_URL+ active.audio;
         audio.volume = volume / 100
         SetCurrentAudio(audio);
     }
@@ -64,7 +64,6 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
 
     const onDeleteTrack = async () => {
         dispatch(deleteTracks(track._id));
-
     }
     const newPages = (e) => {
         e.stopPropagation()
@@ -82,7 +81,6 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
     const rightIcon = formatTime(duration)
 
     return (
-
             <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)}>
 
                 <IconButton onClick={newPages} size={'small'} disableRipple={true} >
