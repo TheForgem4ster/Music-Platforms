@@ -9,55 +9,70 @@ import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useDispatch} from 'react-redux';
 import {NextThunkDispatch} from "../../../store";
 import {deleteTracks} from "../../../store/action-creators/track";
+import {
+    play,
+   setAudio
+} from '../../../misc/AudioController';
 
 interface TrackItemProps {
     track: ITrack;
+    key: number;
 }
 
 let audio;
 
-const TrackItem: React.FC<TrackItemProps> = ({track}) => {
+const TrackItem: React.FC<TrackItemProps> = ({track,key}) => {
     const router = useRouter()
 
-    const {playTrack, pauseTrack, setActiveTrack, SetCurrentAudio} = useActions()
-    const {id, pause, volume, active, audioHandler, currentTime, duration} = useTypedSelector(state => state.player)
-
+    const actionContext = useActions()
+    const context = useTypedSelector(state => state.player)
+    const {tracks} = useTypedSelector(state => state.track)
     useEffect(() => {
-        if (active) {
-            if (!audioHandler) {
+        if (context.active) {
+            
+            if (!audio) {
                 audio = new Audio();
-                setAudio()
+                setAudio(audio,context.active,context.volume,actionContext.SetCurrentAudio)
+                console.log(context.active)
             }
         }
-    }, [active])
+    }, [context.active])
 
-    const setAudio = () => {
-        audio.src =process.env.API_URL+ active.audio;
-        audio.volume = volume / 100
-        SetCurrentAudio(audio);
-    }
+    // const setAudio = () => {
+    //     audio.src =process.env.API_URL+ active.audio;
+    //     audio.volume = volume / 100
+    //     SetCurrentAudio(audio);
+    // }
 
     const check = () => {
-        if (track._id !== id) {
-            if (audio && !pause) {
-                pauseTrack()
+        if (track._id !== context.id ) {
+           
+            if (audio && !context.pause) {
+                actionContext.pauseTrack()
                 audio.pause()
             }
             audio = ""
-            setActiveTrack(track)
-            SetCurrentAudio(audio)
+            actionContext.setActiveTrack(track)
+           
         } else {
-            if (pause) {
-                audio = audioHandler
-                playTrack()
-                audio.play()
-                SetCurrentAudio(audio)
+            if(!context.active){
+              actionContext.setActiveTrack(track)}
+              
+            audio = context.audioHandler
+            play(context,audio,actionContext,tracks)
+           
+            // if (pause) {
+            //     audio = audioHandler
+            //     playTrack()
+            //     audio.play()
+            //     SetCurrentAudio(audio)
 
-            } else {
-                pauseTrack()
-                audio = audioHandler
-                audio.pause()
-            }
+            // } else {
+            //     pauseTrack()
+            //     audio = audioHandler
+            //     audio.pause()
+            // }
+
         }
     }
     const dispatch = useDispatch() as NextThunkDispatch;
@@ -78,8 +93,8 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
         return `${minutes}:${formattedSeconds}`;
     }
 
-    const leftIcon = formatTime(currentTime)
-    const rightIcon = formatTime(duration)
+    const leftIcon = formatTime(context.currentTime)
+    const rightIcon = formatTime(context.duration)
 
     return (
 
@@ -87,7 +102,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
 
                 <IconButton onClick={newPages} size={'small'} disableRipple={true} >
                     {
-                        ((track._id === id) && !pause)
+                        ((track._id === context.id) && !context.pause)
                             ? <Avatar sx={{ bgcolor:'#4048c4', width: 40, height: 40 }}><Pause color="action"/></Avatar>
                             : <Avatar sx={{ bgcolor:'transparent', width: 40, height: 40 }}><PlayArrow color="action"/></Avatar>
                     }
@@ -97,7 +112,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
                     <div>{track.name}</div>
                     <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>
                 </Grid>
-                {((track._id === id) ? (<div>
+                {((track._id === context.id) ? (<div>
                     {leftIcon} - {rightIcon}</div>) : (<div/>))}
                 <IconButton onClick={e => e.stopPropagation()} style={{marginLeft: 'auto'}}>
                     <Delete onClick={onDeleteTrack}/>

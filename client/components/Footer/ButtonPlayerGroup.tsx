@@ -6,7 +6,7 @@ import SkipNextIcon from "@mui/icons-material/SkipNext";
 import ReplayIcon from "@mui/icons-material/Replay";
 import LoopIcon from "@mui/icons-material/Loop";
 
-const ButtonPlayerGroup = ({play, pause}) => {
+const ButtonPlayerGroup = ({play, pause,previous,next}) => {
 
     const iconPlayer = [0,1,2,3,4];
 
@@ -15,14 +15,14 @@ const ButtonPlayerGroup = ({play, pause}) => {
             case '0':
                 return <LoopIcon/>
             case '1':
-                return <SkipPreviousIcon/>
+                return <SkipPreviousIcon onClick={previous}/>
             case '2':
                 if(pause){
                     return <PlayArrow onClick={play}/>
                 }
                 else return <Pause onClick={play}/>
             case '3':
-                return <SkipNextIcon/>
+                return <SkipNextIcon onClick={next}/>
             case '4':
                 return <ReplayIcon/>
         }
