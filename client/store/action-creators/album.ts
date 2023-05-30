@@ -15,10 +15,11 @@ export const fetchAlbum = () => {
     }
 }
 
-export const searchAlbums = (name: string, authorId: string = '') => {
+export const searchAlbums = (name: string, authorId: string = '', genres: string = '') => {
     return async (dispatch: Dispatch<AlbumAction>) => {
         try {
-            const response = await axios.get(`${process.env.API_URL}album/search?name=`+name +'&authorId='+authorId)
+            const response = await axios.get(`${process.env.API_URL}album/search?name=`+
+                name +'&authorId='+ authorId + '&genres' + genres)
             dispatch({type: AlbumActionType.FETCH_ALBUM, payload: response.data})
         } catch(e) {
             dispatch({
@@ -28,7 +29,7 @@ export const searchAlbums = (name: string, authorId: string = '') => {
     }
 }
 
-export const getSpecificAlbum = (id: string) : (dispatch: Dispatch<AlbumAction>) => Promise<void> => {
+export const getSpecificAlbum = (id: string) => {
     return async (dispatch: Dispatch<AlbumAction>) => {
         try {
             const response = await axios.get(`${process.env.API_URL}album/` + id)
@@ -40,6 +41,7 @@ export const getSpecificAlbum = (id: string) : (dispatch: Dispatch<AlbumAction>)
         }
     }
 }
+
 
 export const deleteAlbum = (id: string) => {
     return async (dispatch: Dispatch<AlbumAction>) => {

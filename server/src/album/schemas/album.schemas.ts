@@ -19,7 +19,7 @@ export class Album {
 
     @ApiProperty({ example: "1000", description: "Quantity of likes" })
     @Prop()
-    likeCount: Number;
+    likeCount: number;
 
     @ApiProperty({example: "2002-03-21", description: "Date of creation"})
     @Prop()

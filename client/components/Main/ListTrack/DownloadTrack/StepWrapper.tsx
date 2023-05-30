@@ -1,12 +1,11 @@
-import { Card, Container, Grid, Step, StepLabel, Stepper } from "@mui/material";
 import React from "react";
-
+import { Card, Container, Grid, Step, StepLabel, Stepper } from "@mui/material";
 
 interface StepWrapperProps {
     activeStep: number;
     children?: React.ReactNode;
 }
-const steps = ['Информация о треке', 'Загрузите обложку', 'Загрузите сам трек']
+const steps = ['Track Information', 'Download the cover', 'Download the track itself']
 
 const StepWrapper: React.FC<StepWrapperProps> = ({activeStep, children}) => {
     return (

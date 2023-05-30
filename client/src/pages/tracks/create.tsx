@@ -48,17 +48,17 @@ const Create = () =>{
                     <TextField
                         {...name}
                         style={{marginTop: 10}}
-                        label={"Название трека"}
+                        label={"Name of the track"}
                     />
                     <TextField
                         {...artist}
                         style={{marginTop: 10}}
-                        label={"Имя исполнителя"}
+                        label={"Artist name"}
                     />
                     <TextField
                         {...text}
                         style={{marginTop: 10}}
-                        label={"Слова к треку"}
+                        label={"Lyrics for the track"}
                         multiline
                         rows={3}
                     />

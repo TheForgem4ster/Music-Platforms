@@ -1,4 +1,4 @@
-import PopularTrack from "components/Main/HeaderPage/PopularTrack";
+import PopularAlbum from "components/Main/HeaderPage/PopularAlbum";
 import MainLayouts from "layouts/MainLayouts";
 import React from "react";
 import Track from "@/pages/tracks";
@@ -9,9 +9,9 @@ const Index = () => {
     return (
         <div className="main">
             <MainLayouts>
-                <h1>Popular track</h1>
+                <h1>Popular albums</h1>
                 <div className="center">
-                    <PopularTrack/>
+                    <PopularAlbum/>
                 </div>
             </MainLayouts>
         </div>

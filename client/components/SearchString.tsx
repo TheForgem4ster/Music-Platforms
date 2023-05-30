@@ -9,10 +9,10 @@ import {useDispatch} from "react-redux";
 import {NextThunkDispatch, wrapper} from "../store";
 import {fetchAlbum, getSpecificAlbum, searchAlbums} from "../store/action-creators/album";
 import TrackList from "./Main/ListTrack/TrackList";
-import { useFetcher } from "hooks/useFetcher";
+import {useFetcher} from "hooks/useFetcher";
 import {useCallback} from "react";
 
-const Search = styled('div')(({ theme }) => ({
+const Search = styled('div')(({theme}) => ({
     position: 'relative',
     flexGrow: 1,
     borderRadius: theme.shape.borderRadius,
@@ -29,7 +29,7 @@ const Search = styled('div')(({ theme }) => ({
     },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({theme}) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -39,7 +39,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme, widthCursor }) => ({
+const StyledInputBase = styled(InputBase)(({theme, widthCursor}) => ({
     color: 'inherit',
 
     '& .MuiInputBase-input': {
@@ -54,11 +54,25 @@ const StyledInputBase = styled(InputBase)(({ theme, widthCursor }) => ({
     },
 }));
 
-const SearchString = ({widthBar, placeholder, widthCursor, value, id}) => {
+interface SearchStringProps {
+    widthBar: string;
+    placeholder: string;
+    widthCursor: string;
+    flag: boolean;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const SearchString: React.FC<SearchStringProps> = ({widthBar, placeholder,widthCursor,
+                                                       flag,value,onChange,}) => {
 
     const [regimeСhange, setRegimeChange] = useState(true);
+    const [changeFlag, setchangeFlag] = useState(true);
     useEffect(() => {
-        setRegimeChange(value)
+        setRegimeChange(flag)
+        if(!onChange){
+            setchangeFlag(false);
+        }
     }, [])
     const [query, setQuery] = useState<string>('');
     const {tracks, error} = useTypedSelector(state => state.track);
@@ -66,57 +80,72 @@ const SearchString = ({widthBar, placeholder, widthCursor, value, id}) => {
     const [timer, setTimer] = useState(null);
     const [timerAlbum, setTimerAlbum] = useState(null);
     const dispatch = useDispatch() as NextThunkDispatch;
-    useFetcher(fetchTracks);
+
+    // const [searchTerm, setSearchTerm] = useState('');
+    // const [data, setData] = useState(albums);
+    //
+    //
+    // const handleSearch = (event : React.ChangeEvent<HTMLInputElement>) => {
+    //     const searchTerm = event.target.value;
+    //     setSearchTerm(searchTerm);
+    //     // console.log(albums);
+    //     // const filteredAlbums = albums.filter((album) =>{
+    //     //     album.tracks.some((track) =>
+    //     //
+    //     //         track.toLowerCase().includes(searchTerm.toLowerCase())
+    //     //     )}
+    //     // );
+    //     // setData((prevData) => ({ ...prevData, albums: filteredAlbums }));
+    // };
+    //
+    // const filteredAlbums = albums.filter((album) =>
+    //     album.tracks.some((track) => track.toLowerCase().includes(searchTerm.toLowerCase()))
+    // );
+
+    // useFetcher(fetchTracks);
     useFetcher(fetchAlbum);
 
 
     const searchTrack = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
         setQuery(e.target.value)
-        if(timer){
+        if (timer) {
             clearTimeout(timer)
         }
         setTimer(
-            setTimeout(async ()=>{
+            setTimeout(async () => {
                 await dispatch(await searchTracks(e.target.value));
             }, 500)
         )
     }
 
+
     const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        // debugger;
-        // dispatch(await fetchAlbum())
         setQuery(e.target.value)
         if (timerAlbum) {
             clearTimeout(timerAlbum)
         }
         setTimerAlbum(
             setTimeout(async () => {
-                dispatch(await fetchAlbum())
-                let aId;
-
-                let authorId =  albums.map((album, index) => {
-                    // console.log(album.tracks);
-                    // aId = album.tracks
-                    // console.log("1");
-                    console.log(album);
-                    // console.log(albums[index].tracks);
-                    if(albums[index] === album._id) {
-                        aId = albums[index].track;
-                        console.log("2");
-                        // console.log(album.tracks[index]);
-
-                    }
-                });
-                // aId = albums[0]._id
-                await dispatch(await searchAlbums(e.target.value, aId));
+                // let authorId =  albums.map((album, index) => {
+                //     // console.log(album.tracks);
+                //     // aId = album.tracks
+                //     // console.log("1");
+                //     console.log(album);
+                //     // console.log(albums[index].tracks);
+                //     if(albums[index] === album._id) {
+                //         // aId = albums[index].track;
+                //         console.log("2");
+                //         // console.log(album.tracks[index]);
+                //     }
+                // });
+                await dispatch(await searchAlbums(e.target.value, '', ''));
 
             }, 500)
         )
     }
 
-
-
-    if(error || errorAlbum) {
+    if (error || errorAlbum) {
         return (
             <MainLayouts>
                 {error}
@@ -125,29 +154,21 @@ const SearchString = ({widthBar, placeholder, widthCursor, value, id}) => {
     }
 
     return (
-        <div style={{width:widthBar}}>
+        <div style={{width: widthBar}}>
             <Search>
                 <SearchIconWrapper>
-                    <SearchIcon />
+                    <SearchIcon/>
                 </SearchIconWrapper>
                 <StyledInputBase
-                    onChange={regimeСhange ?  search : searchTrack}
+                    onChange={regimeСhange ? search : changeFlag ? onChange : searchTrack}
+                    // onChange={onChange}
                     widthCursor={widthCursor}
                     placeholder={placeholder}
-                    inputProps={{ 'aria-label': 'search' }}
+                    inputProps={{'aria-label': 'search'}}
                 />
             </Search>
         </div>
     )
 }
-
-// export const getServerSideProps = wrapper.getServerSideProps(
-//     (store) => async ({req, query }) => {
-//         const dispatch = store.dispatch as NextThunkDispatch;
-//         console.log(query);
-//         const { id } = query;
-//         await dispatch(await getSpecificAlbum(id));
-//         // console.log(dispatch(await getSpecificAlbum(id)));
-//     });
 
 export default SearchString;

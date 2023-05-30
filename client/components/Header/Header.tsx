@@ -5,17 +5,12 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import SearchString from "../SearchString";
@@ -65,7 +60,9 @@ export default function Header() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose} >Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose} ><Link style={{textDecoration: 'none',color: '#fff'}} href="/auth-page">My account</Link></MenuItem>
+            <MenuItem onClick={handleMenuClose} >
+                <Link style={{textDecoration: 'none',color: '#fff'}} href="/auth-page">My account</Link>
+            </MenuItem>
         </Menu>
     );
 

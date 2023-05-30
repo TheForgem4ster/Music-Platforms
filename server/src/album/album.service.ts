@@ -11,6 +11,7 @@ import {FileService, FileType} from "../file delete later/file.service";
 export class AlbumService {
 
     constructor(@InjectModel(Album.name) private albumModule: Model<AlbumDocument>,
+                @InjectModel(Track.name) private trackModel: Model<TrackDocument>,
                 private s3Service: S3Service,  private fileService: FileService) {
     }
 
@@ -51,7 +52,13 @@ export class AlbumService {
         album.save()
         return album
     }
-
+    async getByAlbumId(albumId:ObjectId): Promise<Track[]>{
+        const album = await this.albumModule.findById(albumId);
+        console.log('Album:'+album)
+        const tracks = await this.trackModel.find({ _id: { $in: album.tracks } });
+        console.log('Tracks:'+tracks)
+        return tracks
+    }
     async search(name: string, authorId: string): Promise<Album[]> {
 
         const albums = await this.albumModule.find({
@@ -61,4 +68,11 @@ export class AlbumService {
 
         return albums;
     }
+    async addLike(albumId: ObjectId): Promise<Album>{
+        const album = await this.albumModule.findById(albumId);
+        album.likeCount+=1;
+        album.save()
+        return album
+    }
+
 }

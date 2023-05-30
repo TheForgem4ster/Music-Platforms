@@ -2,10 +2,7 @@ import MainLayouts from "layouts/MainLayouts"
 import React, {useEffect, useState} from "react"
 import {Grid, TextField} from "@mui/material";
 import {useTypedSelector} from "hooks/useTypedSelector";
-import {useDispatch} from "react-redux";
-import {NextThunkDispatch, wrapper} from "store";
 import AlbumList from "components/Main/Album/AlbumList";
-import {fetchAlbum, searchAlbums} from "store/action-creators/album";
 import SearchString from "../../../components/SearchString";
 import {genres} from "../../../assets/constants";
 import InputLabel from '@mui/material/InputLabel';
@@ -15,9 +12,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 const Album = () => {
     const {albums, errorAlbum} = useTypedSelector(state => state.album);
-    // const dispatch = useDispatch() as NextThunkDispatch;
-    // const [query, setQuery] = useState<string>('');
-    // const [timer, setTimer] = useState(null);
+
     const [domLoaded, setDomLoaded] = useState(false);
 
 
@@ -50,10 +45,10 @@ const Album = () => {
             <Grid style={{display: 'flex'}}>
                 <div style={{ flexGrow: 1}}>
                     <SearchString
-                        value={true}
+                        flag={true}
                         placeholder={"Search albums..."}
                         widthCursor={'45em'}
-                        id={albums._id}
+                        genres={genres}
                     />
                 </div>
 
@@ -69,7 +64,7 @@ const Album = () => {
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
-                        {genres.map(genre =>  <MenuItem key={genre.value} value={genre.value}>{genre.title}</MenuItem>)}
+                        {genres.map(genre => <MenuItem key={genre.value} value={genre.value}>{genre.title}</MenuItem>)}
                     </Select>
                 </FormControl>
 

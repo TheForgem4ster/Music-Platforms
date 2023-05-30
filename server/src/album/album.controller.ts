@@ -5,6 +5,7 @@ import { CreateAlbumDto } from "./dto/create-album.dto";
 import { FileFieldsInterceptor } from "@nestjs/platform-express";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { Album } from "./schemas/album.schemas";
+import { Track } from "src/track/schemas/track.schemas";
 
 @ApiTags("Album")
 @Controller('/album')
@@ -38,15 +39,24 @@ export class AlbumController {
 
     @ApiOperation({ summary: "Get Album by ID" })
     @ApiResponse({ status: 200, type: Album })
-    @Get(":id")
+    @Get('index/:id')
     getOne(@Param('id') id: ObjectId) {
         return this.albumService.getOne(id);
     }
+
+    @ApiOperation({ summary: "Get Tracks by Album ID" })
+    @ApiResponse({ status: 200, type: [Track] })
+    @Get(':id')
+    getByAlbumId(@Param('id') id: ObjectId) {
+        return this.albumService.getByAlbumId(id);
+    }
+
 
     @ApiOperation({ summary: "Delete Album by ID" })
     @ApiResponse({ status: 200, type: mongoose.Types.ObjectId })
     @Delete(":id")
     delete(@Param('id') id: ObjectId) {
+        console.log(id)
         return this.albumService.delete(id);
     }
 
@@ -54,11 +64,20 @@ export class AlbumController {
     @ApiResponse({ status: 200, type: Album })
     @Put(':albumId/:trackId')
     addToAlbum(@Param('trackId') trackId: ObjectId, @Param('albumId') albumId: ObjectId) {
-        console.log(trackId);
-        console.log(albumId);
+        console.log(trackId)
         return this.albumService.addTrack(trackId, albumId)
     }
+    @ApiOperation({ summary: "Add Likes" })
+    @ApiResponse({ status: 200, type: Number })
+    @Put(":id")
+    addLike(@Param('id')  albumId: ObjectId) {
+        console.log(albumId)
+        return this.albumService.addLike(albumId)
+    }
 
+    // @Put('search/:trackName')
+    // serchTrackNameToAlbum(@Param('trackName') trackName: string){
+    //     return this.albumService.searchTrackNameToAlbum(trackName)
+    // }
 
 }
-

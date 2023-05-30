@@ -41,3 +41,16 @@ export const deleteTracks = (id: string) => {
         }
     }
 }
+export const fetchTracksByAlbum = (id:string) => {
+    return async (dispatch: Dispatch<TrackAction>) => {
+        try {
+            const response = await axios.get(`${process.env.API_URL}album/`+ id)
+            console.log(response.data)
+            dispatch({type: TrackActionTypes.FETCH_TRACKS, payload: response.data})
+        } catch (e) {
+            dispatch({
+                type: TrackActionTypes.FETCH_TRACKS_ERROR,
+                payload: 'An error occurred while loading tracks'})
+        }
+    }
+}

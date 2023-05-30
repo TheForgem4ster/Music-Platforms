@@ -8,11 +8,9 @@ import {Delete, Pause, PlayArrow, VolumeUp} from '@mui/icons-material';
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useDispatch} from 'react-redux';
 import {NextThunkDispatch} from "../../../store";
-import {deleteTracks} from "../../../store/action-creators/track";
-import {
-    play,
-   setAudio
-} from '../../../misc/AudioController';
+import {deleteTracks, fetchTracks} from "../../../store/action-creators/track";
+import {play, setAudio} from '../../../misc/AudioController';
+import {useFetcher} from "../../../hooks/useFetcher";
 
 interface TrackItemProps {
     track: ITrack;
@@ -23,13 +21,12 @@ let audio;
 
 const TrackItem: React.FC<TrackItemProps> = ({track,key}) => {
     const router = useRouter()
-
     const actionContext = useActions()
+
     const context = useTypedSelector(state => state.player)
     const {tracks} = useTypedSelector(state => state.track)
     useEffect(() => {
         if (context.active) {
-            
             if (!audio) {
                 audio = new Audio();
                 setAudio(audio,context.active,context.volume,actionContext.SetCurrentAudio)
@@ -79,6 +76,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track,key}) => {
 
     const onDeleteTrack = async () => {
         dispatch(deleteTracks(track._id));
+        // window.location.reload();
     }
     const newPages = (e) => {
         e.stopPropagation()
@@ -95,6 +93,10 @@ const TrackItem: React.FC<TrackItemProps> = ({track,key}) => {
     const leftIcon = formatTime(context.currentTime)
     const rightIcon = formatTime(context.duration)
 
+    const imageUrl = process.env.API_URL+track.picture;
+    const defaultImageUrl = 'https://st4.depositphotos.com/1741969/21318/i/600/depositphotos_213182702-stock-photo-abstract-magical-image-firefly-flying.jpg';
+
+
     return (
             <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)}>
 
@@ -105,7 +107,12 @@ const TrackItem: React.FC<TrackItemProps> = ({track,key}) => {
                             : <Avatar sx={{ bgcolor:'transparent', width: 40, height: 40 }}><PlayArrow color="action"/></Avatar>
                     }
                 </IconButton>
-                <img width={70} height={70} src={process.env.API_URL+track.picture}/>
+                <img width={55} height={55} src={imageUrl}
+                     style={{borderRadius: 50}}
+                     onError={(e) => {
+                         e.target.src = defaultImageUrl;
+
+                     }}/>
                 <Grid container direction="column" style={{width: 200, margin: '0 20px'}}>
                     <div>{track.name}</div>
                     <div style={{fontSize: 12, color: 'gray'}}>{track.artist}</div>

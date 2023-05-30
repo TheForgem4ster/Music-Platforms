@@ -82,6 +82,7 @@ const Player = () => {
         actionContext.setCurrentTime(Number(value))
     }
 
+
     return (
         <div className={styles.player}>
             <img src={context.active?.picture !== undefined ? process.env.API_URL + context.active?.picture :
@@ -90,7 +91,7 @@ const Player = () => {
 
             <Grid container direction="column" style={{ display: "block", width: 200, margin: '0 20px' }}>
                 <div>{context.active?.name}</div>
-                <div style={{ fontSize: 12, color: 'black' }}>{context.active?.artist}</div>
+                <div style={{ fontSize: 13}}>{context.active?.artist}</div>
             </Grid>
 
             <ButtonPlayerGroup play={handlePressPlay} pause={context.pause} next={handlePressNext} previous={handlePressPrev} />

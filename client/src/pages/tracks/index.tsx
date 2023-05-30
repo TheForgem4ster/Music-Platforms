@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Box, Button, Card, Grid, TextField } from "@mui/material";
+import React, {useEffect, useState} from "react";
+import {Box, Button, Card, Grid, TextField} from "@mui/material";
 import TrackList from "components/Main/ListTrack/TrackList";
 import MainLayouts from "layouts/MainLayouts";
-import { useRouter } from "next/router";
-import { NextThunkDispatch, wrapper } from "store";
-import { fetchTracks, searchTracks } from "store/action-creators/track";
-import { useTypedSelector } from "hooks/useTypedSelector";
-import { useDispatch } from "react-redux";
+import {useRouter} from "next/router";
+import {NextThunkDispatch, wrapper} from "store";
+import {fetchTracks, searchTracks} from "store/action-creators/track";
+import {useTypedSelector} from "hooks/useTypedSelector";
+import {useDispatch} from "react-redux";
+import { useFetcher } from "hooks/useFetcher";
+import {genres} from "../../../assets/constants";
+import SearchString from "../../../components/SearchString";
 
 
 const Track = () => {
@@ -20,53 +23,58 @@ const Track = () => {
 
     useEffect(() => {
         setDomLoaded(true);
-      }, []);
+    }, []);
 
 
     const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
         setQuery(e.target.value)
-        if(timer){
+        if (timer) {
             clearTimeout(timer)
         }
         setTimer(
-            setTimeout(async ()=>{
+            setTimeout(async () => {
                 await dispatch(await searchTracks(e.target.value));
             }, 500)
         )
+
     }
 
-    if(error) {
+    if (error) {
         return (
-            <MainLayouts>                    
+            <MainLayouts>
                 {error}
             </MainLayouts>
         )
     }
+    useFetcher(fetchTracks);
+    return (
+        <>{domLoaded && (
+            <MainLayouts title={"list track - music platform"}>
+                <Grid justifyContent='center' minWidth="100%" display="flex">
+                    <Card style={{width: "90%"}}>
+                        <Box p={3}>
+                            <Grid container justifyContent='space-between'>
+                                <h1 style={{color: "white"}}>List Track</h1>
+                                <Button onClick={() => router.push('/tracks/create')}>Download</Button>
+                            </Grid>
+                        </Box>
+                        {/*<TextField*/}
+                        {/*    fullWidth*/}
+                        {/*    value={query}*/}
+                        {/*    onChange={search}*/}
+                        {/*/>*/}
+                        <SearchString
+                            flag={false}
+                            placeholder={"Search albums..."}
+                            widthCursor={'45em'}
 
-    return ( 
-       <>{domLoaded && (
-        <MainLayouts title={"list track - music platform"}>
-        <Grid justifyContent='center' minWidth="100%" display="flex" >
-            <Card>
-                <Box p={3}>
-                    <Grid container justifyContent='space-between'>
-                        <h1 style={{color: "black"}}>List Track</h1>
-                        <Button onClick={()=> router.push('/tracks/create')}>Download</Button>
-                    </Grid>
-                </Box>
-                <TextField
-                    fullWidth
-                    value={query}
-                    onChange={search}
-                />
-
-                <TrackList tracks={tracks}/>
-
-            </Card>
-       </Grid>
-     </MainLayouts>
-       )}</>
-       
+                        />
+                        <TrackList tracks={tracks}/>
+                    </Card>
+                </Grid>
+            </MainLayouts>
+        )}</>
     );
 }
 

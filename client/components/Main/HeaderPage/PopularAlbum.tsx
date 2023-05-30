@@ -13,6 +13,7 @@ import {Button, Card, TextField} from "@mui/material";
 import {useRouter} from "next/router";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import CardMusicPlayer from "../Album/CardMusicPlayer";
+import AlbumList from "../Album/AlbumList";
 // const data = [
 //     {
 //         picture: 'https://musicplatform.s3.eu-central-1.amazonaws.com/media/picture/29584f98-6de9-4898-87bf-ba7607f2fad7.jpg',
@@ -51,26 +52,26 @@ import CardMusicPlayer from "../Album/CardMusicPlayer";
 //     },
 // ];
 
-const PopularTrack = () => {
+const PopularAlbum = () => {
     const router = useRouter();
-    const {tracks, error} = useTypedSelector(state => state.track);
+    // const {tracks, error} = useTypedSelector(state => state.track);
     const {albums, errorAlbum} = useTypedSelector(state => state.album);
 
     return (
         <Grid container>
-            {/*<CardMusicPlayer album={albums}/>*/}
-            <TrackList tracks={tracks}/>
+            <AlbumList albums={albums} />
+            {/*<TrackList tracks={tracks}/>*/}
 
         </Grid>
     );
 }
 
-export default PopularTrack;
+export default PopularAlbum;
 // interface MediaProps {
 //     loading?: boolean;
 // }
 //
-// function PopularTrack(props: MediaProps) {
+// function PopularAlbum(props: MediaProps) {
 //     const { loading = false } = props;
 //
 //     return (
@@ -113,8 +114,8 @@ export default PopularTrack;
 // export default function HitTrack() {
 //     return (
 //         <Box sx={{ overflow: 'hidden' }}>
-//             <PopularTrack />
-//             <PopularTrack loading/>
+//             <PopularAlbum />
+//             <PopularAlbum loading/>
 //         </Box>
 //     );
 // }
