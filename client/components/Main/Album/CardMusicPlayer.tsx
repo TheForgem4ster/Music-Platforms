@@ -9,7 +9,7 @@ import {Delete, Pause, PlayArrow, VolumeUp} from '@mui/icons-material';
 import {useRouter} from "next/router";
 import {useDispatch} from 'react-redux';
 import {NextThunkDispatch} from "../../../store";
-import {deleteAlbum,addLike,  fetchAlbum} from "../../../store/action-creators/album";
+import {deleteAlbum, addRemoveLike,  fetchAlbum} from "../../../store/action-creators/album";
 import { fetchTracksByAlbum } from 'store/action-creators/track';
 import { useFetcher } from 'hooks/useFetcher';
 ;
@@ -25,6 +25,12 @@ const Widget = styled('div')(({theme}) => ({
     backgroundColor:
         theme.palette.mode === 'dark' ? 'rgb(18, 18, 26)' : 'rgba(10, 1, 23,0.4)',
     backdropFilter: 'blur(40px)',
+    transition: 'background-color 0.3s ease',
+    '&:hover': {
+        backgroundColor:
+            theme.palette.mode === 'dark' ? 'rgb(40, 40, 48)' : 'rgba(20, 11, 33, 0.6)',
+        cursor: 'pointer',
+    },
 }));
 
 const CoverImage = styled('div')({
@@ -52,18 +58,35 @@ const CardMusicPlayer: React.FC<AlbumItemProps> = ({album, index}) => {
     const router = useRouter()
     // const {likeCount} = useTypedSelector(state => state.album)
     const url = process.env.API_URL;
-    const [like, setLike] = React.useState(album.likeCount);
     const dispatch = useDispatch() as NextThunkDispatch;
+
+    const [like, setLike] = React.useState(album.likeCount);
+    const [liked, setLiked] = React.useState(false);
+    const [flag, setFlag] = React.useState(1);
+
 
     const onDeleteAlbum = async () => {
         await await dispatch(deleteAlbum(album._id));
         await dispatch(fetchAlbum());
     }
 
+    // const countLike = async () => {
+    //     setLike(++album.likeCount);
+    //     await addLike(album._id)
+    //
+    // };
+
     const countLike = async () => {
-        setLike(++album.likeCount);
-        await addLike(album._id)
-        
+        if (!liked) {
+            setFlag(1);
+            setLike((prevLike) => prevLike + 1);
+            addRemoveLike(album._id, flag);
+        } else {
+            setFlag(0);
+            setLike((prevLike) => prevLike - 1);
+            addRemoveLike(album._id, flag);
+        }
+        setLiked((prevLiked) => !prevLiked);
     };
 
     const PressHandle = () => {
@@ -109,8 +132,9 @@ const CardMusicPlayer: React.FC<AlbumItemProps> = ({album, index}) => {
 
                             </Typography>
                             <IconButton onClick={e => e.stopPropagation()}>
-                                <LikeIcon onClick={countLike}/>
+                                <LikeIcon onClick={countLike} sx={{ color: liked ? 'blue' : 'white' }}/>
                             </IconButton>
+
                             <IconButton style={{marginLeft: "auto"}} onClick={e => e.stopPropagation()}>
                                 <Delete onClick={onDeleteAlbum}/>
                             </IconButton>

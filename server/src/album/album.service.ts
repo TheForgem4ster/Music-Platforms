@@ -78,11 +78,16 @@ export class AlbumService {
 
         return albums;
     }
-    async addLike(albumId: ObjectId): Promise<Album>{
+    async addRemoveLike(albumId: ObjectId, flag: number): Promise<Album>{
         const album = await this.albumModule.findById(albumId);
-        album.likeCount+=1;
-        album.save()
-        return album
+        if (flag == 1) {
+            album.likeCount += 1;
+        } else {
+            album.likeCount -= 1;
+        }
+        album.save();
+        return album;
     }
+
 
 }

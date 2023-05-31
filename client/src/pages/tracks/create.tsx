@@ -67,13 +67,13 @@ const Create = () =>{
                 {
                     activeStep === 1 &&
                     <FileUpload setFile={setPicture} accept="image/*">
-                        <Button>Загрузите изображение</Button>
+                        <Button>Upload an image</Button>
                     </FileUpload>
                 }
                 {
                     activeStep === 2 &&
                     <FileUpload setFile={setAudio} accept="audio/*">
-                        <Button>Загрузите audio</Button>
+                        <Button>Upload the audio</Button>
                     </FileUpload>
                 }
             </StepWrapper>

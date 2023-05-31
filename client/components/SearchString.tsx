@@ -81,30 +81,7 @@ const SearchString: React.FC<SearchStringProps> = ({widthBar, placeholder,widthC
     const [timerAlbum, setTimerAlbum] = useState(null);
     const dispatch = useDispatch() as NextThunkDispatch;
 
-    // const [searchTerm, setSearchTerm] = useState('');
-    // const [data, setData] = useState(albums);
-    //
-    //
-    // const handleSearch = (event : React.ChangeEvent<HTMLInputElement>) => {
-    //     const searchTerm = event.target.value;
-    //     setSearchTerm(searchTerm);
-    //     // console.log(albums);
-    //     // const filteredAlbums = albums.filter((album) =>{
-    //     //     album.tracks.some((track) =>
-    //     //
-    //     //         track.toLowerCase().includes(searchTerm.toLowerCase())
-    //     //     )}
-    //     // );
-    //     // setData((prevData) => ({ ...prevData, albums: filteredAlbums }));
-    // };
-    //
-    // const filteredAlbums = albums.filter((album) =>
-    //     album.tracks.some((track) => track.toLowerCase().includes(searchTerm.toLowerCase()))
-    // );
-
-    // useFetcher(fetchTracks);
     useFetcher(fetchAlbum);
-
 
     const searchTrack = async (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -118,7 +95,6 @@ const SearchString: React.FC<SearchStringProps> = ({widthBar, placeholder,widthC
             }, 500)
         )
     }
-
 
     const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setQuery(e.target.value)

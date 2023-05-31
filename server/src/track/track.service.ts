@@ -17,14 +17,16 @@ export class TrackService {
 
     constructor(@InjectModel(Track.name) private trackModel: Model<TrackDocument>,
                 @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
-                
+
                 private s3Service: S3Service,private fileService: FileService,) {
     }
 
     async create(dto: CreateTrackDto, picture, audio): Promise<Track> {
 
-        const audioPath = this.fileService.createFile(FileType.AUDIO,audio)//s3Service.uploadFile(audio, "tracks")
-        const picturePath = this.fileService.createFile(FileType.IMAGE,picture)
+        const audioPath = await this.fileService.createFile(FileType.AUDIO,audio)//s3Service.uploadFile(audio, "tracks")
+        const picturePath = await this.fileService.createFile(FileType.IMAGE,picture)
+        console.log('sdsd')
+        console.log((audioPath).toString())
         const track = await this.trackModel.create({
             ...dto,
             listens: 0,
@@ -46,7 +48,7 @@ export class TrackService {
         return track;
     }
 
-   
+
 
     async delete(id: ObjectId ): Promise<ObjectId> {
         const track = await this.trackModel.findByIdAndDelete(id);

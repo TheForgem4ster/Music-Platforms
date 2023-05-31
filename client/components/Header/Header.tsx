@@ -59,17 +59,16 @@ export default function Header() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose} >Profile</MenuItem>
+            <MenuItem onClick={handleMenuClose} >My profile</MenuItem>
             <MenuItem onClick={handleMenuClose} >
-                <Link style={{textDecoration: 'none',color: '#fff'}} href="/auth-page">My account</Link>
+                <Link style={{textDecoration: 'none',color: '#fff'}} href="/auth-page">Login/Logout</Link>
             </MenuItem>
         </Menu>
     );
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
+        <Menu anchorEl={mobileMoreAnchorEl}
             anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',

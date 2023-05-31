@@ -75,13 +75,15 @@ export class AlbumController {
         console.log(trackId)
         return this.albumService.addTrack(trackId, albumId)
     }
-    @ApiOperation({ summary: "Add Likes" })
+    @ApiOperation({ summary: "Add or Remove like" })
     @ApiResponse({ status: 200, type: Number })
-    @Put(":id")
-    addLike(@Param('id')  albumId: ObjectId) {
-        console.log(albumId)
-        return this.albumService.addLike(albumId)
+    @Put("like/:id/:flag")
+    addLike(@Param('id')  albumId: ObjectId, @Param('flag')  flag: number) {
+        return this.albumService.addRemoveLike(albumId, flag)
     }
+
+
+
 
     // @Put('search/:trackName')
     // serchTrackNameToAlbum(@Param('trackName') trackName: string){

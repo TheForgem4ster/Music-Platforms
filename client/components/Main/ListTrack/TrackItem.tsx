@@ -93,8 +93,6 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
            await dispatch(deleteTracksInAlbum(albumId, track._id));
            //await dispatch();
            await dispatch(fetchTracksByAlbum(albumId))
-         
-        
       };
 
 
@@ -131,7 +129,6 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
                      style={{borderRadius: 50}}
                      onError={(e) => {
                          e.target.src = defaultImageUrl;
-
                      }}/>
                 <Grid container direction="column" style={{width: 200, margin: '0 20px'}}>
                     <div>{track.name}</div>
@@ -139,18 +136,20 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
                 </Grid>
                 {((track._id === context.id) ? (<div>
                     {leftIcon} - {rightIcon}</div>) : (<div/>))}
-                <IconButton onClick={e => e.stopPropagation()} style={{marginLeft: 'auto'}}>
-                    <Delete onClick={onDeleteTrack}/>
-                </IconButton>
-                <IconButton  aria-label="more"
-                    id="long-button"
-                    aria-controls={open ? 'long-menu' : undefined}
-                    aria-expanded={open ? 'true' : undefined}
-                    aria-haspopup="true"
-                    onClick={handleClick}
-                    style={{marginLeft: 'auto'}}>
-                    <Dehaze/>
-                </IconButton>
+               <div style={{marginLeft: "auto"}}>
+                   <IconButton onClick={e => e.stopPropagation()} style={{marginLeft: 'auto'}}>
+                       <Delete onClick={onDeleteTrack}/>
+                   </IconButton>
+                   <IconButton  aria-label="more"
+                                id="long-button"
+                                aria-controls={open ? 'long-menu' : undefined}
+                                aria-expanded={open ? 'true' : undefined}
+                                aria-haspopup="true"
+                                onClick={handleClick}
+                                style={{marginLeft: 'auto'}}>
+                       <Dehaze/>
+                   </IconButton>
+               </div>
                 <Menu
                     id="long-menu"
                     MenuListProps={{

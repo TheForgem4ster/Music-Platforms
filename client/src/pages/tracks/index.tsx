@@ -56,7 +56,7 @@ const Track = () => {
                         <Box p={3}>
                             <Grid container justifyContent='space-between'>
                                 <h1 style={{color: "white"}}>List Track</h1>
-                                <Button onClick={() => router.push('/tracks/create')}>Download</Button>
+                                <Button onClick={() => router.push('/tracks/create')}>Upload</Button>
                             </Grid>
                         </Box>
                         {/*<TextField*/}

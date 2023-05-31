@@ -9,6 +9,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import AddAlbum from "../../../components/Main/Album/AddAlbum";
 
 const Album = () => {
     const {albums, errorAlbum} = useTypedSelector(state => state.album);
@@ -67,9 +68,14 @@ const Album = () => {
                         {genres.map(genre => <MenuItem key={genre.value} value={genre.value}>{genre.title}</MenuItem>)}
                     </Select>
                 </FormControl>
-
             </Grid>
-            <AlbumList albums={albums} />
+
+            <div style={{display: 'flex', flexDirection: 'column-reverse'}}>
+                <AddAlbum />
+                <AlbumList albums={albums} />
+
+            </div>
+
         </MainLayouts>
         )}</>
     )
