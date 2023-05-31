@@ -4,6 +4,7 @@ const initialState: AlbumState = {
     id: '',
     albums: [],
     errorAlbum: ''
+   
 }
 
 export const albumReducer = (state = initialState, action: AlbumAction) : AlbumState => {

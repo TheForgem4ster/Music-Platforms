@@ -1,13 +1,17 @@
 .authForm {
-    width: 100vw;
+    /*width: 50vw;*/
     height: 100vh;
-    background: #fff;
+    /*background:  #1F2026;*/
+
+    background:  no-repeat url(https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgvkEihghZiNGJTsqhbn0AvjkaIevfynYeOJDgYoWI8O9KeSmC3rZCO-kCkOc-Vt0NKlsEwEqKNVPJBfiUlrSDu0o82Qy_PVdlK_dTmKVEJ8RSGpHtpHqSp5b2zDe3YORnU4wN3gRdCenK8xtgX67SvBUwSmWQnjpPPpQOIukHSAv-rAE5MGffzFbH7bA/s1920-rw/v11-060622-pc-wallpaper-hd.png);
+    background-size: 100% auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    color: #cccccc;
 }
 
 .authFormSubtitle {
@@ -27,4 +31,21 @@
 
 .authFormFooter {
     margin-top: 8px;
+}
+
+.auth-page {
+    height: 100vh;
+    background: no-repeat url(https://media.istockphoto.com/id/1257235068/vector/neon-circle-light-line-on-ground.jpg?s=612x612&w=0&k=20&c=kmYhKsIEdrIANq2HwlZoBUZbxF_Eg-IzS5Ucukgjc3Q=);
+    background-size: cover;
+}
+.textFieldInput {
+    color: white;
+}
+
+.textFieldInput:hover {
+    color: white;
+}
+
+.textFieldInput:focus {
+    color: gray;
 }

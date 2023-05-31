@@ -42,6 +42,11 @@ export const AuthForm: React.FC = () => {
                             className={styles.authFormInput}
                             error={!!errors.email?.message}
                             helperText={ errors?.email?.message }
+                            InputProps={{
+                                style: {
+                                    color: 'white',
+                                },
+                            }}
                         />
                     )}
                 />
@@ -58,9 +63,15 @@ export const AuthForm: React.FC = () => {
                             size="small"
                             margin="normal"
                             type="password"
-                            className="auth-form__input"
+
                             error={ !!errors?.password?.message }
                             helperText={ errors?.password?.message }
+                            InputProps={{
+                                style: {
+                                    color: 'white',
+                                },
+                                className: styles.textFieldInput,
+                            }}
                         />
                     )}
                 />
@@ -70,6 +81,7 @@ export const AuthForm: React.FC = () => {
                     fullWidth={ true }
                     disableElevation={ true }
                     sx={{
+                        background: "#090A10",
                         marginTop: 2
                     }}
                 >
@@ -81,7 +93,7 @@ export const AuthForm: React.FC = () => {
                 <Typography variant="subtitle1" component="span">
                     Don't have an account?{" "}
                 </Typography>
-                <Typography variant="subtitle1" component="span" sx={{ color: 'blue'}}>
+                <Typography variant="subtitle1" component="span" sx={{ color: '#090A10' }}>
                     <Link href={"/registration"} >Register</Link>
                 </Typography>
             </div>

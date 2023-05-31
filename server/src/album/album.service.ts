@@ -1,4 +1,4 @@
-import {Injectable} from "@nestjs/common";
+import {Injectable, NotFoundException} from "@nestjs/common";
 import {InjectModel} from "@nestjs/mongoose";
 import {Album, AlbumDocument} from "./schemas/album.schemas";
 import {Model, ObjectId} from "mongoose";
@@ -42,10 +42,20 @@ export class AlbumService {
         const album = await this.albumModule.findByIdAndDelete(id);
         return album.id;
     }
-
+    async deleteTrack(Aid: ObjectId, Tid: ObjectId): Promise<ObjectId> {
+        const album = await this.albumModule.findById(Aid);
+        const trackIndex = album.tracks.indexOf(Tid)
+        if(trackIndex!==-1){
+            album.tracks.splice(trackIndex, 1);
+        }
+       else{
+        throw new NotFoundException('Track not found in album');
+       }
+       album.save()
+       return Tid
+    }
     async addTrack(trackId: ObjectId, albumId: ObjectId): Promise<Album>{
         const album = await this.albumModule.findById(albumId);
-        console.log(album)
         if (!album.tracks.includes(trackId)) {
             album.tracks.push(trackId)
         }

@@ -3,28 +3,30 @@ import {ITrack} from "../../../types/track";
 import styles from '../../../styles/TrackItem.module.scss'
 import {useRouter} from "next/router";
 import {useActions} from "../../../hooks/useActions";
-import {Avatar, Card, Grid, IconButton} from '@mui/material';
-import {Delete, Pause, PlayArrow, VolumeUp} from '@mui/icons-material';
+import {Avatar, Card, Grid, IconButton,Menu,MenuItem} from '@mui/material';
+import {Delete, Pause, PlayArrow, VolumeUp,Dehaze} from '@mui/icons-material';
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useDispatch} from 'react-redux';
 import {NextThunkDispatch} from "../../../store";
-import {deleteTracks, fetchTracks} from "../../../store/action-creators/track";
+import {deleteTracks, deleteTracksInAlbum, fetchTracksByAlbum, fetchTracks} from "../../../store/action-creators/track";
 import {play, setAudio} from '../../../misc/AudioController';
+import { addTrackToAlbum } from 'store/action-creators/album';
 import {useFetcher} from "../../../hooks/useFetcher";
 
 interface TrackItemProps {
     track: ITrack;
-    key: number;
+   
 }
-
 let audio;
 
-const TrackItem: React.FC<TrackItemProps> = ({track,key}) => {
+const TrackItem: React.FC<TrackItemProps> = ({track}) => {
     const router = useRouter()
     const actionContext = useActions()
 
     const context = useTypedSelector(state => state.player)
     const {tracks} = useTypedSelector(state => state.track)
+    const {albums} = useTypedSelector(state => state.album)
+
     useEffect(() => {
         if (context.active) {
             if (!audio) {
@@ -34,7 +36,17 @@ const TrackItem: React.FC<TrackItemProps> = ({track,key}) => {
             }
         }
     }, [context.active])
-
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        event.stopPropagation()
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = (event: React.MouseEvent<HTMLElement>,Aid:string,Tid:string) => {
+      event.stopPropagation()
+     addTrackToAlbum(Aid,Tid)
+      setAnchorEl(null);
+    };
     // const setAudio = () => {
     //     audio.src =process.env.API_URL+ active.audio;
     //     audio.volume = volume / 100
@@ -75,10 +87,18 @@ const TrackItem: React.FC<TrackItemProps> = ({track,key}) => {
     const dispatch = useDispatch() as NextThunkDispatch;
 
     const onDeleteTrack = async () => {
-        dispatch(deleteTracks(track._id));
-        // window.location.reload();
-    }
-    const newPages = (e) => {
+        
+          const albumId = router.query.id as string;
+          console.log(albumId)
+           await dispatch(deleteTracksInAlbum(albumId, track._id));
+           //await dispatch();
+           await dispatch(fetchTracksByAlbum(albumId))
+         
+        
+      };
+
+
+    const newPages = (e: React.MouseEvent<HTMLElement>) => {
         e.stopPropagation()
         check();
     }
@@ -122,6 +142,36 @@ const TrackItem: React.FC<TrackItemProps> = ({track,key}) => {
                 <IconButton onClick={e => e.stopPropagation()} style={{marginLeft: 'auto'}}>
                     <Delete onClick={onDeleteTrack}/>
                 </IconButton>
+                <IconButton  aria-label="more"
+                    id="long-button"
+                    aria-controls={open ? 'long-menu' : undefined}
+                    aria-expanded={open ? 'true' : undefined}
+                    aria-haspopup="true"
+                    onClick={handleClick}
+                    style={{marginLeft: 'auto'}}>
+                    <Dehaze/>
+                </IconButton>
+                <Menu
+                    id="long-menu"
+                    MenuListProps={{
+                    'aria-labelledby': 'long-button',
+                    }}
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    PaperProps={{
+                    style: {
+                        maxHeight: 48 * 4.5,
+                        width: '20ch',
+                    },
+                    }}
+                >
+                    {albums.map((option) => (
+                    <MenuItem key={option.name} onClick={(event) => handleClose(event, option._id,track._id)}>
+                        {option.name}
+                    </MenuItem>
+                    ))}
+                </Menu>
             </Card>
 
     );

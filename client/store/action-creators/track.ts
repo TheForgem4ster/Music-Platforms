@@ -16,6 +16,20 @@ export const fetchTracks = () => {
     }
 }
 
+export const fetchTracksByAlbum = (id:string) => {
+       return async (dispatch: Dispatch<TrackAction>) => {
+            try {
+                const response = await axios.get(`${process.env.API_URL}album/`+ id)
+                console.log("hello")
+                console.log(response.data)
+                dispatch({type: TrackActionTypes.FETCH_TRACKS, payload: response.data})
+            } catch (e) {
+                dispatch({
+                    type: TrackActionTypes.FETCH_TRACKS_ERROR,
+                    payload: 'An error occurred while loading tracks'})
+            }
+       }
+    }
 export const searchTracks = (query: string) => {
     return async (dispatch: Dispatch<TrackAction>) => {
         try {
@@ -41,16 +55,17 @@ export const deleteTracks = (id: string) => {
         }
     }
 }
-export const fetchTracksByAlbum = (id:string) => {
+
+export const deleteTracksInAlbum = (albumId: string, trackId: string) => {
     return async (dispatch: Dispatch<TrackAction>) => {
         try {
-            const response = await axios.get(`${process.env.API_URL}album/`+ id)
+            const response = await axios.delete(`${process.env.API_URL}album/` + albumId +'/'+trackId);
             console.log(response.data)
-            dispatch({type: TrackActionTypes.FETCH_TRACKS, payload: response.data})
+            dispatch({type: TrackActionTypes.DELETE_TRACKS, payload: response.data})
         } catch (e) {
             dispatch({
                 type: TrackActionTypes.FETCH_TRACKS_ERROR,
-                payload: 'An error occurred while loading tracks'})
+                payload: 'An error occurred while deleting track'})
         }
     }
 }

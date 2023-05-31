@@ -60,6 +60,14 @@ export class AlbumController {
         return this.albumService.delete(id);
     }
 
+    @ApiOperation({ summary: "Delete Track by ID from Album" })
+    @ApiResponse({ status: 200, type: mongoose.Types.ObjectId })
+    @Delete(":albumId/:trackId")
+    deleteTrack(@Param('trackId') trackId: ObjectId, @Param('albumId') albumId: ObjectId) {
+        console.log("Hello")
+        return this.albumService.deleteTrack(albumId,trackId);
+    }
+
     @ApiOperation({ summary: "Add a track to the album" })
     @ApiResponse({ status: 200, type: Album })
     @Put(':albumId/:trackId')

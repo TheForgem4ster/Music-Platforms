@@ -17,6 +17,7 @@ export class TrackService {
 
     constructor(@InjectModel(Track.name) private trackModel: Model<TrackDocument>,
                 @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
+                
                 private s3Service: S3Service,private fileService: FileService,) {
     }
 
@@ -44,6 +45,8 @@ export class TrackService {
         const track = await this.trackModel.findById(id).populate('comments');
         return track;
     }
+
+   
 
     async delete(id: ObjectId ): Promise<ObjectId> {
         const track = await this.trackModel.findByIdAndDelete(id);

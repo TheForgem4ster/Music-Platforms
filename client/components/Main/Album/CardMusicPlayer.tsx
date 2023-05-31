@@ -9,8 +9,10 @@ import {Delete, Pause, PlayArrow, VolumeUp} from '@mui/icons-material';
 import {useRouter} from "next/router";
 import {useDispatch} from 'react-redux';
 import {NextThunkDispatch} from "../../../store";
-import {deleteAlbum, fetchAlbum} from "../../../store/action-creators/album";
+import {deleteAlbum,addLike,  fetchAlbum} from "../../../store/action-creators/album";
 import { fetchTracksByAlbum } from 'store/action-creators/track';
+import { useFetcher } from 'hooks/useFetcher';
+;
 
 const Widget = styled('div')(({theme}) => ({
     margin: 15,
@@ -54,15 +56,14 @@ const CardMusicPlayer: React.FC<AlbumItemProps> = ({album, index}) => {
     const dispatch = useDispatch() as NextThunkDispatch;
 
     const onDeleteAlbum = async () => {
-        await dispatch(deleteAlbum(album._id));
+        await await dispatch(deleteAlbum(album._id));
         await dispatch(fetchAlbum());
     }
 
-    const countLike = () => {
-
+    const countLike = async () => {
         setLike(++album.likeCount);
-
-        console.log(album.likeCount);
+        await addLike(album._id)
+        
     };
 
     const PressHandle = () => {

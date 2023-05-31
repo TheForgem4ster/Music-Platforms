@@ -55,3 +55,20 @@ export const deleteAlbum = (id: string) => {
         }
     }
 }
+
+export const addLike = async (id: string) => {
+    try {
+      const response = await axios.put(`${process.env.API_URL}album/` + id);
+      return response.data;
+    } catch (e) {
+      console.log("An error occurred while adding like");
+    }
+  };
+  export const addTrackToAlbum = async (Aid: string, Tid: string) => {
+    try {
+      const response = await axios.put(`${process.env.API_URL}album/` + Aid+'/'+Tid);
+      return response.data;
+    } catch (e) {
+      console.log("An error occurred while adding track to album");
+    }
+  };
