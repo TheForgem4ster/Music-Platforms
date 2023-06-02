@@ -116,7 +116,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
 
 
     return (
-            <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)}>
+            <Card className={styles.track} onClick={() => router.push('/tracks/' + track._id)} style={{ background: "#1F292E"}}>
 
                 <IconButton onClick={newPages} size={'small'} disableRipple={true} >
                     {

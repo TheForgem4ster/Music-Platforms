@@ -15,12 +15,18 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import SearchString from "../SearchString";
 import { useRouter } from 'next/router'
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+
 
 export default function Header() {
     const router = useRouter()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
         React.useState<null | HTMLElement>(null);
+
+    const [tracks, setTracks] = React.useState([]);
+    const [selectedTrack, setSelectedTrack] = React.useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -40,6 +46,16 @@ export default function Header() {
 
     const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setMobileMoreAnchorEl(event.currentTarget);
+    };
+
+
+    const onListTrack = () => {
+        alert("hi");
+    }
+    const handleInputChange = (event, value) => {
+        // Здесь вы должны выполнить логику получения списка треков
+        // на основе введенного значения `value`
+        // и установить полученный список в состояние `tracks`.
     };
 
     const menuId = 'primary-search-account-menu';
@@ -129,7 +145,7 @@ export default function Header() {
                         sx={{ mr: 2 }}
                     >
                         <ArrowBackIcon onClick={() => router.back()}/>
-                        {/*<MusicNoteIcon/>*/}
+
                     </IconButton>
                     <Typography
                         variant="h6"
@@ -142,7 +158,10 @@ export default function Header() {
 
                     <Box sx={{ flexGrow: 1 }} />
 
-                    <SearchString heightBar={'100%'} widthCursor={'10em'} placeholder={"Search…"}/>
+                    <div onClick={onListTrack}>
+                        <SearchString  heightBar={'100%'} widthCursor={'10em'} placeholder={"Search…"}/>
+                    </div>
+
 
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton

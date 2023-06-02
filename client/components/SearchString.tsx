@@ -61,10 +61,11 @@ interface SearchStringProps {
     flag: boolean;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onClick: () => void;
 }
 
 const SearchString: React.FC<SearchStringProps> = ({widthBar, placeholder,widthCursor,
-                                                       flag,value,onChange,}) => {
+                                                       flag,value,onChange, onClick}) => {
 
     const [regimeСhange, setRegimeChange] = useState(true);
     const [changeFlag, setchangeFlag] = useState(true);

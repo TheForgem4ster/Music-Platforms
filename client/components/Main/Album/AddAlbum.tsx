@@ -76,7 +76,7 @@ const AddAlbum = () => {
     };
 
     const handleButtonClick = () => {
-        alert('Привет!');
+        alert('The functionality is being improved. Sorry for the inconvenience.');
     };
 
     return (
