@@ -26,19 +26,19 @@ const Track = () => {
     }, []);
 
 
-    const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    // const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
 
-        setQuery(e.target.value)
-        if (timer) {
-            clearTimeout(timer)
-        }
-        setTimer(
-            setTimeout(async () => {
-                await dispatch(await searchTracks(e.target.value));
-            }, 500)
-        )
+    //     setQuery(e.target.value)
+    //     if (timer) {
+    //         clearTimeout(timer)
+    //     }
+    //     setTimer(
+    //         setTimeout(async () => {
+    //             await dispatch(await searchTracks(e.target.value));
+    //         }, 500)
+    //     )
 
-    }
+    // }
 
     if (error) {
         return (

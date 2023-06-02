@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { FileModule } from './file delete later/file.module';
 import * as path from 'path';
 import {ServeStaticModule} from "@nestjs/serve-static";
-import {AlbumModule} from "./album/album.module.ts";
+import {AlbumModule} from "./album/album.module";
 import {UserModule} from "./user/user.module";
 import {S3Module} from "./s3/s3.module";
 import { ConfigModule, ConfigService } from '@nestjs/config';

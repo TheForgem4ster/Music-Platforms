@@ -89,10 +89,15 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
     const onDeleteTrack = async () => {
         
           const albumId = router.query.id as string;
-          console.log(albumId)
+          if(albumId){
            await dispatch(deleteTracksInAlbum(albumId, track._id));
            //await dispatch();
            await dispatch(fetchTracksByAlbum(albumId))
+          }else{
+            await dispatch(deleteTracks(track._id))
+            await dispatch(fetchTracks())
+          }
+
       };
 
 

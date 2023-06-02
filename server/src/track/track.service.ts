@@ -17,7 +17,7 @@ export class TrackService {
 
     constructor(@InjectModel(Track.name) private trackModel: Model<TrackDocument>,
                 @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
-
+                @InjectModel(Album.name) private albumModel: Model<AlbumDocument>,
                 private s3Service: S3Service,private fileService: FileService,) {
     }
 
@@ -51,6 +51,8 @@ export class TrackService {
 
 
     async delete(id: ObjectId ): Promise<ObjectId> {
+        
+        await this.albumModel.updateMany({ tracks: id }, { $pull: { tracks: id } });
         const track = await this.trackModel.findByIdAndDelete(id);
         await this.fileService.removeFile(track.audio)
         await this.fileService.removeFile(track.picture)

@@ -16,7 +16,7 @@ import { Track, TrackSchema } from "src/track/schemas/track.schemas";
     ],
     controllers: [AlbumController],
     providers: [AlbumService, S3Service, FileService],
-    exports: [AlbumService]
+    exports: [AlbumService,MongooseModule.forFeature([{ name: Album.name, schema: AlbumSchema }])]
 })
 
 export class AlbumModule { }
