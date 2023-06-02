@@ -10,12 +10,13 @@ import {useDispatch} from "react-redux";
 import { useFetcher } from "hooks/useFetcher";
 import {genres} from "../../../assets/constants";
 import SearchString from "../../../components/SearchString";
+import { GetServerSideProps } from "next";
 
 
-const Track = () => {
+const Track = ({tracks}) => {
     const router = useRouter();
     const [query, setQuery] = useState<string>('');
-    const {tracks, error} = useTypedSelector(state => state.track)
+    //const {tracks, error} = useTypedSelector(state => state.track)
 
     const [timer, setTimer] = useState(null);
     const dispatch = useDispatch() as NextThunkDispatch;
@@ -40,16 +41,16 @@ const Track = () => {
 
     // }
 
-    if (error) {
-        return (
-            <MainLayouts>
-                {error}
-            </MainLayouts>
-        )
-    }
-    useFetcher(fetchTracks);
+    // if (error) {
+    //     return (
+    //         <MainLayouts>
+    //             {error}
+    //         </MainLayouts>
+    //     )
+    // }
+    // useFetcher(fetchTracks);
     return (
-        <>{domLoaded && (
+        // <>{domLoaded && (
             <MainLayouts title={"list track - music platform"}>
                 <Grid justifyContent='center' minWidth="100%" display="flex">
                     <Card style={{width: "90%"}}>
@@ -74,7 +75,7 @@ const Track = () => {
                     </Card>
                 </Grid>
             </MainLayouts>
-        )}</>
+        //</>
     );
 }
 
@@ -85,3 +86,19 @@ export default Track;
 //     const dispatch = store.dispatch as NextThunkDispatch
 //     await dispatch(await fetchTracks());
 // });
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
+    (store) => async () => {
+      const dispatch = store.dispatch as NextThunkDispatch;
+      await dispatch(fetchTracks());
+    
+      
+      const { track } = store.getState();
+    
+     
+      return {
+        props: {
+          tracks: track.tracks, 
+        },
+      };
+    }
+  );

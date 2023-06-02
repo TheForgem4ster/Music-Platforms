@@ -26,11 +26,10 @@ const AlbumList: React.FC<AlbumListProps> = ({albums}) => {
 
             <Grid container >
                 {/*<>{domLoaded && (<>*/}
-                    {albums.map((album, index) =>
+                {albums.map((album) =>
                             <CardMusicPlayer
                                 key={album._id}
                                 album={album}
-                                index={index}
                             />
                     )}
                 {/*</>)}</>*/}

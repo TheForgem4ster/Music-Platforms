@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import {styled, alpha} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,9 +14,13 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
 import SearchString from "../SearchString";
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router'
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import {useTypedSelector} from "../../hooks/useTypedSelector";
+import AutoCompleteSearch from "./AutoCompleteSearch";
+
 
 
 export default function Header() {
@@ -25,7 +29,6 @@ export default function Header() {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
         React.useState<null | HTMLElement>(null);
 
-    const [tracks, setTracks] = React.useState([]);
     const [selectedTrack, setSelectedTrack] = React.useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
@@ -49,9 +52,6 @@ export default function Header() {
     };
 
 
-    const onListTrack = () => {
-        alert("hi");
-    }
     const handleInputChange = (event, value) => {
         // Здесь вы должны выполнить логику получения списка треков
         // на основе введенного значения `value`
@@ -75,9 +75,9 @@ export default function Header() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose} >My profile</MenuItem>
-            <MenuItem onClick={handleMenuClose} >
-                <Link style={{textDecoration: 'none',color: '#fff'}} href="/auth-page">Login/Logout</Link>
+            <MenuItem onClick={handleMenuClose}>My profile</MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+                <Link style={{textDecoration: 'none', color: '#fff'}} href="/auth-page">Login/Logout</Link>
             </MenuItem>
         </Menu>
     );
@@ -85,23 +85,23 @@ export default function Header() {
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
+              anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+              }}
+              id={mobileMenuId}
+              keepMounted
+              transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+              }}
+              open={isMobileMenuOpen}
+              onClose={handleMobileMenuClose}
         >
             <MenuItem>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                     <Badge badgeContent={4} color="error">
-                        <MailIcon />
+                        <MailIcon/>
                     </Badge>
                 </IconButton>
                 <p>Messages</p>
@@ -113,7 +113,7 @@ export default function Header() {
                     color="inherit"
                 >
                     <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
+                        <NotificationsIcon/>
                     </Badge>
                 </IconButton>
                 <p>Notifications</p>
@@ -126,7 +126,7 @@ export default function Header() {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle />
+                    <AccountCircle/>
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
@@ -134,7 +134,7 @@ export default function Header() {
     );
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -142,7 +142,7 @@ export default function Header() {
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        sx={{ mr: 2 }}
+                        sx={{mr: 2}}
                     >
                         <ArrowBackIcon onClick={() => router.back()}/>
 
@@ -151,26 +151,24 @@ export default function Header() {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        sx={{display: {xs: 'none', sm: 'block'}}}
                     >
                         Music Platform
                     </Typography>
 
-                    <Box sx={{ flexGrow: 1 }} />
+                    <Box sx={{flexGrow: 1}}/>
 
-                    <div onClick={onListTrack}>
-                        <SearchString  heightBar={'100%'} widthCursor={'10em'} placeholder={"Search…"}/>
-                    </div>
+                    <AutoCompleteSearch />
 
 
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                         <IconButton
                             size="large"
                             aria-label="show 17 new notifications"
                             color="inherit"
                         >
                             <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
+                                <NotificationsIcon/>
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -182,7 +180,7 @@ export default function Header() {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <AccountCircle />
+                            <AccountCircle/>
                         </IconButton>
                     </Box>
                 </Toolbar>

@@ -1,10 +1,10 @@
 
 
-export const play = (context,audio,actionContext,tracks) => {
+export const play = (context,audio,actionContext) => {
    
     if (context.active) {
         console.log()
-        statusUpdate(audio,context,actionContext,tracks)
+        statusUpdate(audio,context,actionContext)
         if (context.pause) {
             actionContext.playTrack()
             audio.play()
@@ -15,7 +15,7 @@ export const play = (context,audio,actionContext,tracks) => {
 
     }
 }
-export const next = (audio,context,actionContext,tracks) => {
+export const next = (audio,context,actionContext) => {
     if(context.active){
         let indexHolder=0
         let status
@@ -23,26 +23,26 @@ export const next = (audio,context,actionContext,tracks) => {
         actionContext.pauseTrack()
         context.pause = true
     //find index of the audio
-        tracks.map((track,index) => {
+        context.playlist.map((track,index) => {
             
             if(track._id === context.active._id ){
                 indexHolder=index
             }
         })
     //when audio is the last
-        if(indexHolder+1 >= tracks.length){
+        if(indexHolder+1 >= context.playlist.length){
             
-            status = actionContext.setActiveTrack(tracks[0])
+            status = actionContext.setActiveTrack(context.playlist[0])
         }
         else{
-            status = actionContext.setActiveTrack(tracks[indexHolder+1])
+            status = actionContext.setActiveTrack(context.playlist[indexHolder+1])
         }
          context.active=status.payload
          setAudio(audio,context.active,context.volume,actionContext.SetCurrentAudio)
-         play(context,audio,actionContext,tracks)
+         play(context,audio,actionContext)
     }
 }
-export const prev = (audio,context,actionContext,tracks) => {
+export const prev = (audio,context,actionContext) => {
     if(context.active){
         let indexHolder=0
         let status
@@ -50,7 +50,7 @@ export const prev = (audio,context,actionContext,tracks) => {
         actionContext.pauseTrack()
         context.pause = true
     //find index of the audio
-        tracks.map((track,index) => {
+    context.playlist.map((track,index) => {
             
             if(track._id === context.active._id ){
                 indexHolder=index
@@ -59,17 +59,17 @@ export const prev = (audio,context,actionContext,tracks) => {
     //when audio is the first
         if(indexHolder <= 0){
             
-            status = actionContext.setActiveTrack(tracks[tracks.length-1])
+            status = actionContext.setActiveTrack(context.playlist[context.playlist.length-1])
         }
         else{
-            status = actionContext.setActiveTrack(tracks[indexHolder-1])
+            status = actionContext.setActiveTrack(context.playlist[indexHolder-1])
         }
          context.active=status.payload
          setAudio(audio,context.active,context.volume,actionContext.SetCurrentAudio)
-         play(context,audio,actionContext,tracks)
+         play(context,audio,actionContext)
     }
 }
-export const statusUpdate = (audio,context,actionContext,tracks) => {
+export const statusUpdate = (audio,context,actionContext) => {
     
     audio.onloadedmetadata = () => {
         actionContext.setDuration(Math.ceil(audio.duration))
@@ -83,27 +83,27 @@ export const statusUpdate = (audio,context,actionContext,tracks) => {
         actionContext.pauseTrack()
         
   //find index of the audio       
-        tracks.map((track,index) => {
+  context.playlist.map((track,index) => {
             
             if(track._id === context.active._id ){
                 indexHolder=index
             }
         })
 //when audio is the last
-        if(indexHolder+1 >= tracks.length){
-            const status = actionContext.setActiveTrack(tracks[0])
+        if(indexHolder+1 >= context.playlist.length){
+            const status = actionContext.setActiveTrack(context.playlist[0])
             context.active=status.payload
             setAudio(audio,context.active,context.volume,actionContext.SetCurrentAudio)
-            play(context,audio,actionContext,tracks)
+            play(context,audio,actionContext)
             return
         }
         
         if(indexHolder !== -1){
             
-            const status =  actionContext.setActiveTrack(tracks[indexHolder+1])
+            const status =  actionContext.setActiveTrack(context.playlist[indexHolder+1])
             context.active=status.payload
             const audioStatus = setAudio(audio,context.active,context.volume,actionContext.SetCurrentAudio)
-            return play(context,audioStatus.payload,actionContext,tracks)
+            return play(context,audioStatus.payload,actionContext)
             
         }
     }

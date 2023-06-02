@@ -7,6 +7,7 @@ export const fetchTracks = () => {
     return async (dispatch: Dispatch<TrackAction>) => {
         try {
             const response = await axios.get(`${process.env.API_URL}tracks`)
+            console.log("dsd"+response.data)
             dispatch({type: TrackActionTypes.FETCH_TRACKS, payload: response.data})
         } catch (e) {
             dispatch({

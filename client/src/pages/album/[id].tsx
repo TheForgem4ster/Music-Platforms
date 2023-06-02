@@ -1,20 +1,24 @@
 import MainLayouts from "layouts/MainLayouts";
 import React, {useEffect, useState} from "react";
-import { IconButton, TextField } from "@mui/material";
+import { IconButton } from "@mui/material";
 import TrackList from "../../../components/Main/ListTrack/TrackList";
 import {ITrack} from "../../../types/track";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {IAlbum} from "../../../types/album";
 import { PlayArrow } from "@mui/icons-material";
 import {GetServerSideProps} from "next";
-import axios from "axios";
 import SearchString from "components/SearchString";
+import {NextThunkDispatch, wrapper} from "store";
+import {fetchTracks, fetchTracksByAlbum} from "store/action-creators/track";
+import { fetchAlbum } from "store/action-creators/album";
+
 
 interface TrackItemProps {
     serverAlbum: IAlbum;
+    serverTracks:ITrack[]
 }
 
-const AlbumId: React.FC<TrackItemProps> = ({serverAlbum}) => {
+const AlbumId: React.FC<TrackItemProps> = ({serverAlbum,serverTracks}) => {
     const [album, setAlbum] = useState<IAlbum>(serverAlbum);
     const {tracks, error} = useTypedSelector(state => state.track)
     const [searchQuery, setSearchQuery] = useState("")
@@ -97,15 +101,31 @@ const AlbumId: React.FC<TrackItemProps> = ({serverAlbum}) => {
     </MainLayouts>
     )
 }
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
-    const response = await axios.get('http://localhost:5000/album/index/' + params.id)
-    return {
+// export const getServerSideProps: GetServerSideProps = async ({params}) => {
+//     const response = await axios.get('http://localhost:5000/album/index/' + params.id)
+//     return {
+//         props: {
+//             serverAlbum: response.data
+//         }
+//     }
+// }
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
+    (store) => async ({params}) => {
+      const dispatch = store.dispatch as NextThunkDispatch;
+      await dispatch(fetchAlbum());
+      await dispatch(fetchTracksByAlbum(params.id));
+     
+      const { track } = store.getState();
+      const { album } = store.getState();
+     console.log(track.tracks)
+      return {
         props: {
-            serverAlbum: response.data
-        }
+          serverAlbum: album.albums, 
+          serverTrack: track.tracks
+        },
+      };
     }
-}
-
+  );
 // export const getServerSideProps = wrapper.getServerSideProps(
 //     (store) => async ({req }) => {
 //         const dispatch = store.dispatch as NextThunkDispatch;

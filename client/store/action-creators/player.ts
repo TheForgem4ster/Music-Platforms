@@ -23,3 +23,6 @@ export const setActiveTrack = (payload: ITrack): PlayerAction => {
 export const SetCurrentAudio = (payload: HTMLAudioElement): PlayerAction => {
     return {type: PlayerActionTypes.SET_CURRENT_AUDIO, payload}
 }
+export const SetCurrentPlaylist = (payload: ITrack[]): PlayerAction => {
+    return {type: PlayerActionTypes.SET_CURRENT_PLAYLIST, payload}
+}

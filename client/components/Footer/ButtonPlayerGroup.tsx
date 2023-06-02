@@ -30,7 +30,7 @@ const ButtonPlayerGroup = ({play, pause,previous,next}) => {
 
     return <div>
         {
-            iconPlayer.map(({},index)=> <IconButton>{paintIconPlayer(index)}</IconButton>)
+            iconPlayer.map(({},index)=> <IconButton key={index}>{paintIconPlayer(index)}</IconButton>)
         }
     </div>
 }

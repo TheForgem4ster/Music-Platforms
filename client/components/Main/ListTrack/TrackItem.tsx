@@ -62,11 +62,12 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
             }
             audio = ""
             actionContext.setActiveTrack(track)
+            actionContext.SetCurrentPlaylist(tracks)
            
         } else {
             if(!context.active){
               actionContext.setActiveTrack(track)}
-              
+              actionContext.SetCurrentPlaylist(tracks)
             audio = context.audioHandler
             play(context,audio,actionContext,tracks)
            
@@ -89,6 +90,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
     const onDeleteTrack = async () => {
         
           const albumId = router.query.id as string;
+          console.log("!!!!!!!"+ albumId)
           if(albumId){
            await dispatch(deleteTracksInAlbum(albumId, track._id));
            //await dispatch();

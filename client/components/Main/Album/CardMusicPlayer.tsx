@@ -51,10 +51,9 @@ const CoverImage = styled('div')({
 
 interface AlbumItemProps {
     album: IAlbum;
-    index: number;
 }
 
-const CardMusicPlayer: React.FC<AlbumItemProps> = ({album, index}) => {
+const CardMusicPlayer: React.FC<AlbumItemProps> = ({album}) => {
     const router = useRouter()
     // const {likeCount} = useTypedSelector(state => state.album)
     const url = process.env.API_URL;

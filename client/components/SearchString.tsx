@@ -82,7 +82,7 @@ const SearchString: React.FC<SearchStringProps> = ({widthBar, placeholder,widthC
     const [timerAlbum, setTimerAlbum] = useState(null);
     const dispatch = useDispatch() as NextThunkDispatch;
 
-    useFetcher(fetchAlbum);
+    //useFetcher(fetchAlbum);
 
     const searchTrack = async (e: React.ChangeEvent<HTMLInputElement>) => {
 

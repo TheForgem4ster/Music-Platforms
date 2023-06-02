@@ -10,8 +10,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import AddAlbum from "../../../components/Main/Album/AddAlbum";
+import { fetchAlbum } from "store/action-creators/album";
+import {NextThunkDispatch, wrapper} from "store";
+import {GetServerSideProps} from "next";
 
-const Album = () => {
+const Album = ({serverAlbum}) => {
     const {albums, errorAlbum} = useTypedSelector(state => state.album);
 
     const [domLoaded, setDomLoaded] = useState(false);
@@ -37,7 +40,7 @@ const Album = () => {
     };
 
     return (
-        <>{domLoaded && (
+        
         <MainLayouts title={"list album - music platform"}>
             <Grid container justifyContent='space-between'>
                 <h1 style={{color: "white"}}>List Album</h1>
@@ -71,17 +74,31 @@ const Album = () => {
             </Grid>
 
             <div style={{display: 'flex', flexDirection: 'column-reverse'}}>
-                <AddAlbum />
-                <AlbumList albums={albums} />
+                {/* <AddAlbum /> */}
+                <AlbumList albums={serverAlbum} />
 
             </div>
 
         </MainLayouts>
-        )}</>
+        
     )
 }
 export default Album;
 
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
+    (store) => async ({params}) => {
+      const dispatch = store.dispatch as NextThunkDispatch;
+      await dispatch(fetchAlbum());
+      const { album } = store.getState();
+     
+      return {
+        props: {
+          serverAlbum: album.albums, 
+          
+        },
+      };
+    }
+  );
 // export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
 //     const dispatch = store.dispatch as NextThunkDispatch
 //     await dispatch(await fetchAlbum());
