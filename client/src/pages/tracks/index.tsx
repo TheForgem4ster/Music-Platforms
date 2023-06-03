@@ -13,11 +13,11 @@ import SearchString from "../../../components/SearchString";
 import { GetServerSideProps } from "next";
 
 
-const Track = ({tracks}) => {
+const Track = ({initialTracks}) => {
     const router = useRouter();
     const [query, setQuery] = useState<string>('');
-    //const {tracks, error} = useTypedSelector(state => state.track)
-
+    const {tracks, error} = useTypedSelector(state => state.track)
+    const [searchedTracks, setSearchedTracks] = useState(initialTracks);
     const [timer, setTimer] = useState(null);
     const dispatch = useDispatch() as NextThunkDispatch;
     const [domLoaded, setDomLoaded] = useState(false);
@@ -25,30 +25,13 @@ const Track = ({tracks}) => {
     useEffect(() => {
         setDomLoaded(true);
     }, []);
+    useEffect(() => {
+        setSearchedTracks(tracks);
+      }, [tracks]);
 
+    
 
-    // const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    //     setQuery(e.target.value)
-    //     if (timer) {
-    //         clearTimeout(timer)
-    //     }
-    //     setTimer(
-    //         setTimeout(async () => {
-    //             await dispatch(await searchTracks(e.target.value));
-    //         }, 500)
-    //     )
-
-    // }
-
-    // if (error) {
-    //     return (
-    //         <MainLayouts>
-    //             {error}
-    //         </MainLayouts>
-    //     )
-    // }
-    // useFetcher(fetchTracks);
+    
     return (
         // <>{domLoaded && (
             <MainLayouts title={"list track - music platform"}>
@@ -60,18 +43,14 @@ const Track = ({tracks}) => {
                                 <Button onClick={() => router.push('/tracks/create')}>Upload</Button>
                             </Grid>
                         </Box>
-                        {/*<TextField*/}
-                        {/*    fullWidth*/}
-                        {/*    value={query}*/}
-                        {/*    onChange={search}*/}
-                        {/*/>*/}
+                        
                         <SearchString
                             flag={false}
                             placeholder={"Search albums..."}
                             widthCursor={'45em'}
 
                         />
-                        <TrackList tracks={tracks}/>
+                        <TrackList tracks={searchedTracks}/>
                     </Card>
                 </Grid>
             </MainLayouts>
@@ -81,11 +60,7 @@ const Track = ({tracks}) => {
 
 export default Track;
 
-// export const getServerSideProps = wrapper.getServerSideProps(
-//     (store) => async ({req}) => {
-//     const dispatch = store.dispatch as NextThunkDispatch
-//     await dispatch(await fetchTracks());
-// });
+
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
     (store) => async () => {
       const dispatch = store.dispatch as NextThunkDispatch;
@@ -97,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
      
       return {
         props: {
-          tracks: track.tracks, 
+            initialTracks: track.tracks, 
         },
       };
     }

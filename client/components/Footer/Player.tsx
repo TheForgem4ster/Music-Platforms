@@ -12,7 +12,9 @@ import ScrollBar from "../ScrollBar";
 import {
     play,
     next,
-    prev
+    prev,
+    repeat,
+    shuffle
 } from '../../misc/AudioController';
 
 let audio
@@ -63,13 +65,21 @@ const Player = () => {
     //     }
     // }
     const handlePressPlay= () =>{
-        play(context,audio,actionContext,tracks)
+        play(context,audio,actionContext)
     }
     const handlePressNext = () => {
-        next(audio,context,actionContext,tracks)
+        next(audio,context,actionContext)
     }
     const handlePressPrev = () => {
-        prev(audio,context,actionContext,tracks)
+        prev(audio,context,actionContext)
+    }
+    const handlePressRepeat = () => {
+    
+        repeat(context,audio,actionContext)
+    }
+    const handlePressShuffle = () => {
+    
+        shuffle(context,actionContext)
     }
     const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(audio)
@@ -94,7 +104,12 @@ const Player = () => {
                 <div style={{ fontSize: 13}}>{context.active?.artist}</div>
             </Grid>
 
-            <ButtonPlayerGroup play={handlePressPlay} pause={context.pause} next={handlePressNext} previous={handlePressPrev} />
+            <ButtonPlayerGroup play={handlePressPlay} 
+            pause={context.pause} next={handlePressNext} 
+            previous={handlePressPrev} 
+            repeat={handlePressRepeat}
+            shuffle={handlePressShuffle}
+            repeatCount={context.repeat}/>
             <Box sx={{ width: 400, display: "flex",  margin: "0 auto" }}>
                 <ScrollBar duration={context.duration} position={context.currentTime} theme={theme}
                     onChangeSetPosition={(_, value) => changeCurrentTime(value as number)} />

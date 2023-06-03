@@ -53,12 +53,7 @@ export default function Header() {
     };
 
 
-    const handleInputChange = (event, value) => {
-        // Здесь вы должны выполнить логику получения списка треков
-        // на основе введенного значения `value`
-        // и установить полученный список в состояние `tracks`.
-    };
-
+    
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu

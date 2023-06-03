@@ -10,6 +10,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
 import FileUpload from "../ListTrack/DownloadTrack/FileUpload";
 import {useState} from "react";
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const Widget = styled('div')(({theme}) => ({
     margin: 15,
@@ -51,8 +53,8 @@ const AddAlbum = () => {
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState('');
     const [description, setDescription] = React.useState('');
-
     const [picture, setPicture] = useState(null);
+    const router = useRouter()
 
     const handleOpen = () => {
         setOpen(true);
@@ -76,7 +78,14 @@ const AddAlbum = () => {
     };
 
     const handleButtonClick = () => {
-        alert('The functionality is being improved. Sorry for the inconvenience.');
+        const formData = new FormData()
+        formData.append('name', title)
+        formData.append('genres', description)
+        formData.append('picture', picture)
+        axios.post('http://localhost:5000/album', formData)
+            .then(resp => router.push('/album'))
+            .catch(e => console.log(e))
+        alert(`The functionality is being improved. Sorry for the inconvenience.${title}`);
     };
 
     return (

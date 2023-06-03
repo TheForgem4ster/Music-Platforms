@@ -26,9 +26,9 @@ export class FileService {
             if (type === FileType.IMAGE) {
                 processedBuffer = await this.resizeImage(file.buffer, 200, 200);
             }
-            console.log("processedBuffer", processedBuffer)
+           
             const success =  NodeID3.removeTagsFromBuffer(processedBuffer)
-            console.log("success", success)
+          
             fs.writeFileSync(path.resolve(filePath, fileName), success);
             return type + '/' + fileName;
         } catch (e) {

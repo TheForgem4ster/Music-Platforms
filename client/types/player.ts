@@ -6,6 +6,7 @@ export interface PlayerState {
     duration: number;
     currentTime: number;
     pause: boolean;
+    repeat:number;
     id?: string;
     audioHandler: null | HTMLAudioElement;
     playlist:ITrack[];
@@ -19,7 +20,8 @@ export enum PlayerActionTypes {
     SET_CURRENT_TIME = "SET_CURRENT_TIME",
     SET_VOLUME = "SET_VOLUME",
     SET_CURRENT_AUDIO="SET_CURRENT_AUDIO",
-    SET_CURRENT_PLAYLIST="SET_CURRENT_PLAYLIST"
+    SET_CURRENT_PLAYLIST="SET_CURRENT_PLAYLIST",
+    SET_REPEAT = "SET_REPEAT"
 }
 
 interface PlayAction {
@@ -52,6 +54,10 @@ interface SetCurrentPlaylist{
     type: PlayerActionTypes.SET_CURRENT_PLAYLIST,
     payload: ITrack[];
 }
+interface SetRepeat {
+    type: PlayerActionTypes.SET_REPEAT,
+    payload: number;
+}
 export type PlayerAction =
     PlayAction
     | PauseAction
@@ -61,3 +67,4 @@ export type PlayerAction =
     | SetCurrentTimeAction
     | SetCurrentAudio
     | SetCurrentPlaylist
+    | SetRepeat

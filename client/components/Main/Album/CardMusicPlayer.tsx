@@ -63,27 +63,37 @@ const CardMusicPlayer: React.FC<AlbumItemProps> = ({album}) => {
     const [liked, setLiked] = React.useState(false);
     const [flag, setFlag] = React.useState(1);
 
+    React.useEffect(() => {
+        const likeStatus = localStorage.getItem(album._id);
+        if (likeStatus) {
+            setLiked(likeStatus === "true");
+        }
+    }, []);
+
+    React.useEffect(() => {
+        localStorage.setItem(album._id, liked.toString());
+
+    }, [liked]);
 
     const onDeleteAlbum = async () => {
-        await await dispatch(deleteAlbum(album._id));
+        await dispatch(await deleteAlbum(album._id));
         await dispatch(fetchAlbum());
     }
 
-    // const countLike = async () => {
-    //     setLike(++album.likeCount);
-    //     await addLike(album._id)
-    //
-    // };
 
     const countLike = async () => {
+        debugger;
         if (!liked) {
             setFlag(1);
             setLike((prevLike) => prevLike + 1);
-            addRemoveLike(album._id, flag);
+
+            await addRemoveLike(album._id, 1);
         } else {
+
             setFlag(0);
             setLike((prevLike) => prevLike - 1);
-            addRemoveLike(album._id, flag);
+
+            await addRemoveLike(album._id, 0);
         }
         setLiked((prevLiked) => !prevLiked);
     };

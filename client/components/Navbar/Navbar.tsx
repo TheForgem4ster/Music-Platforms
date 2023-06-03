@@ -19,6 +19,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import style from "../../styles/Navbar.module.css";
 import Header from 'components/Header/Header';
+import { DialogActions, Button, Dialog, DialogContent, DialogTitle, Typography } from '@mui/material';
 
 
 const drawerWidth = 240;
@@ -65,14 +66,24 @@ export default function Navbar() {
     const [open, setOpen] = React.useState(true);
     const router = useRouter();
 
+    const [openModal, setOpenModal] = React.useState(false);
+
     const handleDrawerOpen = () => {
         setOpen(true);
+    };
+
+    const onAuthor = () => {
+        setOpenModal(true);
+    }
+
+    const onCloseModal = () => {
+        setOpenModal(false);
     };
 
     const paintIcon = (numbers: number) => {
         switch (numbers.toString()) {
             case '0':
-                return <MusicNoteIcon className={style.icon}/>
+                return <MusicNoteIcon onClick={onAuthor} className={style.icon}/>
             case '1':
                 return <HomeIcon className={style.icon}/>
             case '2':
@@ -119,6 +130,15 @@ export default function Navbar() {
                     ))}
                 </List>
             </Drawer>
+            <Dialog open={openModal} onClose={onCloseModal}>
+                <DialogTitle style={{ textAlign: "center"}}>Authors</DialogTitle>
+                <DialogContent>
+                    <Typography variant="body1">Authors of the project: Max Zhuk and Ilya Sergorodtsev</Typography>
+                </DialogContent>
+                <DialogActions style={{ justifyContent: 'center' }}>
+                    <Button onClick={onCloseModal} color="primary">Close</Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 }

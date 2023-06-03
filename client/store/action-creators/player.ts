@@ -26,3 +26,6 @@ export const SetCurrentAudio = (payload: HTMLAudioElement): PlayerAction => {
 export const SetCurrentPlaylist = (payload: ITrack[]): PlayerAction => {
     return {type: PlayerActionTypes.SET_CURRENT_PLAYLIST, payload}
 }
+export const SetRepeat = (payload: number): PlayerAction => {
+    return {type: PlayerActionTypes.SET_REPEAT, payload}
+}

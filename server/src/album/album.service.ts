@@ -16,7 +16,7 @@ export class AlbumService {
     }
 
     async create(dto: CreateAlbumDto, picture): Promise<Album> {
-        const picturePath = this.fileService.createFile(FileType.IMAGE, picture)
+        const picturePath = await this.fileService.createFile(FileType.IMAGE, picture)
         const album = await this.albumModule.create({
             ...dto,
             likeCount: 0,
@@ -33,9 +33,9 @@ export class AlbumService {
         return albums;
     }
 
-    async getOne(id: ObjectId): Promise<Album> {
+    async getOne(id: ObjectId): Promise<Album[]> {
         const album = await this.albumModule.findById(id);
-        return album;
+        return [album];
     }
 
     async delete(id: ObjectId): Promise<ObjectId> {

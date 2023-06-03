@@ -11,7 +11,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 const CustomTextField = styled(TextField)(({theme}) => ({
     '& .MuiAutocomplete-inputRoot': {
-        height: '43px', // Измените высоту по вашему желанию
+        height: '43px', 
     },
     '& .MuiAutocomplete-input': {
         cursor: 'pointer',

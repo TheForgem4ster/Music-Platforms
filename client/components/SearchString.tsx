@@ -92,8 +92,8 @@ const SearchString: React.FC<SearchStringProps> = ({widthBar, placeholder,widthC
         }
         setTimer(
             setTimeout(async () => {
-                await dispatch(await searchTracks(e.target.value));
-            }, 500)
+                await dispatch( searchTracks(e.target.value));
+            }, 600)
         )
     }
 
@@ -116,7 +116,7 @@ const SearchString: React.FC<SearchStringProps> = ({widthBar, placeholder,widthC
                 //         // console.log(album.tracks[index]);
                 //     }
                 // });
-                await dispatch(await searchAlbums(e.target.value, '', ''));
+                await dispatch(searchAlbums(e.target.value, '', ''));
 
             }, 500)
         )

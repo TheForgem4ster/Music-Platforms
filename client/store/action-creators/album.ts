@@ -32,7 +32,7 @@ export const searchAlbums = (name: string, authorId: string = '', genres: string
 export const getSpecificAlbum = (id: string) => {
     return async (dispatch: Dispatch<AlbumAction>) => {
         try {
-            const response = await axios.get(`${process.env.API_URL}album/` + id)
+            const response = await axios.get(`${process.env.API_URL}album/index/` + id)
             dispatch({type: AlbumActionType.FETCH_ALBUM, payload: response.data})
         } catch(e) {
             dispatch({

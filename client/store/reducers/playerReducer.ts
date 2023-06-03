@@ -7,6 +7,7 @@ const initialState = {
     duration: 0,
     active: null,
     volume: 10,
+    repeat:0,
     pause: true,
     audioHandler:null,
     playlist: [],
@@ -30,6 +31,8 @@ export const playerReducer = (state = initialState, action: PlayerAction): Playe
             return {...state, audioHandler: action.payload}  
         case PlayerActionTypes.SET_CURRENT_PLAYLIST:
             return {...state, playlist: action.payload} 
+        case PlayerActionTypes.SET_REPEAT:
+            return {...state, repeat: action.payload}
         default:
             return state
 

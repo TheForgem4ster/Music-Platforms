@@ -14,9 +14,9 @@ import { fetchAlbum } from "store/action-creators/album";
 import {NextThunkDispatch, wrapper} from "store";
 import {GetServerSideProps} from "next";
 
-const Album = ({serverAlbum}) => {
+const Album = ({initialAlbum}) => {
     const {albums, errorAlbum} = useTypedSelector(state => state.album);
-
+    const [searchedAlbums, setSearchedAlbums] = useState(initialAlbum);
     const [domLoaded, setDomLoaded] = useState(false);
 
 
@@ -24,6 +24,9 @@ const Album = ({serverAlbum}) => {
         setDomLoaded(true);
     }, []);
 
+    useEffect(() => {
+        setSearchedAlbums(albums);
+      }, [albums]);
 
     if (errorAlbum) {
         return (
@@ -74,8 +77,8 @@ const Album = ({serverAlbum}) => {
             </Grid>
 
             <div style={{display: 'flex', flexDirection: 'column-reverse'}}>
-                {/* <AddAlbum /> */}
-                <AlbumList albums={serverAlbum} />
+                <AddAlbum />
+                <AlbumList albums={searchedAlbums} />
 
             </div>
 
@@ -93,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
      
       return {
         props: {
-          serverAlbum: album.albums, 
+          initialAlbum: album.albums, 
           
         },
       };

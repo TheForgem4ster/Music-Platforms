@@ -10,7 +10,7 @@ import {useDispatch} from 'react-redux';
 import {NextThunkDispatch} from "../../../store";
 import {deleteTracks, deleteTracksInAlbum, fetchTracksByAlbum, fetchTracks} from "../../../store/action-creators/track";
 import {play, setAudio} from '../../../misc/AudioController';
-import { addTrackToAlbum } from 'store/action-creators/album';
+import { addTrackToAlbum, fetchAlbum } from 'store/action-creators/album';
 import {useFetcher} from "../../../hooks/useFetcher";
 
 interface TrackItemProps {
@@ -27,6 +27,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
     const {tracks} = useTypedSelector(state => state.track)
     const {albums} = useTypedSelector(state => state.album)
 
+    
     useEffect(() => {
         if (context.active) {
             if (!audio) {
@@ -41,6 +42,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         event.stopPropagation()
         setAnchorEl(event.currentTarget);
+        dispatch(fetchAlbum());
     };
     const handleClose = (event: React.MouseEvent<HTMLElement>,Aid:string,Tid:string) => {
       event.stopPropagation()
