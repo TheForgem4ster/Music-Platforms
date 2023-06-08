@@ -21,7 +21,9 @@ const Album = (initialAlbum:IAlbum[]) => {
     const [domLoaded, setDomLoaded] = useState(false);
 
     useEffect(() => {
-        setDomLoaded(true);
+        if (typeof window !== 'undefined') {
+            setDomLoaded(true);
+        }
     }, []);
 
     useEffect(() => {
@@ -43,7 +45,7 @@ const Album = (initialAlbum:IAlbum[]) => {
     };
 
     return (
-        
+
         <MainLayouts title={"list album - music platform"}>
             <Grid container justifyContent='space-between'>
                 <h1 style={{color: "white"}}>List Album</h1>
@@ -83,7 +85,7 @@ const Album = (initialAlbum:IAlbum[]) => {
             </div>
 
         </MainLayouts>
-        
+
     )
 }
 export default Album;

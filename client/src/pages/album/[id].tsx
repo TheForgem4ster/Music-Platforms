@@ -24,6 +24,7 @@ const AlbumId: React.FC<TrackItemProps> = ({serverAlbum,serverTracks}) => {
     const [searchQuery, setSearchQuery] = useState("")
     const [filteredTracks, setFilteredTracks] = useState<ITrack[]>([]);
 
+
     useEffect(() => {
         setFilteredTracks(tracks);
       }, [tracks]);
@@ -40,9 +41,8 @@ const AlbumId: React.FC<TrackItemProps> = ({serverAlbum,serverTracks}) => {
         }, 600); 
     
       };
-      const handlePressPlay= () =>{
-        play(context,audio,actionContext)
-    }
+      const handlePressPlay = () => { play(context,audio,actionContext)}
+
 
       const dataConversion = (originalDate: string) => {
         const date = new Date(originalDate);
@@ -52,7 +52,7 @@ const AlbumId: React.FC<TrackItemProps> = ({serverAlbum,serverTracks}) => {
         const formattedDate = `${year}-${month}-${day}`;
         return formattedDate;
     }
-    const imageUrl = album[0].picture;
+    const imageUrl = process.env.API_URL + album[0].picture;
     
     const defaultImageUrl = 'https://24tv.ua/resources/photos/news/202204/1961563.jpg?v=1661254059000';
     return (
