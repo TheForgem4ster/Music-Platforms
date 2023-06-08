@@ -30,8 +30,6 @@ const Track = ({initialTracks}) => {
       }, [tracks]);
 
     
-
-    
     return (
         // <>{domLoaded && (
             <MainLayouts title={"list track - music platform"}>
@@ -65,11 +63,9 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     (store) => async () => {
       const dispatch = store.dispatch as NextThunkDispatch;
       await dispatch(fetchTracks());
-    
       
       const { track } = store.getState();
-    
-     
+
       return {
         props: {
             initialTracks: track.tracks, 

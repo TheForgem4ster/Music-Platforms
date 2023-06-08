@@ -11,6 +11,20 @@ export const loginValidation = {
     }
 };
 
+export const userValidation = {
+    required: REQUIRED_FIELD,
+    validate: (value: string) => {
+        if(value.match(/[а-яА-Я]/)) {
+            return 'Users cannot contain Cyrillic'
+        } else
+        if(value.length < 8) {
+            return 'Password must be longer than 8 characters'
+        }
+
+        return true;
+    }
+};
+
 export const passwordValidation = {
     required: REQUIRED_FIELD,
     validate: (value: string) => {

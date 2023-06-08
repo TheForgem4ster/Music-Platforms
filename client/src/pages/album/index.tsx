@@ -19,7 +19,6 @@ const Album = ({initialAlbum}) => {
     const [searchedAlbums, setSearchedAlbums] = useState(initialAlbum);
     const [domLoaded, setDomLoaded] = useState(false);
 
-
     useEffect(() => {
         setDomLoaded(true);
     }, []);
