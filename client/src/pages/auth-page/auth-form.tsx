@@ -81,7 +81,7 @@ export const AuthForm: React.FC = () => {
                     fullWidth={ true }
                     disableElevation={ true }
                     sx={{
-                        background: "#090A10",
+                        // background: "#090A10",
                         marginTop: 2
                     }}
                 >

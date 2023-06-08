@@ -14,8 +14,8 @@ export const loginValidation = {
 export const passwordValidation = {
     required: REQUIRED_FIELD,
     validate: (value: string) => {
-        if(value.length < 6) {
-            return 'Password must be longer than 6 characters'
+        if(value.length < 8) {
+            return 'Password must be longer than 8 characters'
         }
 
         return true;

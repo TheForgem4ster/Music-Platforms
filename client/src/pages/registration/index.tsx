@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useForm, SubmitHandler, Controller, useFormState } from "react-hook-form";
 import styles from './../auth-page/auth-form.module.css';
-import { loginValidation, passwordValidation } from './validation';
+import { loginValidation, passwordValidation, userValidation } from './validation';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -40,7 +40,7 @@ export const AuthForm: React.FC = () => {
                 <Controller
                     control={control}
                     name="username"
-                    // rules={loginValidation}
+                    rules={userValidation}
                     render={({ field }) => (
                         <TextField
                             label="User name"
@@ -50,8 +50,13 @@ export const AuthForm: React.FC = () => {
                             size="small"
                             margin="normal"
                             className={styles.authFormInput}
-                            error={!!errors.email?.message}
-                            helperText={ errors?.email?.message }
+                            error={!!errors.username?.message}
+                            helperText={ errors?.username?.message }
+                            InputProps={{
+                                style: {
+                                    color: 'white',
+                                },
+                            }}
                         />
                     )}
                 />
@@ -70,6 +75,11 @@ export const AuthForm: React.FC = () => {
                             className={styles.authFormInput}
                             error={!!errors.email?.message}
                             helperText={ errors?.email?.message }
+                            InputProps={{
+                                style: {
+                                    color: 'white',
+                                },
+                            }}
                         />
                     )}
                 />
@@ -77,6 +87,7 @@ export const AuthForm: React.FC = () => {
                     control={control}
                     name="password"
                     rules={passwordValidation}
+
                     render={({ field }) => (
                         <TextField
                             label="Password"
@@ -89,7 +100,14 @@ export const AuthForm: React.FC = () => {
                             className="auth-form__input"
                             error={ !!errors?.password?.message }
                             helperText={ errors?.password?.message }
+                            InputProps={{
+                                style: {
+
+                                    color: 'white'
+                                },
+                            }}
                         />
+
                     )}
                 />
                 <Controller
@@ -98,7 +116,12 @@ export const AuthForm: React.FC = () => {
                     // rules={loginValidation}
                     render={({ field }) => (
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker />
+                            <div style={{
+                                color: 'white',
+                            }}>
+                                <DatePicker />
+                            </div>
+
                         </LocalizationProvider>
                     )}
                 />
