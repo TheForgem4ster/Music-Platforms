@@ -10,8 +10,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
 import FileUpload from "../ListTrack/DownloadTrack/FileUpload";
 import {useState} from "react";
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+
+import {genres} from "../../../assets/constants";
 
 const Widget = styled('div')(({theme}) => ({
     margin: 15,
@@ -68,13 +72,19 @@ const AddAlbum = () => {
         setTitle(event.target.value);
     };
 
-    const handleDescriptionChange = (event) => {
+
+    const handleGenreChange = (event) => {
         setDescription(event.target.value);
     };
 
-
     const handleFileUpload = (file) => {
         setPicture(file);
+    };
+
+    const handleClearForm = () => {
+        setTitle('');
+        setDescription('');
+        setPicture(null);
     };
 
     const handleButtonClick = () => {
@@ -83,9 +93,13 @@ const AddAlbum = () => {
         formData.append('genres', description)
         formData.append('picture', picture)
         axios.post('http://localhost:5000/album', formData)
-            .then(resp => router.push('/album'))
-            .catch(e => console.log(e))
-        alert(`The functionality is being improved. Sorry for the inconvenience.${title}`);
+            .then((resp) => {
+                router.push('/album');
+                handleClearForm(); // Очищаем форму после успешного добавления альбома
+                handleClose();
+            })
+            .catch(e => console.log(e));
+
     };
 
     return (
@@ -114,6 +128,7 @@ const AddAlbum = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    transition: 'opacity 0.3s ease',
                 }}
             >
                 <Box
@@ -146,15 +161,33 @@ const AddAlbum = () => {
                             size="small"
                         />
                     </Box>
+                    {/*<Box sx={{ display: 'flex', alignItems: 'center', marginTop: 1 }}>*/}
+                    {/*    <TextField*/}
+                    {/*        label="Genres"*/}
+                    {/*        value={description}*/}
+                    {/*        onChange={handleDescriptionChange}*/}
+                    {/*        fullWidth*/}
+                    {/*        margin="normal"*/}
+                    {/*        size="small"*/}
+                    {/*    />*/}
+                    {/*</Box>*/}
                     <Box sx={{ display: 'flex', alignItems: 'center', marginTop: 1 }}>
-                        <TextField
+
+                        <Select
                             label="Genres"
+
                             value={description}
-                            onChange={handleDescriptionChange}
+                            onChange={handleGenreChange}
                             fullWidth
                             margin="normal"
                             size="small"
-                        />
+                        >
+                            {genres.map((genre) => (
+                                <MenuItem key={genre.value} value={genre.value}>
+                                    {genre.title}
+                                </MenuItem>
+                            ))}
+                        </Select>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', marginTop: 2 }}>
                         <FileUpload setFile={handleFileUpload} accept="image/*">
@@ -166,9 +199,9 @@ const AddAlbum = () => {
                             </Typography>
                         </Box>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 2 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 3 }}>
                         <Button variant="contained" onClick={handleButtonClick}>
-                            Click me!
+                            Add album
                         </Button>
                     </Box>
                 </Box>
