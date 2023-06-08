@@ -71,7 +71,7 @@ const TrackItem: React.FC<TrackItemProps> = ({track}) => {
               actionContext.setActiveTrack(track)}
               actionContext.SetCurrentPlaylist(tracks)
             audio = context.audioHandler
-            play(context,audio,actionContext,tracks)
+            play(context,audio,actionContext)
            
             // if (pause) {
             //     audio = audioHandler

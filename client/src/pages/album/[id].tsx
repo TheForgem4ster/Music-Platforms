@@ -40,7 +40,9 @@ const AlbumId: React.FC<TrackItemProps> = ({serverAlbum,serverTracks}) => {
         }, 600); 
     
       };
-    
+      const handlePressPlay= () =>{
+        play(context,audio,actionContext)
+    }
 
       const dataConversion = (originalDate: string) => {
         const date = new Date(originalDate);
@@ -71,7 +73,7 @@ const AlbumId: React.FC<TrackItemProps> = ({serverAlbum,serverTracks}) => {
                 <h4 style={{marginLeft: 30}}>Like count: {album[0].likeCount}</h4>
 
                 <IconButton style={{height: 50, width: 150, borderRadius: 30, textAlign: "center", flex: 1}}>
-                    <PlayArrow style={{fontSize: 40, color: "#D6D8FF"}}/>
+                    <PlayArrow style={{fontSize: 40, color: "#D6D8FF"}} onClick/>
                 </IconButton>
 
             </div>
@@ -90,14 +92,7 @@ const AlbumId: React.FC<TrackItemProps> = ({serverAlbum,serverTracks}) => {
     </MainLayouts>
     )
 }
-// export const getServerSideProps: GetServerSideProps = async ({params}) => {
-//     const response = await axios.get('http://localhost:5000/album/index/' + params.id)
-//     return {
-//         props: {
-//             serverAlbum: response.data
-//         }
-//     }
-// }
+
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
     (store) => async ({params}) => {
       const dispatch = store.dispatch as NextThunkDispatch;
@@ -106,8 +101,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
      
       const { track } = store.getState();
       const { album } = store.getState();
-      console.log("!!!"+JSON.stringify(album))
-      console.log("!!!"+JSON.stringify(track))
+      
       return {
         props: {
           serverAlbum: album.albums, 
