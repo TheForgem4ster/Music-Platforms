@@ -10,7 +10,7 @@ interface AlbumListProps {
 const AlbumList: React.FC<AlbumListProps> = ({albums}) => {
 
     const [count, setCount] = React.useState(0);
-
+  console.log(albums)
     const checkNumberAlbum = (index: number) => {
         setCount(index);
     }

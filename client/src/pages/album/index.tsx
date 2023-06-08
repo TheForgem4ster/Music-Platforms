@@ -13,8 +13,9 @@ import AddAlbum from "../../../components/Main/Album/AddAlbum";
 import { fetchAlbum } from "store/action-creators/album";
 import {NextThunkDispatch, wrapper} from "store";
 import {GetServerSideProps} from "next";
+import { IAlbum } from "types/album";
 
-const Album = ({initialAlbum}) => {
+const Album = (initialAlbum:IAlbum[]) => {
     const {albums, errorAlbum} = useTypedSelector(state => state.album);
     const [searchedAlbums, setSearchedAlbums] = useState(initialAlbum);
     const [domLoaded, setDomLoaded] = useState(false);

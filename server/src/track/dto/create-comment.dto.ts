@@ -16,4 +16,10 @@ export class CreateCommentDto {
     description: 'Id of the track',
   })
   readonly trackId: ObjectId;
+
+  @ApiProperty({
+    example: '63ff69f93e2a577dcff552d0',
+    description: 'Id of the user',
+  })
+  readonly userId: ObjectId;
 }

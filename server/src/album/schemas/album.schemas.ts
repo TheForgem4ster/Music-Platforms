@@ -4,6 +4,7 @@ import * as mongoose from 'mongoose';
 import { User } from 'src/user/schemas/user.schemas';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
+import { Track } from 'src/track/schemas/track.schemas';
 
 export type AlbumDocument = HydratedDocument<Album>;
 
@@ -41,8 +42,8 @@ export class Album {
     example: '{63ff69f93e2a577dcff552d0,63ff6a1ae0745ebaf548e0c0}',
     description: 'Tracks ID',
   })
-  @Prop()
-  tracks: mongoose.ObjectId[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Track' }] }) 
+  tracks: Track[];
 }
 
 export const AlbumSchema = SchemaFactory.createForClass(Album);

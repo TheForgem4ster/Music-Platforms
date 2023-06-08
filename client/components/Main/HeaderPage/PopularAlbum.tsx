@@ -14,52 +14,23 @@ import {useRouter} from "next/router";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import CardMusicPlayer from "../Album/CardMusicPlayer";
 import AlbumList from "../Album/AlbumList";
-// const data = [
-//     {
-//         picture: 'https://musicplatform.s3.eu-central-1.amazonaws.com/media/picture/29584f98-6de9-4898-87bf-ba7607f2fad7.jpg',
-//         audio: 'https://musicplatform.s3.eu-central-1.amazonaws.com/media/audio/734b6498-b7ad-4a80-8ba8-594731d4424a.mp3',
-//         artist: 'Illya',
-//         name: 'track',
-//         title: 'music',
-//     },
-//     {
-//         picture: 'https://musicplatform.s3.eu-central-1.amazonaws.com/media/picture/29584f98-6de9-4898-87bf-ba7607f2fad7.jpg',
-//         audio: 'https://musicplatform.s3.eu-central-1.amazonaws.com/media/audio/734b6498-b7ad-4a80-8ba8-594731d4424a.mp3',
-//         artist: 'Illya',
-//         name: 'track',
-//         title: 'music',
-//     },
-//     {
-//         picture: 'https://musicplatform.s3.eu-central-1.amazonaws.com/media/picture/29584f98-6de9-4898-87bf-ba7607f2fad7.jpg',
-//         audio: 'https://musicplatform.s3.eu-central-1.amazonaws.com/media/audio/734b6498-b7ad-4a80-8ba8-594731d4424a.mp3',
-//         artist: 'Illya',
-//         name: 'track',
-//         title: 'music',
-//     },
-//     {
-//         picture: 'https://musicplatform.s3.eu-central-1.amazonaws.com/media/picture/29584f98-6de9-4898-87bf-ba7607f2fad7.jpg',
-//         audio: 'https://musicplatform.s3.eu-central-1.amazonaws.com/media/audio/734b6498-b7ad-4a80-8ba8-594731d4424a.mp3',
-//         artist: 'Illya',
-//         name: 'track',
-//         title: 'music',
-//     },
-//     {
-//         picture: 'https://musicplatform.s3.eu-central-1.amazonaws.com/media/picture/29584f98-6de9-4898-87bf-ba7607f2fad7.jpg',
-//         audio: 'https://musicplatform.s3.eu-central-1.amazonaws.com/media/audio/734b6498-b7ad-4a80-8ba8-594731d4424a.mp3',
-//         artist: 'Illya',
-//         name: 'track',
-//         title: 'music',
-//     },
-// ];
+import { GetServerSideProps } from 'next';
+import { fetchAlbum } from "store/action-creators/album";
+import {NextThunkDispatch, wrapper} from "store";
 
-const PopularAlbum = () => {
+interface PopularAlbumProps {
+    initialAlbum:IAlbum[],
+}
+const PopularAlbum:React.FC<PopularAlbumProps> = ({initialAlbum}) => {
     const router = useRouter();
     // const {tracks, error} = useTypedSelector(state => state.track);
     const {albums, errorAlbum} = useTypedSelector(state => state.album);
-
+    
     return (
+        
         <Grid container>
-            <AlbumList albums={albums} />
+            
+            <AlbumList albums={initialAlbum} />
             {/*<TrackList tracks={tracks}/>*/}
 
         </Grid>

@@ -48,7 +48,8 @@ export class AlbumService {
   }
   async deleteTrack(Aid: ObjectId, Tid: ObjectId): Promise<ObjectId> {
     const album = await this.albumModule.findById(Aid);
-    const trackIndex = album.tracks.indexOf(Tid);
+    const track =await this.trackModel.findById(Tid)
+    const trackIndex = album.tracks.indexOf(track.id);
     if (trackIndex !== -1) {
       album.tracks.splice(trackIndex, 1);
     } else {
@@ -59,8 +60,9 @@ export class AlbumService {
   }
   async addTrack(trackId: ObjectId, albumId: ObjectId): Promise<Album> {
     const album = await this.albumModule.findById(albumId);
-    if (!album.tracks.includes(trackId)) {
-      album.tracks.push(trackId);
+    const track =await this.trackModel.findById(trackId)
+    if (!album.tracks.includes(track.id)) {
+      album.tracks.push(track.id);
     }
     album.save();
     return album;

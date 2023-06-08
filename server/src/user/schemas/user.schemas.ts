@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import mongoose from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
+import { Album } from 'src/album/schemas/album.schemas';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -27,8 +28,8 @@ export class User {
     example: '{64008a0a28d36e560f2946cf, 64008a0a28d36e560f2946f5}',
     description: 'array of album',
   })
-  @Prop()
-  albums: mongoose.ObjectId[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Track' }] })
+  albums: Album[];
 
   @ApiProperty({ example: '{Admin}', description: 'array of roles' })
   @Prop()
